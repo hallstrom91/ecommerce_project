@@ -7,6 +7,9 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 
+// for JWT verify
+import Cookies from "js-cookie";
+
 export default function LoginContainer({ toggleRegister, loginSuccess }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +18,7 @@ export default function LoginContainer({ toggleRegister, loginSuccess }) {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch("http://localhost:3000/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -24,7 +27,12 @@ export default function LoginContainer({ toggleRegister, loginSuccess }) {
           username,
           password,
         }),
+        /* credentials: "include", */
       });
+
+      // collect response
+      const result = await response.json();
+
       // if login fails
       if (!response.ok) {
         const errorMsgText = await response.text();
@@ -33,12 +41,12 @@ export default function LoginContainer({ toggleRegister, loginSuccess }) {
         console.error("Failed to login.", errorMsg);
         throw new Error(errorMsg);
       }
-      /*      const { accessToken } = await response.json();
-      localStorage.setItem("accessToken", accessToken); */
+
       // clear all input-fields at success
       setUsername("");
       setPassword("");
       console.log("Login Successfull.");
+      localStorage.setItem("token", result.token);
       loginSuccess();
     } catch (error) {
       setError(error.message);
@@ -46,6 +54,7 @@ export default function LoginContainer({ toggleRegister, loginSuccess }) {
       setTimeout(() => setError(""), 5000);
     }
   };
+
   return (
     <>
       <Container>

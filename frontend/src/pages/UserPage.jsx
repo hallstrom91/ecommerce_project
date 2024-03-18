@@ -3,41 +3,37 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
+// for JWT verify
+import Cookies from "js-cookie";
 
 export default function UserPage({ toggleLogout }) {
   const [userInfo, setUserInfo] = useState(null);
   const [error, setError] = useState(null);
 
-  /*   useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch("http://localhost:3000/customer", {
+        const response = await fetch("http://localhost:3000/user/customer", {
           method: "GET",
+          credentials: "include",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${token}`,
           },
         });
         if (!response.ok) {
           throw new Error("Failed to fetch user information.");
         }
         const data = await response.json();
+        console.log(data.token);
         setUserInfo(data);
       } catch (error) {
         setError(error.message);
       }
     };
     fetchUserInfo();
-  }, []); */
-
-  /*   const accessToken = localStorage.getItem("accessToken");
-
-  if (accessToken) {
-    // JWT-token finns lagrat i localStorage
-    console.log("JWT-token finns lagrat i localStorage:", accessToken);
-  } else {
-    // JWT-token finns inte lagrat i localStorage
-    console.log("Inget JWT-token hittades i localStorage");
-  } */
+  }, []);
 
   return (
     <>

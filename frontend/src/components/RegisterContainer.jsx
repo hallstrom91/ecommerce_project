@@ -21,7 +21,7 @@ export default function RegisterContainer({ toggleLogin }) {
   const handleRegistration = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/register", {
+      const response = await fetch("http://localhost:3000/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,6 +36,7 @@ export default function RegisterContainer({ toggleLogin }) {
           postalCode,
         }),
       });
+
       // if registration fails
       if (!response.ok) {
         const errorMsgText = await response.text();
@@ -44,6 +45,7 @@ export default function RegisterContainer({ toggleLogin }) {
         console.error("failed to register.", errorMsg);
         throw new Error(errorMsg);
       }
+
       // clear all input-fields at success
       setName("");
       setUsername("");
@@ -52,6 +54,7 @@ export default function RegisterContainer({ toggleLogin }) {
       setAddress("");
       setCity("");
       setPostalCode("");
+      // success message
       setSuccessMsg("Registration Successfull. Please Login.");
       setTimeout(() => setSuccessMsg(""), 5000);
       //continue all values
