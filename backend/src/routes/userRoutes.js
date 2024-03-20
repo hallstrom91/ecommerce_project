@@ -31,10 +31,6 @@ Endpoint UserPage (Customer)
 */
 
 router.get("/customer", async (req, res) => {
-  /* const token = req.cookies.token; */
-  /*  const token = header.split(" ")[1]; */
-  /* const token = req.headers.authorization.split(" ")[1]; */
-
   const authHeader = req.headers["authorization"];
   const token = authHeader.slice(7);
 
@@ -146,7 +142,7 @@ router.post("/register", async (req, res) => {
 
 /*
 ===============================================
-Endpoint Export
+Router Export
 ===============================================
 */
 
