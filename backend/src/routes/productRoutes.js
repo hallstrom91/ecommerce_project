@@ -21,6 +21,17 @@ Get all categories
 ===============================================
 */
 
+/* router.get("/categories", async (req, res) => {
+  try {
+    const categories = await collectCategories(req, res);
+    res.json(categories);
+  } catch (error) {
+    console.error("Failed to fetch categories", error);
+    res.status(500).json({ error: "Failed to fetch categories" });
+  }
+});
+ */
+
 router.get("/categories", collectCategories);
 
 /*
@@ -31,7 +42,6 @@ Get all products in specific category
 
 router.get("/categories/:id", async (req, res) => {
   const { id } = req.params;
-
   try {
     const products = await productsByCategoryId(id, res);
   } catch (error) {

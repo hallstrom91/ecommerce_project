@@ -30,6 +30,7 @@ Endpoint UserPage (Customer)
 ===============================================
 */
 
+// GET-route based on token verificaiton by sub/id
 router.get("/customer", async (req, res) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader.slice(7);

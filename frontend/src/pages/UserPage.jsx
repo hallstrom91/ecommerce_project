@@ -3,14 +3,18 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-// for JWT verify
-import Cookies from "js-cookie";
+import { useAuth } from "../provider/authProvider_try1";
 
 export default function UserPage({ toggleLogout }) {
+  /*   const { token } = useAuth();
+  if (!token) {
+    return <Navigate to="/login" />;
+  } */
+
   const [userInfo, setUserInfo] = useState(null);
   const [error, setError] = useState(null);
 
-  const token = localStorage.getItem("token");
+  /*   const token = localStorage.getItem("token"); */
 
   useEffect(() => {
     const fetchUserInfo = async () => {

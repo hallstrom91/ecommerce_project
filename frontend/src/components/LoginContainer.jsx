@@ -46,7 +46,7 @@ export default function LoginContainer({ toggleRegister, loginSuccess }) {
       setUsername("");
       setPassword("");
       console.log("Login Successfull.");
-      localStorage.setItem("token", result.token);
+      /*  localStorage.setItem("token", result.token); */
       loginSuccess();
     } catch (error) {
       setError(error.message);
