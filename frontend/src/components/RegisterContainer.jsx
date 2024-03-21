@@ -18,8 +18,8 @@ export default function RegisterContainer({ toggleLogin }) {
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
-  const handleRegistration = async (event) => {
-    event.preventDefault();
+  const handleRegistration = async () => {
+    /* event.preventDefault(); */
     try {
       const response = await fetch("http://localhost:3000/user/register", {
         method: "POST",
@@ -70,110 +70,114 @@ export default function RegisterContainer({ toggleLogin }) {
     <>
       {/* User Register Input Field */}
       <Container>
-        <Form onSubmit={handleRegistration}>
-          <Row>
-            <Col>
-              {/* User Legal/Full Name Input Field */}
-              <Form.Floating className="mb-3">
-                <Form.Control
-                  id="registerFullName"
-                  type="text"
-                  placeholder="Legal_Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <label htmlFor="registerFullName">Legal Name</label>
-              </Form.Floating>
+        {/* <Form onSubmit={handleRegistration}> */}
+        <Row>
+          <Col>
+            {/* User Legal/Full Name Input Field */}
+            <Form.Floating className="mb-3">
+              <Form.Control
+                id="registerFullName"
+                type="text"
+                placeholder="Legal_Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <label htmlFor="registerFullName">Legal Name</label>
+            </Form.Floating>
 
-              {/* User Username Input Field */}
-              <Form.Floating className="mb-3">
-                <Form.Control
-                  id="registerUsername"
-                  type="text"
-                  placeholder="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-                <label htmlFor="registerUsername">Username</label>
-              </Form.Floating>
+            {/* User Username Input Field */}
+            <Form.Floating className="mb-3">
+              <Form.Control
+                id="registerUsername"
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <label htmlFor="registerUsername">Username</label>
+            </Form.Floating>
 
-              {/* User Password Input Field */}
-              <Form.Floating className="mb-3">
-                <Form.Control
-                  id="registerPassword"
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <label htmlFor="registerPassword">Password</label>
-              </Form.Floating>
+            {/* User Password Input Field */}
+            <Form.Floating className="mb-3">
+              <Form.Control
+                id="registerPassword"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <label htmlFor="registerPassword">Password</label>
+            </Form.Floating>
 
-              {/* User email Input Field */}
-              <Form.Floating className="mb-3">
-                <Form.Control
-                  id="registerEmail"
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <label htmlFor="registerEmail">Email</label>
-              </Form.Floating>
-            </Col>
-          </Row>
+            {/* User email Input Field */}
+            <Form.Floating className="mb-3">
+              <Form.Control
+                id="registerEmail"
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <label htmlFor="registerEmail">Email</label>
+            </Form.Floating>
+          </Col>
+        </Row>
 
-          {/* User Adress Input Field */}
-          <Row>
-            <Col>
-              <Form.Floating className="mb-3">
-                <Form.Control
-                  id="registerAddress"
-                  type="text"
-                  placeholder="Address"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-                <label htmlFor="registerAddress">Street Name</label>
-              </Form.Floating>
-            </Col>
+        {/* User Adress Input Field */}
+        <Row>
+          <Col>
+            <Form.Floating className="mb-3">
+              <Form.Control
+                id="registerAddress"
+                type="text"
+                placeholder="Address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+              <label htmlFor="registerAddress">Street Name</label>
+            </Form.Floating>
+          </Col>
 
-            {/* User City Input Field */}
-            <Col>
-              <Form.Floating className="mb-3">
-                <Form.Control
-                  id="registerCity"
-                  type="text"
-                  placeholder="City"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                />
-                <label htmlFor="registerCity">City</label>
-              </Form.Floating>
-            </Col>
+          {/* User City Input Field */}
+          <Col>
+            <Form.Floating className="mb-3">
+              <Form.Control
+                id="registerCity"
+                type="text"
+                placeholder="City"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
+              <label htmlFor="registerCity">City</label>
+            </Form.Floating>
+          </Col>
 
-            {/* User Postal Code Input Field */}
-            <Col>
-              <Form.Floating className="mb-3">
-                <Form.Control
-                  id="registerPostalCode"
-                  type="text"
-                  placeholder="Postal_Code"
-                  value={postalCode}
-                  onChange={(e) => setPostalCode(e.target.value)}
-                />
-                <label htmlFor="registerPostalCode">Postal Code</label>
-              </Form.Floating>
-            </Col>
-          </Row>
+          {/* User Postal Code Input Field */}
+          <Col>
+            <Form.Floating className="mb-3">
+              <Form.Control
+                id="registerPostalCode"
+                type="text"
+                placeholder="Postal_Code"
+                value={postalCode}
+                onChange={(e) => setPostalCode(e.target.value)}
+              />
+              <label htmlFor="registerPostalCode">Postal Code</label>
+            </Form.Floating>
+          </Col>
+        </Row>
 
-          {/* Registration Form Submit Button */}
-          <div className="d-flex pt-2">
-            <Button variant="secondary" type="submit">
-              Submit
-            </Button>
-          </div>
-        </Form>
+        {/* Registration Form Submit Button */}
+        <div className="d-flex pt-2">
+          <Button
+            variant="secondary"
+            type="submit"
+            onClick={() => handleRegistration()}
+          >
+            Submit
+          </Button>
+        </div>
+        {/* </Form> */}
         <div id="errorRegistrationMsg" className="pt-2">
           {successMsg && <p className="text-success">{successMsg}</p>}
           {error && <p className="text-danger">{error}</p>}

@@ -7,16 +7,13 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 
-// for JWT verify
-import Cookies from "js-cookie";
-
 export default function LoginContainer({ toggleRegister, loginSuccess }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
+  const handleLogin = async () => {
+    /*  event.preventDefault(); */
     try {
       const response = await fetch("http://localhost:3000/user/login", {
         method: "POST",
@@ -46,7 +43,8 @@ export default function LoginContainer({ toggleRegister, loginSuccess }) {
       setUsername("");
       setPassword("");
       console.log("Login Successfull.");
-      /*  localStorage.setItem("token", result.token); */
+      const token = result.token;
+      localStorage.setItem("token", token);
       loginSuccess();
     } catch (error) {
       setError(error.message);
@@ -58,44 +56,44 @@ export default function LoginContainer({ toggleRegister, loginSuccess }) {
   return (
     <>
       <Container>
-        <Form onSubmit={handleLogin}>
-          <Row>
-            <Col>
-              {/* Username Login Input Field */}
-              <Form.Floating className="mb-3">
-                <Form.Control
-                  id="loginUsername"
-                  type="text"
-                  placeholder="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-                <label htmlFor="loginUsername">Username</label>
-              </Form.Floating>
+        {/*   <Form onSubmit={handleLogin}> */}
+        <Row>
+          <Col>
+            {/* Username Login Input Field */}
+            <Form.Floating className="mb-3">
+              <Form.Control
+                id="loginUsername"
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <label htmlFor="loginUsername">Username</label>
+            </Form.Floating>
 
-              {/* User Password Input Field */}
+            {/* User Password Input Field */}
 
-              <Form.Floating className="mb-3">
-                <Form.Control
-                  id="loginPassword"
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <label htmlFor="loginPassword">Password</label>
-              </Form.Floating>
-            </Col>
-          </Row>
+            <Form.Floating className="mb-3">
+              <Form.Control
+                id="loginPassword"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <label htmlFor="loginPassword">Password</label>
+            </Form.Floating>
+          </Col>
+        </Row>
 
-          {/* Login Submit Button */}
+        {/* Login Submit Button */}
 
-          <div className="d-flex">
-            <Button variant="secondary" type="submit">
-              Submit
-            </Button>
-          </div>
-        </Form>
+        <div className="d-flex">
+          <Button variant="secondary" onClick={() => handleLogin()}>
+            Submit
+          </Button>
+        </div>
+        {/*  </Form> */}
 
         {/* Show Error Message if failed login */}
 

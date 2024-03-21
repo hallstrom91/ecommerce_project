@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 
 export default function Login() {
+  localStorage.getItem("token");
   const [isRegister, setIsRegister] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 

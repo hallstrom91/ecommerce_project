@@ -14,7 +14,7 @@ export default function UserPage({ toggleLogout }) {
   const [userInfo, setUserInfo] = useState(null);
   const [error, setError] = useState(null);
 
-  /*   const token = localStorage.getItem("token"); */
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -30,7 +30,7 @@ export default function UserPage({ toggleLogout }) {
           throw new Error("Failed to fetch user information.");
         }
         const data = await response.json();
-        console.log(data.token);
+        console.log(token);
         setUserInfo(data);
       } catch (error) {
         setError(error.message);
@@ -38,7 +38,7 @@ export default function UserPage({ toggleLogout }) {
     };
     fetchUserInfo();
   }, []);
-
+  localStorage.setItem("token", token);
   return (
     <>
       <Container className="p-4">
