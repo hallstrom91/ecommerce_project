@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Form from "react-bootstrap/Form";
-import Stack from "react-bootstrap/Stack";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
+import {
+  FloatingLabel,
+  Form,
+  Stack,
+  Button,
+  Col,
+  Row,
+  Container,
+} from "react-bootstrap";
 
 export default function About() {
   return (

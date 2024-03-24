@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
+import { Col, Row, Container } from "react-bootstrap";
 
 export default function Store() {
   const [categories, setCategories] = useState([]);

@@ -1,50 +1,54 @@
 import React, { useEffect, useState } from "react";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
-import { useAuth } from "../provider/authProvider_try1";
+import { useNavigate } from "react-router-dom";
+import { Col, Row, Container, Button } from "react-bootstrap";
 
-export default function UserPage({ toggleLogout }) {
-  /*   const { token } = useAuth();
-  if (!token) {
-    return <Navigate to="/login" />;
-  } */
+// JWT EXPERIMENT
+import { useAuth } from "../provider/AuthProvider";
 
-  const [userInfo, setUserInfo] = useState(null);
-  const [error, setError] = useState(null);
+export default function UserPage() {
+  const navigate = useNavigate();
 
-  const token = localStorage.getItem("token");
+  // import from AuthProvider
+  const {
+    isAuthenticated,
+    checkAuthentication,
+    fetchUserInfo,
+    handleLogout,
+    userInfo,
+    setUserInfo,
+    error,
+    setError,
+  } = useAuth();
 
+  // collect user data from backend, if jwt is correct
+  const fetchUserData = async () => {
+    try {
+      const userInfo = await fetchUserInfo();
+    } catch (error) {
+      setError(error.message);
+      setTimeout(() => setError(""), 5000);
+    }
+  };
+
+  // validate JWT of user, if missing send to /login, if valid, fetch user data.
   useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/user/customer", {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Failed to fetch user information.");
-        }
-        const data = await response.json();
-        console.log(token);
-        setUserInfo(data);
-      } catch (error) {
-        setError(error.message);
+    const checkAuth = async () => {
+      const isAuthenticated = await checkAuthentication();
+      if (!isAuthenticated) {
+        navigate("/login");
+      } else {
+        fetchUserData();
       }
     };
-    fetchUserInfo();
+    checkAuth();
   }, []);
-  localStorage.setItem("token", token);
+
   return (
     <>
       <Container className="p-4">
         <Col>
           <div className="d-flex justify-content-end">
-            <Button onClick={toggleLogout}>Logout</Button>
+            <Button onClick={() => handleLogout()}>Logout</Button>
           </div>
         </Col>
         <Col>

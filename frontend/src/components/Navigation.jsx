@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import NavbarCollapse from "react-bootstrap/NavbarCollapse";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  Container,
+  Nav,
+  Navbar,
+  NavDropdown,
+  NavbarCollapse,
+} from "react-bootstrap";
+
+// customer Cart icon
 import { IoCartOutline } from "react-icons/io5";
+
+/* JWT AUTH */
+import { useAuth } from "../provider/AuthProvider";
 
 export default function Navigation() {
   // Navbar open / closed in state
@@ -21,23 +28,20 @@ export default function Navigation() {
     setOpen(false);
   };
 
-  // fetch categories and display in dropdown-btn dynamic
+  // Auth-state + Auth function from AuthProvider
+  const { isAuthenticated, checkAuthentication } = useAuth();
+  // navigate
+  const navigate = useNavigate();
 
-  // store categories in state
-  /*   const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    const fetchAllCategories = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/store/categories");
-        const data = await response.json();
-        setCategories(data);
-      } catch (error) {
-        console.error("Failed to fetch categories.", error);
-      }
-    };
-    fetchAllCategories();
-  }, []); */
+  // validate jwt, and change Link according to authenticated or not
+  const handleUser = () => {
+    const isAuthenticated = checkAuthentication();
+    if (isAuthenticated) {
+      console.log("Display - 'Min Sida' - in navbar");
+    } else {
+      console.log("Display - 'Logga in' - in navbar");
+    }
+  };
 
   return (
     <>
@@ -79,34 +83,29 @@ export default function Navigation() {
               >
                 FashionHub FAQ
               </Link>
-              {/* Dropdown Button For Store / Categories  ?? make fetch & map over categories for dynamic display??*/}
-              {/*            <NavDropdown title="Store" id="responsiv-dropdwnbtn">
-                <NavDropdown.Item as={Link} to="/store">
-                  Store
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-
-                <div>
-                  {categories.map((category) => (
-                    <NavDropdown.Item key={category.id}>
-                      {category.name}
-                    </NavDropdown.Item>
-                  ))}
-                </div>
-              </NavDropdown> */}
             </Nav>
             <Nav className="">
               <div className="d-flex">
                 <IoCartOutline size={30} />
                 <p className="pt-2 text-black">Varukorg</p>
               </div>
-              <Link
-                to="/login"
-                className="text-black p-2 text-decoration-none"
-                onClick={handleClick}
-              >
-                Ditt Konto
-              </Link>
+              {isAuthenticated ? (
+                <Link
+                  to="/private-route"
+                  onClick={handleClick}
+                  className="text-black p-2 text-decoration-none"
+                >
+                  Min sida
+                </Link>
+              ) : (
+                <Link
+                  to="/login"
+                  onClick={handleClick}
+                  className="text-black p-2 text-decoration-none"
+                >
+                  Logga in
+                </Link>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

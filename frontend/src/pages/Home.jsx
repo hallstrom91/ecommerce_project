@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
+import { Col, Row, Container } from "react-bootstrap";
+
 export default function Home() {
   return (
     <>

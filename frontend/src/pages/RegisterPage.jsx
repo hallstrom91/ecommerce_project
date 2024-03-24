@@ -1,78 +1,60 @@
 import React, { useState, useTransition } from "react";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Form from "react-bootstrap/Form";
-import Stack from "react-bootstrap/Stack";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
+import { Link } from "react-router-dom";
+import {
+  FloatingLabel,
+  Form,
+  Stack,
+  Button,
+  Col,
+  Row,
+  Container,
+} from "react-bootstrap";
 
-export default function RegisterContainer({ toggleLogin }) {
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [error, setError] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
+/* JWT AUTH */
+import { useAuth } from "../provider/AuthProvider";
 
-  const handleRegistration = async () => {
-    /* event.preventDefault(); */
+export default function RegisterPage() {
+  // import useState getter & setter + function from AuthProvider
+  const {
+    handleRegistration,
+    username,
+    setUsername,
+    password,
+    setPassword,
+    error,
+    setError,
+    name,
+    setName,
+    email,
+    setEmail,
+    address,
+    setAddress,
+    city,
+    setCity,
+    postalCode,
+    setPostalCode,
+    successMsg,
+    setSuccessMsg,
+  } = useAuth();
+
+  const handleRegisterClick = async () => {
     try {
-      const response = await fetch("http://localhost:3000/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          username,
-          password,
-          email,
-          address,
-          city,
-          postalCode,
-        }),
-      });
-
-      // if registration fails
-      if (!response.ok) {
-        const errorMsgText = await response.text();
-        const errorMsgJSON = JSON.parse(errorMsgText);
-        const errorMsg = errorMsgJSON.message || "Failed to register user.";
-        console.error("failed to register.", errorMsg);
-        throw new Error(errorMsg);
-      }
-
-      // clear all input-fields at success
-      setName("");
-      setUsername("");
-      setPassword("");
-      setEmail("");
-      setAddress("");
-      setCity("");
-      setPostalCode("");
+      const response = await handleRegistration();
       // success message
       setSuccessMsg("Registration Successfull. Please Login.");
       setTimeout(() => setSuccessMsg(""), 5000);
-      //continue all values
-      console.log("User Registration Successfull.");
     } catch (error) {
       setError(error.message);
-      console.error("Failed to register user", error);
-      setTimeout(() => setError(""), 15000);
+      setTimeout(() => setError(""), 5000);
     }
   };
 
   return (
     <>
       {/* User Register Input Field */}
-      <Container>
-        {/* <Form onSubmit={handleRegistration}> */}
-        <Row>
-          <Col>
+      <Container className="p-4">
+        <Row className="d-flex justify-content-center">
+          <Col md={8}>
             {/* User Legal/Full Name Input Field */}
             <Form.Floating className="mb-3">
               <Form.Control
@@ -124,8 +106,8 @@ export default function RegisterContainer({ toggleLogin }) {
         </Row>
 
         {/* User Adress Input Field */}
-        <Row>
-          <Col>
+        <Row className="d-flex justify-content-center">
+          <Col md={3}>
             <Form.Floating className="mb-3">
               <Form.Control
                 id="registerAddress"
@@ -139,7 +121,7 @@ export default function RegisterContainer({ toggleLogin }) {
           </Col>
 
           {/* User City Input Field */}
-          <Col>
+          <Col md={3}>
             <Form.Floating className="mb-3">
               <Form.Control
                 id="registerCity"
@@ -153,7 +135,7 @@ export default function RegisterContainer({ toggleLogin }) {
           </Col>
 
           {/* User Postal Code Input Field */}
-          <Col>
+          <Col md={2}>
             <Form.Floating className="mb-3">
               <Form.Control
                 id="registerPostalCode"
@@ -164,28 +146,32 @@ export default function RegisterContainer({ toggleLogin }) {
               />
               <label htmlFor="registerPostalCode">Postal Code</label>
             </Form.Floating>
+            <div className="">
+              <Button
+                variant="secondary"
+                type="submit"
+                onClick={() => handleRegisterClick()}
+              >
+                Submit
+              </Button>
+            </div>
           </Col>
         </Row>
 
         {/* Registration Form Submit Button */}
-        <div className="d-flex pt-2">
-          <Button
-            variant="secondary"
-            type="submit"
-            onClick={() => handleRegistration()}
-          >
-            Submit
-          </Button>
-        </div>
-        {/* </Form> */}
-        <div id="errorRegistrationMsg" className="pt-2">
-          {successMsg && <p className="text-success">{successMsg}</p>}
-          {error && <p className="text-danger">{error}</p>}
-        </div>
+        {/* Dynamic Error & Success Messages Display */}
+        <Row>
+          <Col className="d-flex pt-2 ">
+            <div id="errorRegistrationMsg" className="pt-2">
+              {successMsg && <p className="text-success">{successMsg}</p>}
+              {error && <p className="text-danger">{error}</p>}
+            </div>
+          </Col>
+        </Row>
 
         {/* Switch to Login Form - Button */}
         <div className="d-flex pt-2 justify-content-end">
-          <Button variant="success" onClick={toggleLogin}>
+          <Button variant="success" as={Link} to="/login">
             Login
           </Button>
         </div>
