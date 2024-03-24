@@ -73,8 +73,6 @@ router.post("/login", async (req, res) => {
     const token = await signJWT(user);
     //log token and send to user w cookie and json
     console.log("token", token);
-    // res.cookie("token", token);
-    /* res.json({ token }); */
 
     // add token to response ? remove ?
     return res.status(200).json({
