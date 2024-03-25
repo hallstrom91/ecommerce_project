@@ -47,12 +47,13 @@ async function collectCategories(req, res) {
 Fetch all products in specific category
 ===============================================
 */
-async function productsByCategoryId(id, res) {
+async function productsByCategoryId(id) {
   const query = "SELECT * FROM products WHERE category_id = ?";
   try {
     const [rows, fields] = await pool.execute(query, [id]);
     const productsById = rows;
-    res.json(productsById);
+    return productsById;
+    //res.json(productsById);
   } catch (error) {
     console.error("Failed to fetch products by category id", error);
     res.status(500).json({ error: "Failed to fetch products by category id" });

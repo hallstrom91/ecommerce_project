@@ -43,7 +43,8 @@ Get all products in specific category
 router.get("/categories/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const products = await productsByCategoryId(id, res);
+    const products = await productsByCategoryId(id);
+    res.json(products);
   } catch (error) {
     console.error("Error fetching products", error);
     res.status(500).json({ error: "Failed to fetch products by category" });

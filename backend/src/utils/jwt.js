@@ -23,8 +23,8 @@ const signJWT = (user) => {
   };
   const secretKey = process.env.JWT_SECRET;
   /*   const expiresIn = "2h"; */
-
-  const token = jwt.sign(payload, secretKey, { expiresIn: "2h" });
+  // token expires in 10min - to check auth function in frontend
+  const token = jwt.sign(payload, secretKey, { expiresIn: "10m" });
 
   return token;
 };
