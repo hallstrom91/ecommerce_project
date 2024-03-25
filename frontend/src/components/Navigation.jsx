@@ -76,19 +76,9 @@ export default function Navigation() {
               >
                 Butik
               </Link>
-              <Link
-                to="/about"
-                className="text-black p-2 text-decoration-none"
-                onClick={handleClick}
-              >
-                FashionHub FAQ
-              </Link>
             </Nav>
             <Nav className="">
-              <div className="d-flex">
-                <IoCartOutline size={30} />
-                <p className="pt-2 text-black">Varukorg</p>
-              </div>
+              {/* Display Userpage or Login button */}
               {isAuthenticated ? (
                 <Link
                   to="/private-route"
@@ -106,6 +96,13 @@ export default function Navigation() {
                   Logga in
                 </Link>
               )}
+              {/* Display ShoppingCart/Checkout */}
+              <Link to="/checkout" className="text-black  text-decoration-none">
+                <div className="d-flex">
+                  <IoCartOutline size={30} />
+                  <p className="pt-2 text-black">Varukorg</p>
+                </div>
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

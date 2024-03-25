@@ -1,37 +1,69 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+// react-jwt - try
+import { isExpired, decodeToken } from "react-jwt";
 
-// create empty context-object for sharing auth state & functions
+// create empty context-object
 const AuthContext = createContext();
 
 // provider for the auth context
 export const AuthProvider = ({ children }) => {
+  /*
+  ===============================================
+  Setup 
+  ===============================================
+  */
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
 
-  /* Login Function states. shared in all other also */
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-
-  /* Register Function states */
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
-
-  /*  User Information Request Function states */
-  const [userInfo, setUserInfo] = useState("");
+  /*
+===============================================
+Check Auth
+===============================================
+*/
 
   useEffect(() => {
     console.log("useEffect from AuthProvider - Checkauth");
     checkAuthentication();
   }, []);
 
-  // Check auth of user, if no JWT - se
+  //JWT decode for checkAuthentication function
+  const verifyToken = (token) => {
+    try {
+      const decoded = decodeToken(token);
+      const decodedExp = isExpired(token);
+      return !decodedExp;
+    } catch (error) {
+      console.error("Error decoding JWT-token", error);
+      return false;
+    }
+  };
+
+  // check auth and send value to private-route
   const checkAuthentication = async () => {
+    // set value
+    const token = localStorage.getItem("token");
+    if (token) {
+      // validate token
+      const isValidToken = verifyToken(token);
+      // if valid, return true to isAuth
+      setIsAuthenticated(isValidToken);
+      // return isAuth value
+      return isAuthenticated;
+    } else if (!isValidToken) {
+      localStorage.removeItem("token");
+      setIsAuthenticated(false);
+      return isAuthenticated;
+    } else {
+      // set value if no token is found
+      setIsAuthenticated(false);
+      return isAuthenticated;
+    }
+  };
+
+  // Check auth of user, old
+  /*   const checkAuthentication = async () => {
     const token = localStorage.getItem("token");
     if (token) {
       // set value
@@ -43,10 +75,16 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(false);
       return isAuthenticated;
     }
-  };
+  }; */
+
+  /*
+===============================================
+Login 
+===============================================
+*/
 
   // Login Function, called in LoginPage.jsx
-  const handleLogin = async () => {
+  const handleLogin = async (username, password) => {
     try {
       const response = await fetch("http://localhost:3000/user/login", {
         method: "POST",
@@ -58,37 +96,42 @@ export const AuthProvider = ({ children }) => {
           password,
         }),
       });
-      // collect response
-      const result = await response.json();
-      // if login fails
+      // if login fails, send correct error message to frontend
       if (!response.ok) {
         const errorMsgText = await response.text();
         const errorMsgJSON = JSON.parse(errorMsgText);
-        const errorMsg = errorMsgJSON || "Failed to login.";
-        console.error("Failed to login.", errorMsg);
+        const errorMsg = errorMsgJSON.message || "Failed to register user.";
+        console.error("failed to register.", errorMsg);
         throw new Error(errorMsg);
       }
-      // clear all input-fields at success
-      setUsername("");
-      setPassword("");
+      // collect response & define token
+      const result = await response.json();
       console.log("Login Successfull.");
-      // define token
-      const token = result.token;
-      // Set token to localStorage
-      localStorage.setItem("token", token);
-      console.log("login-token", token);
-      // navigate to userpage
+      /* const token = result.token; */
+      // auth is true + return token
       setIsAuthenticated(true);
-      navigate("/private-route");
+      return result.token;
     } catch (error) {
-      setError(error.message);
       console.error("Failed to login.", error);
+      throw error;
     }
   };
 
+  /*
+===============================================
+Registration
+===============================================
+*/
   // Register Function, called in RegisterPage.jsx
-
-  const handleRegistration = async () => {
+  const handleRegistration = async (
+    name,
+    username,
+    password,
+    email,
+    address,
+    city,
+    postalCode
+  ) => {
     try {
       const response = await fetch("http://localhost:3000/user/register", {
         method: "POST",
@@ -113,28 +156,22 @@ export const AuthProvider = ({ children }) => {
         console.error("failed to register.", errorMsg);
         throw new Error(errorMsg);
       }
-      // clear all input-fields at success
-      setName("");
-      setUsername("");
-      setPassword("");
-      setEmail("");
-      setAddress("");
-      setCity("");
-      setPostalCode("");
-      // success message
-      setSuccessMsg("Registration Successfull. Please Login.");
-      //continue all values
+      //consolelog success
       console.log("User Registration Successfull.");
     } catch (error) {
-      throw new Error("Failed to register user", error);
-      setError(error.message);
       console.error("Failed to register user", error);
+      throw error;
     }
   };
 
+  /*
+===============================================
+User Information
+===============================================
+*/
+
   // fetch user-info from backend-server
-  const fetchUserInfo = async () => {
-    const token = localStorage.getItem("token");
+  const fetchUserInfo = async (token) => {
     try {
       const response = await fetch("http://localhost:3000/user/customer", {
         method: "GET",
@@ -144,15 +181,26 @@ export const AuthProvider = ({ children }) => {
         },
       });
       if (!response.ok) {
-        throw new Error("Failed to fetch user information.");
+        const errorMsgText = await response.text();
+        const errorMsgJSON = JSON.parse(errorMsgText);
+        const errorMsg =
+          errorMsgJSON.message || "Failed to fetch user information.";
+        console.error("Failed to fetch user information.", errorMsg);
+        throw new Error(errorMsg);
       }
-      const data = await response.json();
-      setUserInfo(data);
+      const result = await response.json();
+      return result;
     } catch (error) {
-      setError(error.message);
+      console.error("Failed to fetch user information.", error);
+      throw error;
     }
   };
 
+  /*
+===============================================
+User Logout
+===============================================
+*/
   // handle logout from userpage & erase JWT from localstorage
   const handleLogout = () => {
     setIsAuthenticated(false);
@@ -160,35 +208,23 @@ export const AuthProvider = ({ children }) => {
     navigate("/");
   };
 
+  /*
+===============================================
+Provider
+===============================================
+*/
+
+  // share functions with children
+
   return (
     <AuthContext.Provider
       value={{
-        handleLogin,
-        handleRegistration,
-        handleLogout,
-        fetchUserInfo,
         isAuthenticated,
         checkAuthentication,
-        username,
-        setUsername,
-        password,
-        setPassword,
-        error,
-        setError,
-        name,
-        setName,
-        email,
-        setEmail,
-        address,
-        setAddress,
-        city,
-        setCity,
-        postalCode,
-        setPostalCode,
-        successMsg,
-        setSuccessMsg,
-        userInfo,
-        setUserInfo,
+        fetchUserInfo,
+        handleLogin,
+        handleLogout,
+        handleRegistration,
       }}
     >
       {children}
@@ -196,12 +232,12 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+/*
+===============================================
+Export 
+===============================================
+*/
+
 export const useAuth = () => {
   return useContext(AuthContext);
 };
-
-/* export const checkAuthentication = () => {
-  const token = localStorage.getItem("token");
-  return !!token;
-};
- */

@@ -6,24 +6,20 @@ import { Col, Row, Container, Button } from "react-bootstrap";
 import { useAuth } from "../provider/AuthProvider";
 
 export default function UserPage() {
+  const [userInfo, setUserInfo] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   // import from AuthProvider
-  const {
-    isAuthenticated,
-    checkAuthentication,
-    fetchUserInfo,
-    handleLogout,
-    userInfo,
-    setUserInfo,
-    error,
-    setError,
-  } = useAuth();
+  const { isAuthenticated, checkAuthentication, fetchUserInfo, handleLogout } =
+    useAuth();
 
   // collect user data from backend, if jwt is correct
   const fetchUserData = async () => {
+    const token = localStorage.getItem("token");
     try {
-      const userInfo = await fetchUserInfo();
+      const result = await fetchUserInfo(token);
+      setUserInfo(result);
     } catch (error) {
       setError(error.message);
       setTimeout(() => setError(""), 5000);

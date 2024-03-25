@@ -1,5 +1,5 @@
 import React, { useState, useTransition } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FloatingLabel,
   Form,
@@ -14,36 +14,48 @@ import {
 import { useAuth } from "../provider/AuthProvider";
 
 export default function RegisterPage() {
-  // import useState getter & setter + function from AuthProvider
-  const {
-    handleRegistration,
-    username,
-    setUsername,
-    password,
-    setPassword,
-    error,
-    setError,
-    name,
-    setName,
-    email,
-    setEmail,
-    address,
-    setAddress,
-    city,
-    setCity,
-    postalCode,
-    setPostalCode,
-    successMsg,
-    setSuccessMsg,
-  } = useAuth();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+  const [error, setError] = useState("");
+
+  // call function to register user
+  const { handleRegistration } = useAuth();
+  const navigate = useNavigate();
 
   const handleRegisterClick = async () => {
     try {
-      const response = await handleRegistration();
+      const response = await handleRegistration(
+        name,
+        username,
+        password,
+        email,
+        address,
+        city,
+        postalCode
+      );
+      // clear all input-fields at success
+      setName("");
+      setUsername("");
+      setPassword("");
+      setEmail("");
+      setAddress("");
+      setCity("");
+      setPostalCode("");
       // success message
       setSuccessMsg("Registration Successfull. Please Login.");
       setTimeout(() => setSuccessMsg(""), 5000);
+      // send user to /login after successfull registration
+      const redirectToLogin = setTimeout(() => {
+        navigate("/login");
+      }, 5500);
     } catch (error) {
+      // show dynamic error message
       setError(error.message);
       setTimeout(() => setError(""), 5000);
     }

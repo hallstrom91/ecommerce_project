@@ -5,15 +5,20 @@ import Navigation from "./components/Navigation";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthProvider } from "./provider/AuthProvider";
+import CartState from "./provider/CartProvider";
 
 function App() {
   return (
     <AuthProvider>
-      <>
-        <Navigation />
-        <Switch />
-        <Footer />
-      </>
+      <CartState>
+        <>
+          <Navigation />
+
+          <Switch />
+
+          <Footer />
+        </>
+      </CartState>
     </AuthProvider>
   );
 }

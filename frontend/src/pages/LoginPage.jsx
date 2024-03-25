@@ -10,28 +10,31 @@ import {
   Container,
 } from "react-bootstrap";
 
-/* JWT AUTH */
+/* JWT AUTH - authprovider.jsx*/
 import { useAuth } from "../provider/AuthProvider";
 
 export default function LoginPage() {
-  // import useState getter & setter + functions from AuthProvider
-  const {
-    isAuthenticated,
-    handleLogin,
-    username,
-    setUsername,
-    password,
-    setPassword,
-    error,
-    setError,
-  } = useAuth();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  // call function for login
+  const { handleLogin } = useAuth();
+  // use navigate to redirect after successfull login
+  const navigate = useNavigate();
 
   // call function to verify user credentials
   const handleLoginClick = async () => {
     try {
-      const response = await handleLogin();
+      const token = await handleLogin(username, password);
+      localStorage.setItem("token", token);
+      // clear all input-fields at success
+      setUsername("");
+      setPassword("");
+      navigate("/private-route");
     } catch (error) {
-      console.error("Error with login", error);
+      // show dynamic error message
+      setError(error.message);
       setTimeout(() => setError(""), 5000);
     }
   };
