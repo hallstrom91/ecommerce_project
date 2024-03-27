@@ -8,7 +8,7 @@ import RegisterPage from "./pages/RegisterPage";
 import CategoryList from "./pages/CategoryList";
 import CategoryProducts from "./pages/CategoryProducts";
 import ProductList from "./pages/ProductList";
-import Checkout from "./pages/Checkout";
+import Cart from "./pages/Cart";
 
 // PrivateRoute for verified users
 import PrivateRoute from "./routes/PrivateRoute";
@@ -24,7 +24,7 @@ export default function Switch() {
       <Route path="/store" element={<CategoryList />} />
       <Route path="/store/:categoryId" element={<CategoryProducts />} />
       <Route path="/store/all" element={<ProductList />} />
-      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/cart" element={<Cart />} />
       <Route
         exact
         path="/private-route"

@@ -10,9 +10,10 @@ import {
 
 // customer Cart icon
 import { IoCartOutline } from "react-icons/io5";
-
-/* JWT AUTH */
+// JWT Auth
 import { useAuth } from "../provider/AuthProvider";
+// Cart State
+import { useCart } from "../provider/CartProvider";
 
 export default function Navigation() {
   // Navbar open / closed in state
@@ -42,6 +43,8 @@ export default function Navigation() {
       console.log("Display - 'Logga in' - in navbar");
     }
   };
+
+  const { cartItems, itemCount } = useCart();
 
   return (
     <>
@@ -97,9 +100,13 @@ export default function Navigation() {
                 </Link>
               )}
               {/* Display ShoppingCart/Checkout */}
-              <Link to="/checkout" className="text-black  text-decoration-none">
+              <Link to="/cart" className="text-black  text-decoration-none">
                 <div className="d-flex">
                   <IoCartOutline size={30} />
+                  <span className="pt-2 p-1 text-white">
+                    {/* {cartItems.length} */}
+                    {itemCount}
+                  </span>
                   <p className="pt-2 text-black">Varukorg</p>
                 </div>
               </Link>

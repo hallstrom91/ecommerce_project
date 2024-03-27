@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Col, Row, Container } from "react-bootstrap";
+import { Col, Row, Container, Button } from "react-bootstrap";
 import CategoryCard from "../components/CategoryCard";
 
 export default function CategoryList() {
@@ -32,9 +32,9 @@ export default function CategoryList() {
           </Col>
         </Row>
         {/* Map Categories to Display */}
-        <Row md={3} sm={2} xs={1} className="pb-4">
+        <Row md={3} sm={2} xs={1}>
           {categories.map((category) => (
-            <Col key={category.id}>
+            <Col key={category.id} className="my-1">
               <Link to={`/store/${category.id}`}>
                 <CategoryCard
                   image={category.image_url}
@@ -46,6 +46,9 @@ export default function CategoryList() {
             </Col>
           ))}
         </Row>
+        <Link to="/store/all">
+          <Button className="my-1">Alla produkter</Button>
+        </Link>
       </Container>
     </>
   );

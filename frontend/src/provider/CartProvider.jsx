@@ -1,8 +1,13 @@
-import { useReducer } from "react";
-import CartContext from "../context/CartContext";
+import { useReducer, createContext, useContext } from "react";
+/* import CartContext from "../context/CartContext"; */
 import CartReducer, { sumItems } from "../context/CartReducer";
 
-const CartState = ({ children }) => {
+// create empty context-object
+const CartContext = createContext();
+
+export default CartContext;
+
+export const CartState = ({ children }) => {
   // init state of Cart - empty
   const initialState = {
     cartItems: [],
@@ -25,7 +30,7 @@ const CartState = ({ children }) => {
   };
 
   const removeFromCart = (payload) => {
-    dispatch({ type: REMOVE_ITEM, payload });
+    dispatch({ type: "REMOVE_ITEM", payload });
   };
 
   const clearCart = () => {
@@ -55,4 +60,8 @@ const CartState = ({ children }) => {
   );
 };
 
-export default CartState;
+/* default CartState;
+ */
+export const useCart = () => {
+  return useContext(CartContext);
+};

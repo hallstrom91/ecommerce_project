@@ -7,6 +7,13 @@ import {
   CLEAR,
 } from "./CartTypes";
 
+const Storage = (cartItems) => {
+  localStorage.setItem(
+    "cartItems",
+    JSON.stringify(cartItems.length > 0 ? cartItems : [])
+  );
+};
+
 // function to calc to the total price of cart and total quantity of cart
 export const sumItems = (cartItems) => {
   Storage(cartItems);
@@ -65,7 +72,7 @@ const CartReducer = (state, action) => {
     // if action = DECREASE
     case DECREASE:
       state.cartItems[
-        state.cartItems.findIndex(item, item.id === action.payload.id)
+        state.cartItems.findIndex((item) => item.id === action.payload.id)
       ].quantity--;
       return {
         ...state,

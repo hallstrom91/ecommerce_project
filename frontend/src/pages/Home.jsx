@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Col, Row, Container } from "react-bootstrap";
 
-//test import to view component
-import CheckoutForm from "../components/CheckoutForm";
 export default function Home() {
   return (
     <>

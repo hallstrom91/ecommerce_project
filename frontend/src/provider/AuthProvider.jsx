@@ -44,9 +44,10 @@ Check Auth
   const checkAuthentication = async () => {
     // set value
     const token = localStorage.getItem("token");
+    let isValidToken = false;
     if (token) {
       // validate token
-      const isValidToken = verifyToken(token);
+      isValidToken = verifyToken(token);
       // if valid, return true to isAuth
       setIsAuthenticated(isValidToken);
       // return isAuth value

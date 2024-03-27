@@ -3,11 +3,12 @@ import { Link, useParams } from "react-router-dom";
 import { Col, Row, Container } from "react-bootstrap";
 import ProductCard from "../components/ProductCard";
 
+// Cart State
+import { useCart } from "../provider/CartProvider";
+
 export default function CategoryProducts() {
   const [products, setProducts] = useState([]);
   const { categoryId } = useParams();
-  const badgeNew = "Nytt";
-  const badgePopular = "Populärt";
 
   // collects item related to category
   useEffect(() => {
@@ -36,14 +37,7 @@ export default function CategoryProducts() {
         <Row md={3} sm={2} xs={1}>
           {products.map((product) => (
             <Col key={product.id} className="p-3">
-              <ProductCard
-                image={product.image_url}
-                title={product.name}
-                badge={badgeNew}
-                buyBtn={"Köp"}
-                price={product.price}
-                description={product.description}
-              />
+              <ProductCard key={product.id} product={product} />
             </Col>
           ))}
         </Row>
