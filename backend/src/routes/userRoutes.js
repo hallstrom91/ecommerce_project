@@ -31,7 +31,33 @@ Endpoint UserPage (Customer)
 */
 
 // GET-route based on token verificaiton by sub/id
+
 router.get("/customer", async (req, res) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader.slice(7);
+
+  try {
+    const userInfo = await validateJWT(token);
+    res.status(200).json(userInfo);
+  } catch (error) {
+    let statusCode = 500;
+    let errorMessage = "Internal Server Error";
+
+    if (error.message.includes("Invalid Expired")) {
+      statusCode = 401;
+      errorMessage = "JWT Expired";
+    } else if (error.message.includes("Invalid JWT")) {
+      statusCode = 401;
+      errorMessage = "Invalid JWT";
+    }
+    console.error("Failed to fetch user information", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to fetch user information." });
+  }
+});
+
+/* router.get("/customer", async (req, res) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader.slice(7);
 
@@ -44,7 +70,7 @@ router.get("/customer", async (req, res) => {
       .status(500)
       .json({ success: false, message: "Failed to fetch user information." });
   }
-});
+}); */
 
 /*
 ===============================================
