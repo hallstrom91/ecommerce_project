@@ -57,21 +57,6 @@ router.get("/customer", async (req, res) => {
   }
 });
 
-/* router.get("/customer", async (req, res) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader.slice(7);
-
-  try {
-    const userInfo = await validateJWT(token);
-    res.status(200).json(userInfo);
-  } catch (error) {
-    console.error("Failed to fetch user information", error);
-    res
-      .status(500)
-      .json({ success: false, message: "Failed to fetch user information." });
-  }
-}); */
-
 /*
 ===============================================
 Endpoint Login

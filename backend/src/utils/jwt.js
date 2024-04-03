@@ -82,36 +82,9 @@ const validateJWT = async (token) => {
   }
 };
 
-/*
-===============================================
-JWT - Collect userId for use in Cart functions
-===============================================
-*/
-
-const userIdFromToken = async (req, res, next) => {
-  const token = req.headers.authorization?.split(" ")[1];
-  // if token found, extract userId
-  if (token) {
-    try {
-      const decoded = await validateJWT(token);
-      req.user = {
-        id: decoded.id,
-      };
-      console.log("userId", req.user.id);
-      next();
-    } catch (error) {
-      console.error("Invalid token", error);
-      res.status(401).json({ error: "Invalid or expired token" });
-    }
-  } else {
-    res.status(401).json({ error: "Missing token" });
-  }
-};
-
 // Export
 
 module.exports = {
   signJWT,
   validateJWT,
-  userIdFromToken,
 };

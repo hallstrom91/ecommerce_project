@@ -10,18 +10,13 @@ const path = require("path");
 const dotenv = require("dotenv/config");
 const cors = require("cors");
 const helmet = require("helmet");
-const cookieParser = require("cookie-parser");
-const cookieSession = require("cookie-session");
 
-// import function to get userId for cart-routes
-const { userIdFromToken } = require("./utils/jwt");
 // Endpoints User
 const userRoutes = require("./routes/userRoutes");
 // Endpoints Store
 const productRoutes = require("./routes/productRoutes");
-//Endpoints Cart
+// Endpoints Cart
 const cartRoutes = require("./routes/cartRoutes");
-
 /*
 ===============================================
 Setup - APP & PORT
@@ -46,18 +41,16 @@ const corsOptions = {
 app.use(helmet());
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(cookieParser());
 
 // use endpoints in userRoutes.js /user/ENDPOINT
 app.use("/user", userRoutes);
 
-//use function to collect userId for cart routes - fix
-app.use(userIdFromToken);
 // use endpoints in productRoutes.js /categories/ENDPOINT
 app.use("/store", productRoutes);
 
-// use endpoints in cartRoutes
+// use endpoints i cartRoutes.js /cart/ENDPOINT
 app.use("/cart", cartRoutes);
+
 /*
 ===============================================
 App Listen & Export

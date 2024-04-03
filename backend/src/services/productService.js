@@ -17,19 +17,6 @@ Fetch all categories
 */
 
 // Collect categories to display
-/* async function collectCategories(req, res) {
-  const query = "SELECT * FROM categories";
-  try {
-    const [rows, fields] = await pool.execute(query);
-    return rows;
-    //    const categories = rows;
-    // res.json(categories); 
-  } catch (error) {
-    console.error("Failed to fetch categories", error);
-    res.status(500).json({ error: "Failed to fetch categories" });
-  }
-} */
-
 async function collectCategories(req, res) {
   const query = "SELECT * FROM categories";
   try {
