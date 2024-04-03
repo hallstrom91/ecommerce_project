@@ -1,21 +1,28 @@
-import { useReducer, createContext, useContext } from "react";
-/* import CartContext from "../context/CartContext"; */
-import CartReducer, { sumItems } from "../context/CartReducer";
+import { useReducer, createContext, useContext, useEffect } from "react";
+import CartReducer, { sumItems } from "./cart/CartReducer";
 
 // create empty context-object
 const CartContext = createContext();
 
-export default CartContext;
-
 export const CartState = ({ children }) => {
-  // init state of Cart - empty
+  // save cart at update?
+  const returnCartItemsFromStorage = () => {
+    const cartItems = localStorage.getItem("cartItems");
+    return cartItems ? JSON.parse(cartItems) : [];
+  };
+
   const initialState = {
-    cartItems: [],
+    cartItems: returnCartItemsFromStorage(),
     checkout: false,
+    ...sumItems(returnCartItemsFromStorage()),
   };
 
   // setup reducer
   const [state, dispatch] = useReducer(CartReducer, initialState);
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+  }, [state.cartItems]);
 
   const addToCart = (payload) => {
     dispatch({ type: "ADD_TO_CART", payload });
@@ -60,8 +67,6 @@ export const CartState = ({ children }) => {
   );
 };
 
-/* default CartState;
- */
 export const useCart = () => {
   return useContext(CartContext);
 };

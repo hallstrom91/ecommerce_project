@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Col, Row, Container } from "react-bootstrap";
 
 export default function Home() {

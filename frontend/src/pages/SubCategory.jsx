@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Col, Row, Container } from "react-bootstrap";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "@store/ProductCard";
 
-// Cart State
-import { useCart } from "../provider/CartProvider";
+// Cart Provider
+import { useCart } from "@provider/CartProvider";
 
-export default function CategoryProducts() {
+export default function SubCategory() {
   const [products, setProducts] = useState([]);
   const { categoryId } = useParams();
 
@@ -34,6 +34,7 @@ export default function CategoryProducts() {
             <h1 className="text-center">Produkter</h1>
           </Col>
         </Row>
+        {/* Display products related to a specific category */}
         <Row md={3} sm={2} xs={1}>
           {products.map((product) => (
             <Col key={product.id} className="p-3">

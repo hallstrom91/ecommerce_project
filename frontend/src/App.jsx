@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import Switch from "./Switch";
-import Footer from "./components/Footer";
-import Navigation from "./components/Navigation";
-import "./App.css";
+import Switch from "@src/Switch";
+import Footer from "@shared/Footer";
+import Navigation from "@shared/Navigation";
+import "@src/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { AuthProvider } from "./provider/AuthProvider";
-import { CartState } from "./provider/CartProvider";
+/* import "bootstrap/scss/bootstrap.scss"; */
+import { AuthProvider } from "@provider/AuthProvider";
+import { CartState } from "@provider/CartProvider";
 
 function App() {
   return (

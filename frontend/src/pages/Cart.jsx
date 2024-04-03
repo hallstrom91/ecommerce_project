@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   FloatingLabel,
   Form,
@@ -10,11 +9,12 @@ import {
   Container,
 } from "react-bootstrap";
 
-import CheckoutCart from "../components/CheckoutCart";
-import CartProduct from "../components/CartProduct";
-// Cart State
+// import components
+import CartProduct from "@cart/CartProduct";
+import CartFinalize from "@cart/CartFinalize";
 
-import { useCart } from "../provider/CartProvider";
+// Cart State
+import { useCart } from "@provider/CartProvider";
 
 export default function Cart() {
   const { cartItems, checkout, clearCart } = useCart();
@@ -24,10 +24,7 @@ export default function Cart() {
         {/* Header of Cart */}
         <Row>
           <Col className="d-flex justify-content-center">
-            <h5>
-              Kundvagn
-              {/* <span className="text-success p-2">({cartItems.length})</span> */}
-            </h5>
+            <h5>Kundvagn</h5>
           </Col>
         </Row>
         {/* Display Checkout-Message at Order Submit */}
@@ -63,7 +60,11 @@ export default function Cart() {
         </Row>
         {/* Checkout Display */}
         <Row>
-          <Col>{cartItems.length > 0 && <CheckoutCart />}</Col>
+          {cartItems.length > 0 && (
+            <Col xs={12} sm={10}>
+              <CartFinalize />
+            </Col>
+          )}
         </Row>
       </Container>
     </>

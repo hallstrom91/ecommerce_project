@@ -1,4 +1,3 @@
-import React from "react";
 import { Navbar, Nav, NavbarBrand } from "react-bootstrap";
 
 export default function Footer() {

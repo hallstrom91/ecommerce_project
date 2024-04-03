@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
 import { Col, Row, Container, Card, Button, Badge } from "react-bootstrap";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "@store/ProductCard";
 
-// Cart State
-import { useCart } from "../provider/CartProvider";
+// Cart Provider
+import { useCart } from "@provider/CartProvider";
 
-export default function ProductList() {
+export default function Products() {
   const [products, setProducts] = useState([]);
-
+  // import functions from Cart Provider
   const { addToCart, increase, cartItems, sumItems, itemCount } = useCart();
-
+  // check if product is already in cart
   const isInCart = (product) => {
     return !!cartItems.find((item) => item.id === product.id);
   };
 
-  // Collect All products
+  // Collect All products at mount
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Col, Row, Container, Button } from "react-bootstrap";
+//components
+import UserDetails from "@user/UserDetails";
+// Auth Provider
+import { useAuth } from "@provider/AuthProvider";
 
-// JWT EXPERIMENT
-import { useAuth } from "../provider/AuthProvider";
-
-export default function UserPage() {
+export default function UserInterface() {
   const [userInfo, setUserInfo] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -44,18 +45,16 @@ export default function UserPage() {
       <Container className="p-4">
         <Col>
           <div className="d-flex justify-content-end">
-            <Button onClick={() => handleLogout()}>Logout</Button>
+            <Button variant="outline-danger" onClick={() => handleLogout()}>
+              Logga Ut
+            </Button>
           </div>
         </Col>
         <Col>
           {userInfo ? (
             <Row>
-              <h2>Welcome {userInfo.name}</h2>
-              <p>Email: {userInfo.email}</p>
-              <p>Address: {userInfo.address} </p>
-              <p>City: {userInfo.city} </p>
-              <p>Postal Code: {userInfo.postal_code} </p>
-              <p>INFO HERE</p>
+              <h2 className="text-center">Välkommen, {userInfo.name}</h2>
+              <UserDetails user={userInfo} />
             </Row>
           ) : (
             <p>Loading user information!</p>

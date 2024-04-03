@@ -14,7 +14,6 @@ const Storage = (cartItems) => {
   );
 };
 
-// function to calc to the total price of cart and total quantity of cart
 export const sumItems = (cartItems) => {
   Storage(cartItems);
   let itemCount = cartItems.reduce(

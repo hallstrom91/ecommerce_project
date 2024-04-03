@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Route, Navigate } from "react-router-dom";
-import { useAuth } from "../provider/AuthProvider";
-import LoadingScreen from "../components/LoadingScreen";
+import { useAuth } from "@provider/AuthProvider";
+import LoadingScreen from "@shared/LoadingScreen";
 
 // validate user, if not, send to "/login" instead of "/private-route"
 export default function PrivateRoute({ children }) {

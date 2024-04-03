@@ -1,36 +1,36 @@
 import React from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 
-import Home from "./pages/Home";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
+import Home from "@pages/Home";
+import Login from "@pages/Login";
+import Register from "@pages/Register";
 // Store pages
-import CategoryList from "./pages/CategoryList";
-import CategoryProducts from "./pages/CategoryProducts";
-import ProductList from "./pages/ProductList";
-import Cart from "./pages/Cart";
+import Categories from "@pages/Categories";
+import SubCategory from "@pages/SubCategory";
+import Products from "@pages/Products";
+import Cart from "@pages/Cart";
 
 // PrivateRoute for verified users
-import PrivateRoute from "./routes/PrivateRoute";
+import PrivateRoute from "@routes/PrivateRoute";
 // UserPage is controlled by PrivateRoute
-import UserPage from "./pages/UserPage";
+import UserInterface from "@pages/UserInterface";
 
 export default function Switch() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/store" element={<CategoryList />} />
-      <Route path="/store/:categoryId" element={<CategoryProducts />} />
-      <Route path="/store/all" element={<ProductList />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/store" element={<Categories />} />
+      <Route path="/store/:categoryId" element={<SubCategory />} />
+      <Route path="/store/all" element={<Products />} />
       <Route path="/cart" element={<Cart />} />
       <Route
         exact
         path="/private-route"
         element={
           <PrivateRoute>
-            <UserPage />
+            <UserInterface />
           </PrivateRoute>
         }
       />

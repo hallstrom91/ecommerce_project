@@ -1,7 +1,7 @@
 import { Card, Button, Badge, Container, Col, Row } from "react-bootstrap";
 
-// Cart State
-import { useCart } from "../provider/CartProvider";
+// Cart Provider
+import { useCart } from "@provider/CartProvider";
 
 export default function ProductCard({ product }) {
   // Cart State
@@ -28,7 +28,6 @@ export default function ProductCard({ product }) {
         {/* Card Body with price, description and buy-button */}
         <Card.Header className="text-white text-center">
           {product.name}
-          {/*  <Card.Title className="text-white text-center">{title}</Card.Title> */}
         </Card.Header>
         <Card.Body className="d-flex flex-colum">
           {/* description */}
@@ -56,7 +55,7 @@ export default function ProductCard({ product }) {
               increase(product);
             }}
           >
-            Köp Fler
+            Köp Igen
           </Button>
         )}
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Col, Row, Container, Button } from "react-bootstrap";
-import CategoryCard from "../components/CategoryCard";
+import CategoryCard from "@store/CategoryCard";
 
-export default function CategoryList() {
+export default function Categories() {
   const [categories, setCategories] = useState([]);
   const { categoryId } = useParams();
   // Values for badges in category display

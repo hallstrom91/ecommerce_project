@@ -1,5 +1,3 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import {
   FloatingLabel,
   Form,
@@ -18,8 +16,8 @@ import { CiCircleRemove } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import { CiCirclePlus } from "react-icons/ci";
 import { CiTrash } from "react-icons/ci";
-// Cart State
-import { useCart } from "../provider/CartProvider";
+// Cart Provider
+import { useCart } from "@provider/CartProvider";
 
 export default function CartProduct({ product }) {
   const { removeFromCart, increase, decrease } = useCart();
