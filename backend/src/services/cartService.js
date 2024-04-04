@@ -37,15 +37,15 @@ Save User Cart to DB
   }
 } */
 
-async function saveCart(userId, cartItems) {
+async function saveCart(userId, saveCartItems) {
   const query =
     "INSERT INTO orders (user_id, product_id, quantity) VALUES (?, ?, ?)";
   try {
     // loop thru all products in cart and save
-    for (const item of cartItems) {
-      const { productId, quantity } = item;
+    for (const item of saveCartItems) {
+      const { id, quantity } = item;
       // execute query
-      await pool.execute(query, [userId, productId, quantity]);
+      await pool.execute(query, [userId, id, quantity]);
     }
   } catch (error) {
     console.error("Failed to save cart", error);

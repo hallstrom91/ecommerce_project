@@ -9,10 +9,10 @@ Cart Routes
 */
 // Route to save cart
 router.post("/save", async (req, res) => {
+  const { userId, saveCartItems } = req.body;
+  console.log("reqbody", req.body);
   try {
-    const { userId, cartItems } = req.body;
-
-    await saveCart(userId, cartItems);
+    await saveCart(userId, saveCartItems);
     res.json({ message: "Cart successfully saved." });
   } catch (error) {
     console.error("Failed to save cart.", error);
