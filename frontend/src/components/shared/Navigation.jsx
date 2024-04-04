@@ -8,6 +8,9 @@ import {
   NavbarCollapse,
 } from "react-bootstrap";
 
+// import search component
+import Search from "@shared/Search";
+
 // customer Cart icon
 import { IoCartOutline } from "react-icons/io5";
 // JWT Auth
@@ -78,8 +81,6 @@ export default function Navigation() {
               >
                 Butik
               </Link>
-            </Nav>
-            <Nav className="">
               {/* Display Userpage or Login button */}
               {isAuthenticated ? (
                 <Link
@@ -98,8 +99,10 @@ export default function Navigation() {
                   Logga in
                 </Link>
               )}
+            </Nav>
+            <Nav className="">
               {/* Display ShoppingCart/Checkout */}
-              <Link to="/cart" className="text-black  text-decoration-none">
+              <Link to="/cart" className="text-black text-decoration-none">
                 <div className="d-flex">
                   <IoCartOutline size={30} />
                   <span className="pt-2 p-1 text-white">{itemCount}</span>

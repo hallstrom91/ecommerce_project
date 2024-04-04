@@ -67,57 +67,62 @@ export default function UserDetails({ user }) {
             </Row>
           </Container>
           <Form className="mt-4">
-            <Form.Group controlId="formName">
+            <Form.Label>
+              <strong>Uppdatera din adress nedanför vid behov:</strong>
+            </Form.Label>
+            <Form.Group controlId="updateName">
               {/* Display Users Name */}
-              <Form.Label>
-                <strong>Uppdatera din adress nedanför vid behov:</strong>
-              </Form.Label>
               <Form.Control
                 size="sm"
                 type="text"
                 placeholder="Namn"
                 value={updateName}
                 className="mb-1"
+                onChange={(e) => setUpdateName(e.target.value)}
               />
             </Form.Group>
             {/* Display Users Email */}
-            <Form.Group controlId="formEmail">
+            <Form.Group controlId="updateEmail">
               <Form.Control
                 size="sm"
                 type="text"
                 placeholder="Email"
                 value={updateEmail}
                 className="mb-1"
+                onChange={(e) => setUpdateEmail(e.target.value)}
               />
             </Form.Group>
             {/* Display Users Address */}
-            <Form.Group controlId="formAddress">
+            <Form.Group controlId="updateAddress">
               <Form.Control
                 size="sm"
                 type="text"
                 placeholder="Adress"
                 value={updateAddress}
                 className="mb-1"
+                onChange={(e) => setUpdateAddress(e.target.value)}
               />
             </Form.Group>
             {/* Display Users City */}
-            <Form.Group controlId="formCity">
+            <Form.Group controlId="updateCity">
               <Form.Control
                 size="sm"
                 type="text"
                 placeholder="Stad"
                 value={updateCity}
                 className="mb-1"
+                onChange={(e) => setUpdateCity(e.target.value)}
               />
             </Form.Group>
             {/* Display Users Postal Code */}
-            <Form.Group controlId="formPostalCode">
+            <Form.Group controlId="updatePostalCode">
               <Form.Control
                 size="sm"
                 type="text"
                 placeholder="Postkod"
                 value={updatePostal}
                 className="mb-1"
+                onChange={(e) => setUpdatePostal(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mt-2" controlId="changeBtn">

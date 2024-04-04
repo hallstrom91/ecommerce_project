@@ -5,12 +5,12 @@ import CartReducer, { sumItems } from "./cart/CartReducer";
 const CartContext = createContext();
 
 export const CartState = ({ children }) => {
-  // save cart at update?
+  // save/return cart at update/refresh of page
   const returnCartItemsFromStorage = () => {
     const cartItems = localStorage.getItem("cartItems");
     return cartItems ? JSON.parse(cartItems) : [];
   };
-
+  // Retrive added produtcs from localStorage as init-state @ update/refresh
   const initialState = {
     cartItems: returnCartItemsFromStorage(),
     checkout: false,
@@ -24,28 +24,53 @@ export const CartState = ({ children }) => {
     localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
   }, [state.cartItems]);
 
+  // function to add product to cart
   const addToCart = (payload) => {
     dispatch({ type: "ADD_TO_CART", payload });
   };
-
+  // function to increase existing product in cart
   const increase = (payload) => {
     dispatch({ type: "INCREASE", payload });
   };
-
+  // function to decrease existing product in cart
   const decrease = (payload) => {
     dispatch({ type: "DECREASE", payload });
   };
-
+  // function to remove product from cart
   const removeFromCart = (payload) => {
     dispatch({ type: "REMOVE_ITEM", payload });
   };
-
+  // function to clear cart
   const clearCart = () => {
     dispatch({ type: "CLEAR" });
   };
-
+  // function to handle checkout, and clear cart.
   const handleCheckout = () => {
     dispatch({ type: "CHECKOUT" });
+  };
+
+  // functions to backend cart functions \\
+
+  // for register user - save Cart
+  const saveCartToDB = async (userId, saveCartItems) => {
+    console.log("CartProvider-Function SaveCart", userId, saveCartItems);
+    try {
+      const response = await fetch("http://localhost:3000/cart/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, saveCartItems }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to save Cart");
+      }
+      const data = await response.json();
+      console.log("savecarttoDB", data.message);
+    } catch (error) {
+      console.error("Failed to save cart to db.", error);
+      throw error;
+    }
   };
 
   return (
@@ -59,6 +84,7 @@ export const CartState = ({ children }) => {
         decrease,
         handleCheckout,
         clearCart,
+        saveCartToDB,
         ...state,
       }}
     >

@@ -37,7 +37,8 @@ export default function CartFinalize() {
 
   // fetch functions from Auth Provider
   const { isAuthenticated, checkAuthentication, fetchUserInfo } = useAuth();
-  const { clearCart, handleCheckout, itemCount, total } = useCart();
+  const { clearCart, handleCheckout, itemCount, total, saveCartToDB } =
+    useCart();
 
   // if valid JWT, get saved address, if not, user needs to input delivery address.
   useEffect(() => {
@@ -61,6 +62,27 @@ export default function CartFinalize() {
       setUserInfo(result);
     } catch (error) {
       console.error("Användaren är ej inloggad.");
+    }
+  };
+
+  const handleSaveCartToDB = async () => {
+    try {
+      const userId = userInfo.id;
+      const saveCartItems = JSON.parse(localStorage.getItem("cartItems"));
+      console.log("SaveCartToDB-User", userId);
+      console.log("SaveCartToDB-Cart", saveCartItems);
+
+      await saveCartToDB(userId, saveCartItems);
+    } catch (error) {
+      console.error("Failed to save cart", error);
+    }
+  };
+
+  const handleProductSearch = async () => {
+    try {
+      // add logic here
+    } catch (error) {
+      console.error("Failed to search for products", error);
     }
   };
 
@@ -99,7 +121,10 @@ export default function CartFinalize() {
                     {/* Save Cart Function For Registered Users */}
                     {loggedIn && (
                       <div className="d-flex justify-content-start mx-2">
-                        <Button variant="outline-primary">
+                        <Button
+                          variant="outline-primary"
+                          onClick={handleSaveCartToDB}
+                        >
                           Spara Varukorg
                         </Button>
                       </div>
