@@ -22,11 +22,12 @@ const {
   collectInfobyId,
   registerUser,
   checkUser,
+  updateUserDetails,
 } = require("../services/userService.js");
 
 /*
 ===============================================
-Endpoint UserPage (Customer)
+GET - Endpoint UserPage (Customer)
 ===============================================
 */
 
@@ -59,7 +60,7 @@ router.get("/customer", async (req, res) => {
 
 /*
 ===============================================
-Endpoint Login
+POST - Endpoint Login
 ===============================================
 */
 // user - testadmin / pw - Testadmin@1
@@ -100,7 +101,7 @@ router.post("/login", async (req, res) => {
 
 /*
 ===============================================
-Endpoint Registration
+POST - Endpoint Registration
 ===============================================
 */
 
@@ -147,6 +148,28 @@ router.post("/register", async (req, res) => {
     res
       .status(500)
       .json({ success: false, message: "Failed to register user." });
+  }
+});
+
+/*
+===============================================
+PUT - Endpoint Update Information
+===============================================
+*/
+
+// Endpoint for updating saved information about user delivery address
+router.put("/update/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  const { userDetails } = req.body;
+
+  try {
+    // execute update query
+    await updateUserDetails(userId, userDetails);
+
+    res.status(200).send("User credentials updated successfully.");
+  } catch (error) {
+    console.error("Failed to update user credentials.", error);
+    res.status(500).send("Failed to update user credentials.");
   }
 });
 

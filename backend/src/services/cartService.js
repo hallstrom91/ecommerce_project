@@ -13,6 +13,7 @@ Saved User Carts (SAVE, RETRIVE & DELETE)
 ===============================================
 */
 
+// save products from Cart to DB (registered users)
 async function saveCart(userId, saveCartItems) {
   const cartKey = uuidv4();
   const query =
@@ -30,7 +31,7 @@ async function saveCart(userId, saveCartItems) {
   }
 }
 
-//Collect saved carts from DB
+//Collect saved carts from DB (registered users)
 async function retriveSavedCart(userId) {
   const query = `
   SELECT
@@ -57,10 +58,17 @@ WHERE
 }
 
 // Delete saved carts from DB
-async function deleteSavedCart(userId) {
-  // fixa
+async function deleteSavedCart(cartKey) {
+  const query = "DELETE FROM shopping_carts WHERE cart_key = ?";
+  try {
+    await pool.execute(query, [cartKey]);
+    console.log("Saved Cart deleted successfully.");
+  } catch (error) {
+    console.error("Failed to delete saved cart", error);
+    throw new Error("Failed to delete saved cart", error);
+  }
 }
 
 // export
 
-module.exports = { saveCart, retriveSavedCart };
+module.exports = { saveCart, retriveSavedCart, deleteSavedCart };

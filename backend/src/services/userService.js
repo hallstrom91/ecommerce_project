@@ -108,11 +108,52 @@ async function checkUser(username, password) {
 
 /*
 ===============================================
+User Update Information
+===============================================
+*/
+
+// function to update user credentials
+async function updateUserDetails(userId, userDetails) {
+  const { name, email, address, city, postalCode } = userDetails;
+
+  // query to update registered users credentials
+  const query = `
+  UPDATE 
+  users
+  SET 
+  name = ?,
+  email = ?,
+  address = ?,
+  city = ?,
+  postal_code = ?
+  WHERE id = ?
+  `;
+  try {
+    const [rows] = await pool.execute(query, [
+      name,
+      email,
+      address,
+      city,
+      postalCode,
+      userId,
+    ]);
+    console.log("Updated successfull");
+    return rows;
+  } catch (error) {
+    console.error("Failed to update user credentials", error);
+    throw error;
+  }
+}
+
+/*
+===============================================
 Functions  Export
 ===============================================
 */
+
 module.exports = {
   collectInfobyId,
   registerUser,
   checkUser,
+  updateUserDetails,
 };

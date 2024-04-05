@@ -31,9 +31,9 @@ async function confirmOrder(userId, orderDetails, CardDetails) {
     for (const product of orderDetails.products) {
       await pool.query(orderProductQuery, [
         orderId,
-        product.productId,
-        product.productName,
-        product.unitPrice,
+        product.id,
+        product.name,
+        product.price,
         product.quantity,
       ]);
     }

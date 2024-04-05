@@ -35,7 +35,7 @@ JWT - validateJWT Function to validate user
 */
 
 // if needed, collect more info about user to show in Frontend.
-/* const validateJWT = async (token) => {
+const validateJWT = async (token) => {
   // remove ? console.log("validateJWT", token); ??
   const secretKey = process.env.JWT_SECRET;
   try {
@@ -51,34 +51,6 @@ JWT - validateJWT Function to validate user
   } catch (error) {
     console.error("Failed to verify token or find user.", error);
     throw error;
-  }
-}; */
-
-// Try 1 - to handle error codes when token expires and display to user
-const validateJWT = async (token) => {
-  // remove ? console.log("validateJWT", token); ??
-  const secretKey = process.env.JWT_SECRET;
-  try {
-    // decode token and get payload-info
-    const decodeJWT = jwt.verify(token, secretKey);
-    const userId = decodeJWT.sub;
-    console.log("userId-JWT", userId);
-
-    // collect more info about user
-    const userInfo = await collectInfobyId(userId);
-
-    return userInfo;
-  } catch (error) {
-    if (error.name === "TokenExpiredError") {
-      throw new Error(JSON.stringify({ error: "JWT Expired" }));
-    } else if ((error.name = "JsonWebTokenError")) {
-      throw new Error(JSON.stringify({ error: "Invalid JWT" }));
-    } else {
-      throw new Error(
-        JSON.stringify({ error: "Failed to verify token or find user" })
-      );
-    }
-    console.error("Failed to verify token or find user.", error);
   }
 };
 

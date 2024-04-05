@@ -1,10 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const { saveCart, retriveSavedCart } = require("../services/cartService");
+const {
+  saveCart,
+  retriveSavedCart,
+  deleteSavedCart,
+} = require("../services/cartService");
 /*
 ===============================================
-POST - Cart Routes
+POST - Cart Routes - Save Cart
 ===============================================
 */
 
@@ -23,7 +27,7 @@ router.post("/save", async (req, res) => {
 
 /*
 ===============================================
-GET - Cart Routes
+GET - Cart Routes - Retrive Saved Carts
 ===============================================
 */
 
@@ -36,6 +40,23 @@ router.get("/retrive/:userId", async (req, res) => {
   } catch (error) {
     console.error("Failed to retrive saved cart", error);
     res.status(500).json({ error: "Failed to retrive saved cart." });
+  }
+});
+
+/*
+===============================================
+DELETE - Cart Routes - Delete Saved Carts
+===============================================
+*/
+
+router.delete("/delete/:cartKey", async (req, res) => {
+  const cartKey = req.params.cartKey;
+  try {
+    await deleteSavedCart(cartKey);
+    res.status(200).send("Saved cart deleted.");
+  } catch (error) {
+    console.error("Failed to delete saved cart", error);
+    res.status(500).send("Failed to delete saved cart.");
   }
 });
 
