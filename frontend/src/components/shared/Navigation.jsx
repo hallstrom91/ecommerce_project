@@ -6,6 +6,9 @@ import {
   Navbar,
   NavDropdown,
   NavbarCollapse,
+  Tab,
+  Tabs,
+  TabContainer,
 } from "react-bootstrap";
 
 // import search component
@@ -53,62 +56,93 @@ export default function Navigation() {
       <Navbar
         collapseOnSelect
         expand="lg"
-        bg="secondary"
         data-bs-theme="light"
         sticky="top"
         expanded={open}
+        className="navcontainer-bg "
       >
         <Container>
           <Navbar.Brand>
-            <Link to="/" className="text-black p-2 text-decoration-none">
+            <Link to="/" className="text-white text-decoration-none">
               FashionHub
             </Link>
           </Navbar.Brand>
+
           <Navbar.Toggle aria-controls="responsiv-nav" onClick={handleToggle} />
+
           <Navbar.Collapse id="responsiv-nav" onSelect={handleToggle}>
-            <Nav className="me-auto">
-              <Link
-                to="/"
-                className="text-black p-2 text-decoration-none"
-                onClick={handleClick}
+            <Tab.Container>
+              {/* Nav as tabs  */}
+              <Nav
+                fill
+                variant="tabs"
+                className="me-auto nav-tabs-border"
+                defaultActiveKey="1"
               >
-                Hem
-              </Link>
-              <Link
-                to="/store"
-                className="text-black p-2 text-decoration-none"
-                onClick={handleClick}
-              >
-                Butik
-              </Link>
-              {/* Display Userpage or Login button */}
-              {isAuthenticated ? (
-                <Link
-                  to="/private-route"
-                  onClick={handleClick}
-                  className="text-black p-2 text-decoration-none"
-                >
-                  Min sida
-                </Link>
-              ) : (
-                <Link
-                  to="/login"
-                  onClick={handleClick}
-                  className="text-black p-2 text-decoration-none"
-                >
-                  Logga in
-                </Link>
-              )}
-            </Nav>
-            <Nav className="">
+                <Nav.Item className="navtab-bg">
+                  <Nav.Link
+                    as={Link}
+                    to="/"
+                    eventKey="1"
+                    onClick={handleClick}
+                    className="text-white"
+                  >
+                    Hem
+                  </Nav.Link>
+                </Nav.Item>
+
+                <Nav.Item className="">
+                  <Nav.Link
+                    as={Link}
+                    eventKey="2"
+                    to="/store"
+                    onClick={handleClick}
+                    className="text-white"
+                  >
+                    Butik
+                  </Nav.Link>
+                </Nav.Item>
+
+                {/* Display Userpage or Login button */}
+                {isAuthenticated ? (
+                  <Nav.Item className="px-">
+                    <Nav.Link
+                      as={Link}
+                      eventKey="3"
+                      to="/private-route"
+                      onClick={handleClick}
+                      className="text-white"
+                    >
+                      Min sida
+                    </Nav.Link>
+                  </Nav.Item>
+                ) : (
+                  <Nav.Item className="navtab-bg">
+                    <Nav.Link
+                      as={Link}
+                      to="/login"
+                      eventKey="4"
+                      onClick={handleClick}
+                      className="text-white"
+                    >
+                      Logga in
+                    </Nav.Link>
+                  </Nav.Item>
+                )}
+              </Nav>
+            </Tab.Container>
+
+            <Nav>
               {/* Display ShoppingCart/Checkout */}
-              <Link to="/cart" className="text-black text-decoration-none">
-                <div className="d-flex">
-                  <IoCartOutline size={30} />
-                  <span className="pt-2 p-1 text-white">{itemCount}</span>
-                  <p className="pt-2 text-black">Varukorg</p>
-                </div>
-              </Link>
+              <Nav.Item>
+                <Nav.Link as={Link} to="/cart" className="text-white">
+                  <div className="d-flex">
+                    <IoCartOutline size={30} />
+                    <span className="pt-2 p-1 text-white">{itemCount}</span>
+                    <p className="pt-2">Varukorg</p>
+                  </div>
+                </Nav.Link>
+              </Nav.Item>
             </Nav>
           </Navbar.Collapse>
         </Container>

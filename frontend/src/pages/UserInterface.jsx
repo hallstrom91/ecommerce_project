@@ -46,7 +46,7 @@ export default function UserInterface() {
       <Container className="p-4">
         <Row>
           <Col>
-            <div className="d-flex justify-content-end">
+            <div className="d-flex justify-content-end mt-2 mb-4">
               <Button variant="outline-danger" onClick={() => handleLogout()}>
                 Logga Ut
               </Button>
@@ -62,16 +62,18 @@ export default function UserInterface() {
                 </div>
               </Col>
             </Row>
-            {/* Row for users button -> pop-modul to view or change saved address */}
+
             <Row>
-              <Col className="mb-4">
-                <UserDetails user={userInfo} />
-              </Col>
-            </Row>
-            {/* Row for users saved carts display & restore */}
-            <Row>
-              <Col>
+              <Col md={8} className="mt-4">
+                {/* users saved carts display & restore */}
                 <SavedCartSelect user={userInfo} />
+              </Col>
+              <Col md={4} className="mt-4 d-flex justify-content-end">
+                <div>
+                  {/* users button -> pop-modul to view or change saved address */}
+                  <h6>Användaruppgifter</h6>
+                  <UserDetails user={userInfo} />
+                </div>
               </Col>
             </Row>
           </Container>
@@ -84,6 +86,8 @@ export default function UserInterface() {
             </Row>
           </Container>
         )}
+        {/*       Display error message if user is not verified for this route! 
+        Access is restriced with private-route and checkAuth function but just to be sure. */}
         {error && (
           <Container>
             <Row>

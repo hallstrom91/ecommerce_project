@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Pacifico&display=swap");
+
+/* colors bg and txt for nav-tabs */
+.nav-link.active {
+  background-color: #0c6291 !important;
+  color: black !important;
+  border-color: #1a97db !important;
+  border-style: dotted !important;
+}
+
+.nav-link,
+.navbar-brand {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.nav-tabs-border {
+  border-color: #0c6291 !important;
+  border-bottom-style: dotted !important ;
+}
+
+/* Color for navbar / footer */
+.navbar {
+  background-color: #233d4d;
+}
+
+/* Buttons colors */
+.btn-outline-primary,
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary-visited {
+  background-color: #0c6291 !important;
+  color: white !important;
+}
+
+.btn-success,
+.btn-success:hover,
+.btn-success:active,
+.btn-success-visited {
+  background-color: #004700 !important;
+}
+
+.btn-outline-dark,
+.btn-outline-dark:hover,
+.btn-outline-dark:active,
+.btn-outline-dark:visited {
+  background-color: #19647e !important;
+}

@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import { useReducer, createContext, useContext, useEffect } from "react";
 import CartReducer, { sumItems } from "./cart/CartReducer";
-
 // create empty context-object
 const CartContext = createContext();
 
@@ -49,11 +49,48 @@ export const CartState = ({ children }) => {
     dispatch({ type: "CHECKOUT" });
   };
 
-  // functions to backend cart functions \\
+  // ↓↓ cart-related functions to backend / MySQL-DB below ↓↓
 
-  // for register user - save Cart
+  // function to update saved user information (registered user only)
+  const updateUserInfo = async (userId, userDetails) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/user/update/${userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userDetails }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to update user credentials.");
+      }
+      console.log("User credentials update successfully");
+    } catch (error) {
+      console.error("Failed to update user credentials.");
+      throw error;
+    }
+  };
+
+  // function to search in db for products
+  const [results, setResults] = useState([]);
+
+  const searchForProducts = async (idOrName) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/products/${idOrName}`
+      );
+      const data = await response.json();
+      setResults(data);
+    } catch (error) {
+      console.error("Failed to search for products", error);
+    }
+  };
+
+  // Save shopping cart (registered user only)
   const saveCartToDB = async (userId, saveCartItems) => {
-    console.log("CartProvider-Function SaveCart", userId, saveCartItems);
     try {
       const response = await fetch("http://localhost:3000/cart/save", {
         method: "POST",
@@ -66,14 +103,13 @@ export const CartState = ({ children }) => {
         throw new Error("Failed to save Cart");
       }
       const data = await response.json();
-      console.log("savecarttoDB", data.message);
     } catch (error) {
       console.error("Failed to save cart to db.", error);
       throw error;
     }
   };
 
-  // retrive saved cart for register user
+  // retrive saved cart (registered user only)
   const retriveSavedCart = async (userId) => {
     try {
       const response = await fetch(
@@ -90,11 +126,33 @@ export const CartState = ({ children }) => {
     }
   };
 
+  // delete saved cart
+  const deleteSavedCart = async (cartKey) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/cart/delete/${cartKey}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to delete saved cart");
+      }
+      console.log("Cart deleted successfully.");
+    } catch (error) {
+      console.error("Failed to delete saved cart.", error);
+      throw error;
+    }
+  };
+
   // Checkout, save cart, user & payment info to DB.
   const checkoutToDB = async (orderData) => {
     try {
       const response = await fetch("http://localhost:3000/checkout/confirm", {
-        method: "POSt",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -122,8 +180,12 @@ export const CartState = ({ children }) => {
         decrease,
         handleCheckout,
         clearCart,
+        searchForProducts,
+        results,
+        updateUserInfo,
         saveCartToDB,
         retriveSavedCart,
+        deleteSavedCart,
         checkoutToDB,
         ...state,
       }}

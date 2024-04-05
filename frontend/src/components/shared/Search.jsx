@@ -1,7 +1,25 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Form, InputGroup, Button } from "react-bootstrap";
+
+// Cart State
+import { useCart } from "@provider/CartProvider";
+
 export default function Search() {
   const [searchInput, setSearchInput] = useState("");
+
+  //useNavigate
+  const navigate = useNavigate();
+
+  // import from CartProvider
+  const { searchForProducts } = useCart();
+
+  const handleSearch = () => {
+    if (searchInput.trim() !== "") {
+      navigate(`/search-results`);
+    }
+  };
+
   return (
     <InputGroup>
       <Form.Control
@@ -10,7 +28,7 @@ export default function Search() {
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
       />
-      <Button size="sm" variant="outline-dark">
+      <Button size="sm" variant="outline-dark" onClick={handleSearch}>
         Sök
       </Button>
     </InputGroup>

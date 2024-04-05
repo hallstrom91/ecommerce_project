@@ -14,11 +14,14 @@ import { useCart } from "@provider/CartProvider";
 
 export default function SavedCartSelect({ user }) {
   const [getSavedCarts, setGetSavedCarts] = useState([]);
+  const [successMsg, setSuccessMsg] = useState("");
+  const [error, setError] = useState("");
 
   // Cart Functions
-  const { retriveSavedCart, cartItems } = useCart();
+  const { retriveSavedCart, cartItems, deleteSavedCart } = useCart();
 
   // function to restore specific saved cart from DB to Cart
+  // and not add duplicated products in cart, but increase quantity instead
   const restoreCart = (cartItemsRestore) => {
     const currentCart = JSON.parse(localStorage.getItem("cartItems")) || [];
 
@@ -35,6 +38,26 @@ export default function SavedCartSelect({ user }) {
     });
     localStorage.setItem("cartItems", JSON.stringify(currentCart));
     window.location.reload();
+  };
+
+  // delete saved cart from DB
+  const handleDeleteSavedCart = async (cartKey) => {
+    try {
+      const data = await deleteSavedCart(cartKey);
+      console.log("Cart deleted successfully");
+      setSuccessMsg("Sparad kundkorg borttagen");
+
+      setTimeout(() => {
+        setSuccessMsg("");
+        window.location.reload();
+      }, 3000);
+    } catch (error) {
+      console.error("Failed to delete cart.", error);
+      setError("Kundkorg kunde inte tas bort.");
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+    }
   };
 
   // collect saved shopping carts for user
@@ -67,9 +90,19 @@ export default function SavedCartSelect({ user }) {
   return (
     <Container>
       <Row>
-        <Col md={8}>
+        <Col className="text-center">
+          {successMsg && <p className="text-success">{successMsg}</p>}
+          {error && <p className="text-danger">{error}</p>}
+        </Col>
+      </Row>
+      <Row>
+        <Col>
           <ListGroup>
-            <ListGroup.Item disabled className="text-center">
+            <ListGroup.Item
+              variant="dark"
+              disabled
+              className="text-center bg-secondary text-white"
+            >
               <strong>Sparade Varukorgar</strong>
             </ListGroup.Item>
             {Object.keys(getSavedCarts).map((cartKey) => {
@@ -86,7 +119,7 @@ export default function SavedCartSelect({ user }) {
               );
 
               return (
-                <ListGroup.Item key={cartKey}>
+                <ListGroup.Item key={cartKey} action variant="info">
                   <div className="d-flex justify-content-between align-items-center">
                     <div>
                       <strong>Varukorgs-ID: </strong>
@@ -105,14 +138,18 @@ export default function SavedCartSelect({ user }) {
                       <div className="px-1">
                         <Button
                           size="sm"
-                          variant="outline-dark"
+                          variant="outline-primary"
                           onClick={() => restoreCart(savedCartItems)}
                         >
                           Återställ
                         </Button>
                       </div>
                       <div>
-                        <Button size="sm" variant="outline-dark">
+                        <Button
+                          size="sm"
+                          variant="outline-danger"
+                          onClick={() => handleDeleteSavedCart(cartKey)}
+                        >
                           Radera
                         </Button>
                       </div>

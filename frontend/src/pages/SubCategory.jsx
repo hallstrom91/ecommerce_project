@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Col, Row, Container } from "react-bootstrap";
+import { Col, Row, Container, Button } from "react-bootstrap";
 import ProductCard from "@store/ProductCard";
-
+import { FaArrowLeft } from "react-icons/fa6";
 // Cart Provider
 import { useCart } from "@provider/CartProvider";
 
@@ -33,6 +33,15 @@ export default function SubCategory() {
           <Col>
             <h1 className="text-center">Produkter</h1>
           </Col>
+          <Row>
+            <Col className="mb-4">
+              <Link to="/store">
+                <Button variant="outline-primary" className="my-1">
+                  <FaArrowLeft /> Tillbaka
+                </Button>
+              </Link>
+            </Col>
+          </Row>
         </Row>
         {/* Display products related to a specific category */}
         <Row md={3} sm={2} xs={1}>

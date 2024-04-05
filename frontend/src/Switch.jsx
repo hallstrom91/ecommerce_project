@@ -9,6 +9,7 @@ import Categories from "@pages/Categories";
 import SubCategory from "@pages/SubCategory";
 import Products from "@pages/Products";
 import Cart from "@pages/Cart";
+import SearchResults from "@pages/SearchResults";
 
 // PrivateRoute for verified users
 import PrivateRoute from "@routes/PrivateRoute";
@@ -25,6 +26,7 @@ export default function Switch() {
       <Route path="/store/:categoryId" element={<SubCategory />} />
       <Route path="/store/all" element={<Products />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/search-results" element={<SearchResults />} />
       <Route
         exact
         path="/private-route"

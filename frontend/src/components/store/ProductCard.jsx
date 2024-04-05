@@ -14,7 +14,7 @@ export default function ProductCard({ product }) {
 
   return (
     <>
-      <Card bg="secondary">
+      <Card bg="secondary" justify>
         <Card.Img src={product.image_url} alt={product.name} />
         <Card.ImgOverlay className="d-flex flex-column justify-content-start align-items-start">
           <div className="d-flex justify-content-between">
@@ -45,30 +45,31 @@ export default function ProductCard({ product }) {
           {/* buy-button / add to cart */}
         </Card.Footer>
       </Card>
-      {/* FIX THIS SHIT */}
-      <div className="align-self-end p-2">
-        {isInCart(product) && (
-          <Button
-            variant="success"
-            size="sm"
-            onClick={() => {
-              increase(product);
-            }}
-          >
-            Köp Igen
-          </Button>
-        )}
-
-        {!isInCart(product) && (
-          <Button
-            variant="outline-dark"
-            size="sm"
-            onClick={() => addToCart(product)}
-          >
-            Köp
-          </Button>
-        )}
-      </div>
+      {/* Buy Button, outside of card cuz bug */}
+      <Container>
+        <div className="py-2">
+          {isInCart(product) && (
+            <Button
+              variant="success"
+              size="sm"
+              onClick={() => {
+                increase(product);
+              }}
+            >
+              Köp Fler
+            </Button>
+          )}
+          {!isInCart(product) && (
+            <Button
+              variant="outline-dark"
+              size="sm"
+              onClick={() => addToCart(product)}
+            >
+              Köp
+            </Button>
+          )}
+        </div>
+      </Container>
     </>
   );
 }

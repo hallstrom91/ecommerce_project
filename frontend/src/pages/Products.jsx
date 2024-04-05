@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Col, Row, Container, Card, Button, Badge } from "react-bootstrap";
 import ProductCard from "@store/ProductCard";
-
+import { FaArrowLeft } from "react-icons/fa6";
 // Cart Provider
 import { useCart } from "@provider/CartProvider";
 
@@ -33,6 +34,16 @@ export default function Products() {
       <Row className="pb-4">
         <Col>
           <h1 className="text-center">Alla Produkter</h1>
+        </Col>
+      </Row>
+      <Row>
+        <Col className="mb-4">
+          <Link to="/store">
+            <Button variant="outline-primary" className="my-1">
+              <FaArrowLeft />
+              Tillbaka
+            </Button>
+          </Link>
         </Col>
       </Row>
       {/* OLD CODE - TRYING SOMETHING NEEW AND EXICTING */}

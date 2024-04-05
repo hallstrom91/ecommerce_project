@@ -9,7 +9,7 @@ import {
   Stack,
   Card,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // Auth Provider
 import { useAuth } from "@provider/AuthProvider";
 // Cart Provider
@@ -17,7 +17,6 @@ import { useCart } from "@provider/CartProvider";
 
 export default function CartFinalize() {
   const [userInfo, setUserInfo] = useState("");
-  const [paymentInfo, setPaymentInfo] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [error, setError] = useState("");
 
@@ -38,6 +37,9 @@ export default function CartFinalize() {
 
   // values for failed order
   const [orderError, setOrderError] = useState("");
+
+  // useNavigate
+  const navigate = useNavigate();
 
   // fetch functions from Auth Provider
   const { isAuthenticated, checkAuthentication, fetchUserInfo } = useAuth();
@@ -75,6 +77,7 @@ export default function CartFinalize() {
       console.error("Användaren är ej inloggad.");
     }
   };
+
   // save cart to database.
   const handleSaveCartToDB = async () => {
     try {
@@ -90,6 +93,7 @@ export default function CartFinalize() {
       localStorage.removeItem("cartItems");
       setTimeout(() => {
         setCartSavedMsg("");
+        navigate("/store");
         window.location.reload();
       }, 3000);
     } catch (error) {
@@ -110,7 +114,7 @@ export default function CartFinalize() {
     try {
       // collect info about order
       const orderData = {
-        // create UUID FOR non-registered users????
+        // if no userId, value is NULL in DB.
         userId: userInfo.id,
         orderDetails: {
           totalPrice: total,

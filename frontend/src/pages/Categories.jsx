@@ -31,6 +31,15 @@ export default function Categories() {
             <h1 className="text-center">Kategorier</h1>
           </Col>
         </Row>
+        <Row>
+          <Col className="mb-4">
+            <Link to="/store/all" className="">
+              <Button variant="outline-primary" className="my-1">
+                Alla produkter
+              </Button>
+            </Link>
+          </Col>
+        </Row>
         {/* Map Categories to Display */}
         <Row md={3} sm={2} xs={1}>
           {categories.map((category) => (
@@ -46,9 +55,6 @@ export default function Categories() {
             </Col>
           ))}
         </Row>
-        <Link to="/store/all">
-          <Button className="my-1">Alla produkter</Button>
-        </Link>
       </Container>
     </>
   );

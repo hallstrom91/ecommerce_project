@@ -1,13 +1,16 @@
 import { Navbar, Nav, NavbarBrand } from "react-bootstrap";
-
+import Search from "@shared/Search";
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
     <>
-      <Navbar bg="secondary" data-bs-theme="light">
+      <Navbar data-bs-theme="dark">
         <NavbarBrand className="mx-auto">
-          <p>{year} &copy; FashionHub</p>
+          <p> FashionHub &copy; {year} </p>
         </NavbarBrand>
+        <Nav className="px-2">
+          <Search className="" />
+        </Nav>
       </Navbar>
     </>
   );
