@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Col, Row, Container, Button } from "react-bootstrap";
 //components
 import UserDetails from "@user/UserDetails";
+import SavedCartSelect from "@user/SavedCartSelect";
 // Auth Provider
 import { useAuth } from "@provider/AuthProvider";
 
@@ -43,24 +44,55 @@ export default function UserInterface() {
   return (
     <>
       <Container className="p-4">
-        <Col>
-          <div className="d-flex justify-content-end">
-            <Button variant="outline-danger" onClick={() => handleLogout()}>
-              Logga Ut
-            </Button>
-          </div>
-        </Col>
-        <Col>
-          {userInfo ? (
+        <Row>
+          <Col>
+            <div className="d-flex justify-content-end">
+              <Button variant="outline-danger" onClick={() => handleLogout()}>
+                Logga Ut
+              </Button>
+            </div>
+          </Col>
+        </Row>
+        {userInfo ? (
+          <Container>
             <Row>
-              <h2 className="text-center">Välkommen, {userInfo.name}</h2>
-              <UserDetails user={userInfo} />
+              <Col>
+                <div>
+                  <h2 className="text-center">Välkommen, {userInfo.name}</h2>
+                </div>
+              </Col>
             </Row>
-          ) : (
-            <p>Loading user information!</p>
-          )}
-          {error && <p className="text-danger">Error: {error}</p>}
-        </Col>
+            {/* Row for users button -> pop-modul to view or change saved address */}
+            <Row>
+              <Col className="mb-4">
+                <UserDetails user={userInfo} />
+              </Col>
+            </Row>
+            {/* Row for users saved carts display & restore */}
+            <Row>
+              <Col>
+                <SavedCartSelect user={userInfo} />
+              </Col>
+            </Row>
+          </Container>
+        ) : (
+          <Container>
+            <Row>
+              <Col>
+                <p>Loading user information!</p>
+              </Col>
+            </Row>
+          </Container>
+        )}
+        {error && (
+          <Container>
+            <Row>
+              <Col>
+                <p className="text-danger">Error: {error}</p>
+              </Col>
+            </Row>
+          </Container>
+        )}
       </Container>
     </>
   );

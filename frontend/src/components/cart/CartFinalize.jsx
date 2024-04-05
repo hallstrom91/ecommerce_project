@@ -33,12 +33,23 @@ export default function CartFinalize() {
   const [debitCardName, setDebitCardName] = useState("");
   const [debitCardCVV, setDebitCardCVV] = useState("");
 
-  // handle input change of useState values
+  // values for saveCart function
+  const [cartSavedMsg, setCartSavedMsg] = useState("");
+
+  // values for failed order
+  const [orderError, setOrderError] = useState("");
 
   // fetch functions from Auth Provider
   const { isAuthenticated, checkAuthentication, fetchUserInfo } = useAuth();
-  const { clearCart, handleCheckout, itemCount, total, saveCartToDB } =
-    useCart();
+
+  const {
+    clearCart,
+    handleCheckout,
+    itemCount,
+    total,
+    saveCartToDB,
+    checkoutToDB,
+  } = useCart();
 
   // if valid JWT, get saved address, if not, user needs to input delivery address.
   useEffect(() => {
@@ -64,7 +75,7 @@ export default function CartFinalize() {
       console.error("Användaren är ej inloggad.");
     }
   };
-
+  // save cart to database.
   const handleSaveCartToDB = async () => {
     try {
       const userId = userInfo.id;
@@ -73,6 +84,14 @@ export default function CartFinalize() {
       console.log("SaveCartToDB-Cart", saveCartItems);
 
       await saveCartToDB(userId, saveCartItems);
+      setCartSavedMsg(
+        "Kundkorgen har sparats i databasen och tas nu bort ur varukorgen."
+      );
+      localStorage.removeItem("cartItems");
+      setTimeout(() => {
+        setCartSavedMsg("");
+        window.location.reload();
+      }, 3000);
     } catch (error) {
       console.error("Failed to save cart", error);
     }
@@ -86,8 +105,36 @@ export default function CartFinalize() {
     }
   };
 
+  // confirm order and save info to DB
   const handleConfirmOrder = async () => {
-    // fix backend route N logic
+    try {
+      // collect info about order
+      const orderData = {
+        // create UUID FOR non-registered users????
+        userId: userInfo.id,
+        orderDetails: {
+          totalPrice: total,
+          deliveryAddress: loggedIn
+            ? `${userInfo.name} ${userInfo.address} ${userInfo.city} ${userInfo.postal_code}`
+            : `${orderName} ${orderAddress} ${orderCity} ${orderEmail}`,
+          products: JSON.parse(localStorage.getItem("cartItems")),
+        },
+        cardDetails: {
+          cardNumber: debitCard,
+          cardName: debitCardName,
+          cvv: debitCardCVV,
+        },
+      };
+      await checkoutToDB(orderData);
+      // show message and clear cart if successful submit
+      handleCheckout();
+    } catch (error) {
+      console.error("Failed to confirm order", error);
+      setOrderError("Tyvärr ordern kunde inte slutföras just nu.");
+      setTimeout(() => {
+        setOrderError("");
+      }, 3000);
+    }
   };
 
   return (
@@ -114,13 +161,14 @@ export default function CartFinalize() {
                 </Card.Text>
                 {/* Button to clear cart */}
                 <div className="d-flex">
-                  <div className="d-flex justify-content-end">
-                    <Button variant="outline-danger" onClick={clearCart}>
-                      Rensa Varukorg
-                    </Button>
-                    {/* Save Cart Function For Registered Users */}
-                    {loggedIn && (
-                      <div className="d-flex justify-content-start mx-2">
+                  <Button variant="outline-danger" onClick={clearCart}>
+                    Rensa Varukorg
+                  </Button>
+
+                  {/* Save Cart Function For Registered Users */}
+                  {loggedIn && (
+                    <div className="d-flex justify-content-start mx-2">
+                      <div>
                         <Button
                           variant="outline-primary"
                           onClick={handleSaveCartToDB}
@@ -128,8 +176,13 @@ export default function CartFinalize() {
                           Spara Varukorg
                         </Button>
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
+                </div>
+                <div className="mt-3">
+                  {cartSavedMsg && (
+                    <p className="text-success">{cartSavedMsg}</p>
+                  )}
                 </div>
               </Card.Body>
             </Card>
@@ -278,9 +331,16 @@ export default function CartFinalize() {
               </Form.Group>
               <Form.Group className="pt-2">
                 {/* Button to confirm Order */}
-                <Button variant="success" className="" onClick={handleCheckout}>
+                <Button
+                  variant="success"
+                  className=""
+                  onClick={handleConfirmOrder}
+                >
                   Beställ
                 </Button>
+                <div>
+                  {orderError && <p className="text-danger">{orderError}</p>}
+                </div>
               </Form.Group>
             </Form>
           </Col>

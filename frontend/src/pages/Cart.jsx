@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   FloatingLabel,
@@ -13,11 +14,31 @@ import {
 import CartProduct from "@cart/CartProduct";
 import CartFinalize from "@cart/CartFinalize";
 
+// Auth Provider
+import { useAuth } from "@provider/AuthProvider";
 // Cart State
 import { useCart } from "@provider/CartProvider";
 
 export default function Cart() {
+  // import from CartProvider
   const { cartItems, checkout, clearCart } = useCart();
+
+  // import from AuthProvider
+  const { isAuthenticated, checkAuthentication } = useAuth();
+
+  // validate JWT of user, if missing send to /login, if valid, fetch user data.
+  useEffect(() => {
+    const checkAuth = async () => {
+      const isAuthenticated = await checkAuthentication();
+      if (!isAuthenticated) {
+        console.log("if not verified do something");
+      } else {
+        console.log("if verified, do nothing or something...");
+      }
+    };
+    checkAuth();
+  }, []);
+
   return (
     <>
       <Container className="p-4">

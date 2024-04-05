@@ -73,6 +73,44 @@ export const CartState = ({ children }) => {
     }
   };
 
+  // retrive saved cart for register user
+  const retriveSavedCart = async (userId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/cart/retrive/${userId}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to retrive saved carts");
+      }
+      const GetsavedCarts = await response.json();
+      return GetsavedCarts;
+    } catch (error) {
+      console.error("failed to retrive saved carts", error);
+      throw error;
+    }
+  };
+
+  // Checkout, save cart, user & payment info to DB.
+  const checkoutToDB = async (orderData) => {
+    try {
+      const response = await fetch("http://localhost:3000/checkout/confirm", {
+        method: "POSt",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+      if (response.ok) {
+        console.log("Order confirmed.");
+      } else {
+        const errorCheckout = await response.json();
+        console.error("Failed to confirm checkout", errorCheckout.message);
+      }
+    } catch (error) {
+      console.error("Failed to confirm checkout", error);
+    }
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -85,6 +123,8 @@ export const CartState = ({ children }) => {
         handleCheckout,
         clearCart,
         saveCartToDB,
+        retriveSavedCart,
+        checkoutToDB,
         ...state,
       }}
     >
