@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Col, Row, Container, Card, Button, Badge } from "react-bootstrap";
 import ProductCard from "@store/ProductCard";
 // Cart State
@@ -8,6 +8,13 @@ import { useCart } from "@provider/CartProvider";
 export default function SearchResults() {
   // import from CartProvider
   const { searchForProducts, results } = useCart();
+  const { idOrName } = useParams();
+
+  useEffect(() => {
+    if (idOrName) {
+      searchForProducts(idOrName);
+    }
+  }, [idOrName]);
 
   return (
     <Container className="p-4">
@@ -20,7 +27,6 @@ export default function SearchResults() {
         <Col className="mb-4">
           <Link to="/store">
             <Button variant="outline-primary" className="my-1">
-              <FaArrowLeft />
               Tillbaka
             </Button>
           </Link>

@@ -26,7 +26,7 @@ export default function Switch() {
       <Route path="/store/:categoryId" element={<SubCategory />} />
       <Route path="/store/all" element={<Products />} />
       <Route path="/cart" element={<Cart />} />
-      <Route path="/search-results" element={<SearchResults />} />
+      <Route path="/search-results/:idOrName" element={<SearchResults />} />
       <Route
         exact
         path="/private-route"

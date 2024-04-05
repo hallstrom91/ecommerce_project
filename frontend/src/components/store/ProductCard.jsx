@@ -14,7 +14,7 @@ export default function ProductCard({ product }) {
 
   return (
     <>
-      <Card bg="secondary" justify>
+      <Card bg="secondary">
         <Card.Img src={product.image_url} alt={product.name} />
         <Card.ImgOverlay className="d-flex flex-column justify-content-start align-items-start">
           <div className="d-flex justify-content-between">

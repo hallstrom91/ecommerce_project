@@ -75,12 +75,12 @@ export const CartState = ({ children }) => {
   };
 
   // function to search in db for products
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState(null);
 
   const searchForProducts = async (idOrName) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/products/${idOrName}`
+        `http://localhost:3000/store/products/${idOrName}`
       );
       const data = await response.json();
       setResults(data);

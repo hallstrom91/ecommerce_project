@@ -63,9 +63,9 @@ export default function Navigation() {
       >
         <Container>
           <Navbar.Brand>
-            <Link to="/" className="text-white text-decoration-none">
+            <Nav.Link as={Link} to="/" className="text-white">
               FashionHub
-            </Link>
+            </Nav.Link>
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="responsiv-nav" onClick={handleToggle} />
@@ -79,7 +79,7 @@ export default function Navigation() {
                 className="me-auto nav-tabs-border"
                 defaultActiveKey="1"
               >
-                <Nav.Item className="navtab-bg">
+                <Nav.Item>
                   <Nav.Link
                     as={Link}
                     to="/"
@@ -91,7 +91,7 @@ export default function Navigation() {
                   </Nav.Link>
                 </Nav.Item>
 
-                <Nav.Item className="">
+                <Nav.Item>
                   <Nav.Link
                     as={Link}
                     eventKey="2"
@@ -105,7 +105,7 @@ export default function Navigation() {
 
                 {/* Display Userpage or Login button */}
                 {isAuthenticated ? (
-                  <Nav.Item className="px-">
+                  <Nav.Item>
                     <Nav.Link
                       as={Link}
                       eventKey="3"

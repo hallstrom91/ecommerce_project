@@ -16,7 +16,8 @@ export default function Search() {
 
   const handleSearch = () => {
     if (searchInput.trim() !== "") {
-      navigate(`/search-results`);
+      setSearchInput("");
+      navigate(`/search-results/${searchInput}`);
     }
   };
 
