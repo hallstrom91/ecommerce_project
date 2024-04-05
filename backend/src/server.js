@@ -17,6 +17,9 @@ const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
 // Endpoints Cart
 const cartRoutes = require("./routes/cartRoutes");
+// Endpoints Checkout
+const checkoutRoutes = require("./routes/checkoutRoutes");
+
 /*
 ===============================================
 Setup - APP & PORT
@@ -48,9 +51,11 @@ app.use("/user", userRoutes);
 // use endpoints in productRoutes.js /categories/ENDPOINT
 app.use("/store", productRoutes);
 
-// use endpoints i cartRoutes.js /cart/ENDPOINT
+// use endpoints in cartRoutes.js /cart/ENDPOINT
 app.use("/cart", cartRoutes);
 
+// use endpoints in checkoutRoutes /checkout/ENDPOINT
+app.use("/checkout", checkoutRoutes);
 /*
 ===============================================
 App Listen & Export

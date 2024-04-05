@@ -116,21 +116,3 @@ module.exports = {
   registerUser,
   checkUser,
 };
-
-/* 
-
-// Import functions one by one:
-const { collectInfobyId, registerUser, checkUser } = require('../folder/userService.js');
-
-// use function
-collectInfoById(userId);
-
-// Import all functions in one name
-const all-functions:
-const allFunctions = require("../folder/userService.js")
-
-//use function
-allFunctions.collectInfoById(userId)
-
-
-*/
