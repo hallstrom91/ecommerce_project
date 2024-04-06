@@ -1,6 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Pacifico&display=swap");
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* colors bg and txt for nav-tabs */
 .nav-link.active {
   background-color: #0c6291 !important;
@@ -33,6 +45,7 @@
 .btn-outline-primary-visited {
   background-color: #0c6291 !important;
   color: white !important;
+  font-family: "Barlow Condensed", sans-serif !important;
 }
 
 .btn-success,
@@ -40,6 +53,7 @@
 .btn-success:active,
 .btn-success-visited {
   background-color: #004700 !important;
+  font-family: "Barlow Condensed", sans-serif !important;
 }
 
 .btn-outline-dark,
@@ -47,4 +61,37 @@
 .btn-outline-dark:active,
 .btn-outline-dark:visited {
   background-color: #19647e !important;
+  font-family: "Barlow Condensed", sans-serif !important;
+}
+
+.list-group-item {
+  background-color: #3d94c2 !important;
+  border-bottom: 2px !important;
+  font-family: "Barlow Condensed", sans-serif !important;
+}
+.list-group-item:hover {
+  background-color: #1a97db !important;
+  font-family: "Barlow Condensed", sans-serif !important;
+}
+
+.list-group-header {
+  background-color: #233d4d !important;
+  border: 1px solid black !important;
+  font-family: "Barlow Condensed", sans-serif !important;
+}
+
+.card-body {
+  background-color: #617073 !important;
+  font-family: "Barlow Condensed", sans-serif !important;
+}
+
+.card {
+  border-color: #1a97db !important;
+  border-style: solid !important;
+  font-family: "Barlow Condensed", sans-serif !important;
+}
+
+.carousel-item,
+.carousel {
+  height: 30vh;
 }

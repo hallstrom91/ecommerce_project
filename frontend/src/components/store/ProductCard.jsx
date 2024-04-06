@@ -14,7 +14,7 @@ export default function ProductCard({ product }) {
 
   return (
     <>
-      <Card bg="secondary">
+      <Card>
         <Card.Img src={product.image_url} alt={product.name} />
         <Card.ImgOverlay className="d-flex flex-column justify-content-start align-items-start">
           <div className="d-flex justify-content-between">
@@ -26,16 +26,16 @@ export default function ProductCard({ product }) {
           </div>
         </Card.ImgOverlay>
         {/* Card Body with price, description and buy-button */}
-        <Card.Header className="text-white text-center">
-          {product.name}
+        <Card.Header className="text-white text-center list-group-header">
+          <strong>{product.name}</strong>
         </Card.Header>
-        <Card.Body className="d-flex flex-colum">
+        <Card.Body className="d-flex flex-colum text-white">
           {/* description */}
           <div className="align-self-start mt-2">
             <Card.Text>{product.description}</Card.Text>
           </div>
         </Card.Body>
-        <Card.Footer className="d-flex flex-column">
+        <Card.Footer className="d-flex flex-column list-group-header">
           {/* price */}
           <div className="align-self-start">
             <Badge bg="white" text="dark">

@@ -63,21 +63,6 @@ Check Auth
     }
   };
 
-  // Check auth of user, old
-  /*   const checkAuthentication = async () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      // set value
-      setIsAuthenticated(true);
-      // return value
-      return isAuthenticated;
-    } else {
-      // set value
-      setIsAuthenticated(false);
-      return isAuthenticated;
-    }
-  }; */
-
   /*
 ===============================================
 Login 

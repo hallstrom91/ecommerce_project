@@ -44,6 +44,7 @@ export default function CartFinalize() {
   // fetch functions from Auth Provider
   const { isAuthenticated, checkAuthentication, fetchUserInfo } = useAuth();
 
+  // import functions from Cart Provider
   const {
     clearCart,
     handleCheckout,
@@ -101,14 +102,6 @@ export default function CartFinalize() {
     }
   };
 
-  const handleProductSearch = async () => {
-    try {
-      // add logic here
-    } catch (error) {
-      console.error("Failed to search for products", error);
-    }
-  };
-
   // confirm order and save info to DB
   const handleConfirmOrder = async () => {
     try {
@@ -151,17 +144,20 @@ export default function CartFinalize() {
         </Row>
         <Row>
           {/* Cart Summery of Items & Price */}
-          <Col sm={6} className="">
-            <Card className="mb-2 mt-2">
+          <Col sm={6}>
+            <Card className="mb-2 mt-2 ">
+              <Card.Header className="text-center border-0 list-group-header text-white">
+                <strong>Varukorg</strong>
+              </Card.Header>
               <Card.Body>
-                <Card.Text className="text-center">
-                  <strong>Varukorg</strong>
+                <Card.Text className="text-center border-0 list-group-header text-white"></Card.Text>
+                <Card.Text className="text-white">
+                  <strong className="text-black">Artiklar: </strong> {itemCount}
+                  <strong className="text-black"> st</strong>
                 </Card.Text>
-                <Card.Text>
-                  <strong>Artiklar:</strong> {itemCount}st
-                </Card.Text>
-                <Card.Text>
-                  <strong>Summa:</strong> {total}kr
+                <Card.Text className="text-white">
+                  <strong className="text-black">Summa: </strong> {total}
+                  <strong className="text-black"> kr</strong>
                 </Card.Text>
                 {/* Button to clear cart */}
                 <div className="d-flex">
@@ -195,30 +191,29 @@ export default function CartFinalize() {
           {loggedIn && (
             <Col md={6}>
               <Container fluid="md">
-                <ListGroup variant="flush">
+                <ListGroup>
                   <ListGroup.Item
-                    variant="secondary"
-                    className="rounded-2 text-center"
+                    disabled
+                    className="rounded-2 text-center list-group-header text-white"
                   >
                     Leveransadress
                   </ListGroup.Item>
-                  <ListGroup.Item>
+                  <ListGroup.Item disabled>
                     <strong>Namn:</strong> {userInfo.name}
                   </ListGroup.Item>
-                  <ListGroup.Item>
+                  <ListGroup.Item disabled>
                     <strong>Email:</strong> {userInfo.email}
                   </ListGroup.Item>
-                  <ListGroup.Item>
+                  <ListGroup.Item disabled>
                     <strong>Adress:</strong> {userInfo.address}
                   </ListGroup.Item>
-                  <ListGroup.Item>
+                  <ListGroup.Item disabled>
                     <strong>Postort:</strong> {userInfo.postal_code}{" "}
                     {userInfo.city}
                   </ListGroup.Item>
                 </ListGroup>
                 <Button
                   size="sm"
-                  as={Link}
                   className="mt-1"
                   variant="outline-dark"
                   to="/private-route"
@@ -296,57 +291,60 @@ export default function CartFinalize() {
           )}
         </Row>
         <Row className="pt-2">
-          <Col md={3}>
+          <Col>
             {/* Card/Payment Input - for all customers. */}
-            <Form className="justify-content-end">
-              <Form.Label>
+            <Card>
+              <Card.Header className="text-center border-0 list-group-header text-white">
                 <strong>Betalning</strong>
-              </Form.Label>
-              <Form.Group>
-                <small>Namn</small>
-                <Form.Control
-                  size="sm"
-                  type="text"
-                  placeholder="Fullständigt Namn"
-                  value={debitCardName}
-                  onChange={(e) => setDebitCardName(e.target.value)}
-                />
-              </Form.Group>
+              </Card.Header>
 
-              <Form.Group>
-                <small>Kortnummer</small>
-                <Form.Control
-                  size="sm"
-                  type="text"
-                  placeholder="Kortnummer"
-                  value={debitCard}
-                  onChange={(e) => setDebitCard(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group>
-                <small>CVV</small>
-                <Form.Control
-                  size="sm"
-                  type="text"
-                  placeholder="Namn på kortet"
-                  value={debitCardCVV}
-                  onChange={(e) => setDebitCardCVV(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group className="pt-2">
-                {/* Button to confirm Order */}
-                <Button
-                  variant="success"
-                  className=""
-                  onClick={handleConfirmOrder}
-                >
-                  Beställ
-                </Button>
-                <div>
-                  {orderError && <p className="text-danger">{orderError}</p>}
-                </div>
-              </Form.Group>
-            </Form>
+              <Form className="justify-content-end p-3">
+                <Form.Group className="">
+                  <small>Namn</small>
+                  <Form.Control
+                    size="sm"
+                    type="text"
+                    placeholder="Fullständigt Namn"
+                    value={debitCardName}
+                    onChange={(e) => setDebitCardName(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Form.Group>
+                  <small>Kortnummer</small>
+                  <Form.Control
+                    size="sm"
+                    type="text"
+                    placeholder="Kortnummer"
+                    value={debitCard}
+                    onChange={(e) => setDebitCard(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <small>CVV</small>
+                  <Form.Control
+                    size="sm"
+                    type="text"
+                    placeholder="CVV Kontroll Nummer"
+                    value={debitCardCVV}
+                    onChange={(e) => setDebitCardCVV(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group className="p-3  d-flex justify-content-end">
+                  {/* Button to confirm Order */}
+                  <Button
+                    variant="success"
+                    className=""
+                    onClick={handleConfirmOrder}
+                  >
+                    Beställ
+                  </Button>
+                  <div>
+                    {orderError && <p className="text-danger">{orderError}</p>}
+                  </div>
+                </Form.Group>
+              </Form>
+            </Card>
           </Col>
         </Row>
       </Container>

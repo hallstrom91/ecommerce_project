@@ -14,6 +14,7 @@ export default defineConfig({
       "@pages": "/src/pages",
       "@routes": "/src/routes",
       "@provider": "/src/provider",
+      "@public": "/public",
     },
   },
 });

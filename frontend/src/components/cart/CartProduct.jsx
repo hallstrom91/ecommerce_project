@@ -27,8 +27,8 @@ export default function CartProduct({ product }) {
 
   return (
     <>
-      <Card className="my-2">
-        <Card.Body>
+      <Card className="my-2 text-white">
+        <Card.Body className="rounded-2">
           <Row>
             {/* Product Image Display */}
             <Col xs={3}>

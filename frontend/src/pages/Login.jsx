@@ -53,9 +53,9 @@ export default function Login() {
         <Row className="d-flex justify-content-center">
           <Col sm={4}>
             {/* Login Card */}
-            <Card className="p-2" bg="secondary">
-              <Card.Header className="border-0 mb-2 text-center">
-                <strong className="text-center">Logga In</strong>
+            <Card className="">
+              <Card.Header className="border-0  text-center list-group-header text-white">
+                <strong className="text-center ">Logga In</strong>
               </Card.Header>
               <Card.Body>
                 {/* Username Login Input Field */}
@@ -85,17 +85,13 @@ export default function Login() {
                 {/* Login Submit Button */}
 
                 <div className="d-flex">
-                  <Button
-                    className="border-2 border-black"
-                    variant="success"
-                    onClick={() => handleLoginClick()}
-                  >
+                  <Button variant="success" onClick={() => handleLoginClick()}>
                     Logga In
                   </Button>
                 </div>
               </Card.Body>
               {/* Show Error Message if failed login */}
-              <Card.Footer className="border-0 mt-2 mb-2">
+              <Card.Footer className="border-0 list-group-header">
                 {error && <p className="text-danger">{error}</p>}
               </Card.Footer>
             </Card>

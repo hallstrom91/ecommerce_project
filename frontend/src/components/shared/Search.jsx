@@ -26,6 +26,7 @@ export default function Search() {
       <Form.Control
         type="text"
         size="sm"
+        className="bg-light text-black"
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
       />

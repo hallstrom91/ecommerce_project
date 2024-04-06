@@ -100,21 +100,21 @@ export default function UserDetails({ user }) {
                 <Container fluid="md">
                   <ListGroup variant="flush">
                     <ListGroup.Item
-                      variant="secondary"
-                      className="rounded-2 text-center"
+                      disabled
+                      className="rounded-2 text-center list-group-header text-white"
                     >
                       <strong>Nuvarande Leveransadress</strong>
                     </ListGroup.Item>
-                    <ListGroup.Item>
+                    <ListGroup.Item disabled>
                       <strong>Namn:</strong> {user.name}
                     </ListGroup.Item>
-                    <ListGroup.Item>
+                    <ListGroup.Item disabled>
                       <strong>Email:</strong> {user.email}
                     </ListGroup.Item>
-                    <ListGroup.Item>
+                    <ListGroup.Item disabled>
                       <strong>Adress:</strong> {user.address}
                     </ListGroup.Item>
-                    <ListGroup.Item>
+                    <ListGroup.Item disabled>
                       <strong>Postort:</strong> {user.postal_code} {user.city}
                     </ListGroup.Item>
                   </ListGroup>

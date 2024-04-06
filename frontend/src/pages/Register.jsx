@@ -75,9 +75,11 @@ export default function Register() {
         <Row className="d-flex justify-content-center">
           <Col md={8}>
             {/* Register Card */}
-            <Card className="p-2" bg="secondary">
-              <Card.Header className="border-0 mb-2 text-center">
-                <strong className="text-center">Skapa ett Konto</strong>
+            <Card className="text-black">
+              <Card.Header className="border-0  text-center list-group-header">
+                <strong className="text-center text-white">
+                  Skapa ett Konto
+                </strong>
               </Card.Header>
               <Card.Body>
                 <Form>
@@ -184,7 +186,7 @@ export default function Register() {
               </Card.Body>
               {/* Registration Form Submit Button */}
               {/* Dynamic Error & Success Messages Display */}
-              <Card.Footer className="mt-2 mb-2 border-0">
+              <Card.Footer className="border-0 list-group-header">
                 {successMsg && <p className="text-success">{successMsg}</p>}
                 {error && <p className="text-danger">{error}</p>}
               </Card.Footer>

@@ -99,9 +99,8 @@ export default function SavedCartSelect({ user }) {
         <Col>
           <ListGroup>
             <ListGroup.Item
-              variant="dark"
               disabled
-              className="text-center bg-secondary text-white"
+              className="text-center text-white list-group-header"
             >
               <strong>Sparade Varukorgar</strong>
             </ListGroup.Item>
@@ -119,7 +118,7 @@ export default function SavedCartSelect({ user }) {
               );
 
               return (
-                <ListGroup.Item key={cartKey} action variant="info">
+                <ListGroup.Item as="div" key={cartKey} action variant="info">
                   <div className="d-flex justify-content-between align-items-center">
                     <div>
                       <strong>Varukorgs-ID: </strong>
@@ -144,6 +143,7 @@ export default function SavedCartSelect({ user }) {
                           Återställ
                         </Button>
                       </div>
+
                       <div>
                         <Button
                           size="sm"
