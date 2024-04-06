@@ -5,8 +5,8 @@ import {
   Carousel,
   CarouselCaption,
 } from "react-bootstrap";
-import FashionHubCrew1 from "@public/FashionHubCrew.png";
-import FashionHubCrew2 from "@public/FashionHubCrew2.png";
+import FashionHubCrew1 from "/FashionHubCrew.png";
+import FashionHubCrew2 from "/FashionHubCrew2.png";
 export default function CarouselSlide() {
   return (
     <>

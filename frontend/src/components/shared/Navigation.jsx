@@ -11,9 +11,6 @@ import {
   TabContainer,
 } from "react-bootstrap";
 
-// import search component
-import Search from "@shared/Search";
-
 // customer Cart icon
 import { IoCartOutline } from "react-icons/io5";
 // JWT Auth

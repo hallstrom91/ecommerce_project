@@ -16,7 +16,6 @@ import { useCart } from "@provider/CartProvider";
 
 export default function UserDetails({ user }) {
   const [show, setShow] = useState(false);
-  const [locked, setLocked] = useState(false);
   const [updateName, setUpdateName] = useState("");
   const [updateEmail, setUpdateEmail] = useState("");
   const [updateAddress, setUpdateAddress] = useState("");
@@ -57,7 +56,7 @@ export default function UserDetails({ user }) {
       await updateUserInfo(userId, userDetails);
       console.log("User information updated.");
       setUpdateOutCome("success");
-      setLocked(true);
+
       setTimeout(() => {
         setUpdateOutCome("");
         window.location.reload();
