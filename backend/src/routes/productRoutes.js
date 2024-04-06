@@ -56,6 +56,7 @@ Get product by id or name
 
 router.get("/products/:idOrName", async (req, res) => {
   const { idOrName } = req.params;
+  console.log(idOrName);
 
   // check params if int or string and do search
   if (!isNaN(idOrName)) {
@@ -74,6 +75,7 @@ router.get("/products/:idOrName", async (req, res) => {
     try {
       const productByName = await productsByIdOrName(productName);
       res.json(productByName);
+      console.log("searchbyName", productByName);
     } catch (error) {
       console.error("Failed to fetch product by name", error);
       res.status(500).json({ error: "Failed to fetch product by name" });
