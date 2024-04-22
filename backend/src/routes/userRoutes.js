@@ -77,25 +77,24 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res.status(400).json({
         success: false,
-        message: "Invalid credentials. User not found.",
+        message: "Användaren kunde inte hittas. Försök igen.",
       });
     }
 
     // assign JWT to user at login
     const token = await signJWT(user);
-    //log token
-    console.log("token", token);
 
     // add token to response ? remove ?
     return res.status(200).json({
       success: true,
-      message: "Login Successfull.",
+      message: "Inloggning lyckades.",
       token: token,
     });
   } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, message: "Login failed. Try again later." });
+    res.status(401).json({
+      success: false,
+      message: "Inloggningen misslyckades. Försök igen.",
+    });
   }
 });
 
@@ -111,17 +110,25 @@ router.post("/register", async (req, res) => {
     req.body;
 
   try {
-    if (!validateEmail(email)) {
+    // require username to register
+    if (!username) {
       return res
         .status(400)
-        .json({ success: false, message: "Invalid email format. Try again." });
+        .json({ success: false, message: "Ange ett användarnamn." });
     }
 
+    // validate Email against regex
+    if (!validateEmail(email)) {
+      return res.status(400).json({
+        success: false,
+        message: "Ogiltigt email format. Försök igen.",
+      });
+    }
+    // validate Password against regex
     if (!validatePasswordStrength(password)) {
       return res.status(400).json({
         success: false,
-        message:
-          "Minimum length is 8. Must include at least ONE lowercase & uppercase lettter. ONE digit (0-9) & ONE special character among @$!%*?&",
+        message: "Lösenord är inte i giltigt format. Försök igen.",
       });
     }
     const validateSuccess = await registerUser({
@@ -136,17 +143,17 @@ router.post("/register", async (req, res) => {
     if (validateSuccess) {
       return res
         .status(200)
-        .json({ success: true, message: "User has been registered." });
+        .json({ success: true, message: "Användaren har registrerats." });
     } else {
-      return res.status(500).json({
+      return res.status(400).json({
         success: false,
-        message: "Failed to register user. Try again later.",
+        message: "Misslyckad registrering av användare.",
       });
     }
   } catch (error) {
     console.error("Failed to register user.", error);
     res
-      .status(500)
+      .status(400)
       .json({ success: false, message: "Failed to register user." });
   }
 });

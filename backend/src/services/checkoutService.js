@@ -45,9 +45,11 @@ async function confirmOrder(userId, orderDetails, CardDetails) {
       CardDetails.cardName,
       CardDetails.cvv,
     ]);
+    // return orderId to display for customer
+    return orderId;
   } catch (error) {
     console.error("Failed to complete order...", error);
-    throw new Error("failed to complete order...", error);
+    throw new Error("failed to complete order...");
   }
 }
 

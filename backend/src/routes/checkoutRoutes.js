@@ -13,10 +13,12 @@ POST - Checkout Routes
 router.post("/confirm", async (req, res) => {
   const { userId, orderDetails, cardDetails } = req.body;
   try {
-    await confirmOrder(userId, orderDetails, cardDetails);
-    res.status(200).json({ success: true, message: "Order Confirmed." });
+    const orderId = await confirmOrder(userId, orderDetails, cardDetails);
+    res
+      .status(200)
+      .json({ success: true, message: "Order Confirmed.", orderId });
   } catch (error) {
-    console.error("Order is NOT confirmed.", error);
+    console.error("Order is not confirmed.", error);
     res
       .status(500)
       .json({ success: false, message: "Failed to confirm order." });

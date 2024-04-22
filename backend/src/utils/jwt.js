@@ -42,7 +42,7 @@ const validateJWT = async (token) => {
     // decode token and get payload-info
     const decodeJWT = jwt.verify(token, secretKey);
     const userId = decodeJWT.sub;
-    console.log("userId-JWT", userId);
+    console.log(`validateJWT - userId from JWT: ID ${userId}`);
 
     // collect more info about user
     const userInfo = await collectInfobyId(userId);

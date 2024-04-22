@@ -43,6 +43,9 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
+// host static build (for vps)
+app.use(express.static(path.join(__dirname, "dist")));
+
 app.use(helmet());
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -58,6 +61,12 @@ app.use("/cart", cartRoutes);
 
 // use endpoints in checkoutRoutes /checkout/ENDPOINT
 app.use("/checkout", checkoutRoutes);
+
+// static build (for vps)
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
+
 /*
 ===============================================
 App Listen & Export

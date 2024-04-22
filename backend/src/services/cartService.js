@@ -27,7 +27,7 @@ async function saveCart(userId, saveCartItems) {
     }
   } catch (error) {
     console.error("Failed to save cart", error);
-    throw new Error("Failed to save cart.", error);
+    throw new Error("Failed to save cart.");
   }
 }
 
@@ -53,7 +53,7 @@ WHERE
     return rows;
   } catch (error) {
     console.error("Failed to fetch saved cart.", error);
-    throw new Error("failed to fetch saved cart", error);
+    throw new Error("failed to fetch saved cart");
   }
 }
 
@@ -65,10 +65,8 @@ async function deleteSavedCart(cartKey) {
     console.log("Saved Cart deleted successfully.");
   } catch (error) {
     console.error("Failed to delete saved cart", error);
-    throw new Error("Failed to delete saved cart", error);
+    throw new Error("Failed to delete saved cart");
   }
 }
-
-// export
 
 module.exports = { saveCart, retriveSavedCart, deleteSavedCart };

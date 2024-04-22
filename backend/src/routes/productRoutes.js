@@ -13,6 +13,8 @@ const {
   productsByCategoryId,
   fetchAllProducts,
   productsByIdOrName,
+  productsByName,
+  productsByCategoryName,
 } = require("../services/productService.js");
 
 /*
@@ -21,7 +23,15 @@ Get all categories
 ===============================================
 */
 
-router.get("/categories", collectCategories);
+router.get("/categories", async (req, res) => {
+  try {
+    const categories = await collectCategories();
+    res.json(categories);
+  } catch (error) {
+    console.error("Error fetching categories", error);
+    res.status(500).json({ error: "Failed to fetch categories" });
+  }
+});
 
 /*
 ===============================================
@@ -46,40 +56,37 @@ Get all products
 ===============================================
 */
 
-router.get("/products", fetchAllProducts);
+router.get("/products", async (req, res) => {
+  try {
+    const products = await fetchAllProducts();
+    res.json(products);
+  } catch (error) {
+    console.error("Failed to fetch all products", error);
+    res.status(500).json({ error: "Failed to fetch all products" });
+  }
+});
 
 /*
 ===============================================
-Get product by id or name
+Get products by name or category-name (search)
 ===============================================
 */
 
-router.get("/products/:idOrName", async (req, res) => {
-  const { idOrName } = req.params;
-  console.log(idOrName);
+router.get("/products/:nameOrCategory", async (req, res) => {
+  const { nameOrCategory } = req.params;
 
-  // check params if int or string and do search
-  if (!isNaN(idOrName)) {
-    const productId = parseInt(idOrName);
-    // if idOrName is Int (number)
-    try {
-      const productById = await productsByIdOrName(productId);
-      res.json(productById);
-    } catch (error) {
-      console.error("Failed to fetch product by id", error);
-      res.status(500).json({ error: "failed to fetch product by id" });
+  try {
+    let products = await productsByName(nameOrCategory);
+    // if no results, check category name / result
+    if (products.length === 0) {
+      products = await productsByCategoryName(nameOrCategory);
     }
-    // if idOrName is a String
-  } else {
-    const productName = idOrName;
-    try {
-      const productByName = await productsByIdOrName(productName);
-      res.json(productByName);
-      console.log("searchbyName", productByName);
-    } catch (error) {
-      console.error("Failed to fetch product by name", error);
-      res.status(500).json({ error: "Failed to fetch product by name" });
-    }
+    res.json(products);
+  } catch (error) {
+    console.error("Failed to find products by name or category", error);
+    res
+      .status(500)
+      .json({ error: "Failed to fetch product by name or cateogory" });
   }
 });
 
