@@ -60,7 +60,7 @@ export default function Navigation() {
       >
         <Container>
           <Navbar.Brand>
-            <Nav.Link as={Link} to="/" className="text-white">
+            <Nav.Link as={Link} to="/" className="text-white fs-3">
               FashionHub
             </Nav.Link>
           </Navbar.Brand>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Col, Row, Container, Card, Button, Badge } from "react-bootstrap";
 import ProductCard from "@store/ProductCard";
+import CategoryChoice from "@store/CategoryChoice";
 import { FaArrowLeft } from "react-icons/fa6";
 // Cart Provider
 import { useCart } from "@provider/CartProvider";
@@ -36,6 +37,20 @@ export default function Products() {
           <h1 className="text-center">Alla Produkter</h1>
         </Col>
       </Row>
+      {/*      Display List Of Categories Choice Menu */}
+      <Row>
+        <Col className="mb-4 d-flex justify-content-center">
+          <CategoryChoice />
+        </Col>
+      </Row>
+      {/* Display Product Card Layout*/}
+      <Row md={3} sm={2} xs={1}>
+        {products.map((product) => (
+          <Col key={product.id}>
+            <ProductCard product={product} key={product.id} />
+          </Col>
+        ))}
+      </Row>
       <Row>
         <Col className="mb-4">
           <Link to="/store">
@@ -45,14 +60,6 @@ export default function Products() {
             </Button>
           </Link>
         </Col>
-      </Row>
-      {/* OLD CODE - TRYING SOMETHING NEEW AND EXICTING */}
-      <Row md={3} sm={2} xs={1}>
-        {products.map((product) => (
-          <Col key={product.id} className="p-3">
-            <ProductCard product={product} key={product.id} />
-          </Col>
-        ))}
       </Row>
     </Container>
   );

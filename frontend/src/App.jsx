@@ -14,9 +14,7 @@ function App() {
       <CartState>
         <>
           <Navigation />
-
           <Switch />
-
           <Footer />
         </>
       </CartState>

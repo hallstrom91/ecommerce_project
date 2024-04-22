@@ -42,15 +42,19 @@ export default function CartProduct({ product }) {
 
             {/* Product Name & Description */}
             <Col xs={5}>
-              <Card.Title>{product.name}</Card.Title>
-              <Card.Text>{product.description}</Card.Text>
+              <Card.Title className="fs-4">{product.name}</Card.Title>
+              <Card.Text className="fs-5">{product.description}</Card.Text>
             </Col>
 
             {/* Number of Each Product & Price */}
             <Col xs={4}>
-              <Card.Text>Pris: {product.price}kr </Card.Text>
-              <Card.Text>Totalt: {totalForProduct}kr</Card.Text>
-              <Card.Text>Antal: {product.quantity}st</Card.Text>
+              <Card.Text className="fs-5">Pris: {product.price}kr </Card.Text>
+              <Card.Text className="fs-5">
+                Totalt: {totalForProduct}kr
+              </Card.Text>
+              <Card.Text className="fs-5">
+                Antal: {product.quantity}st
+              </Card.Text>
             </Col>
           </Row>
           {/* Add, Remove and Trash button - Row Below */}
@@ -63,7 +67,7 @@ export default function CartProduct({ product }) {
                   variant="outline-success"
                   size="sm"
                 >
-                  <CiCirclePlus size={25} />
+                  <CiCirclePlus size={35} />
                 </Button>
               </div>
 
@@ -75,7 +79,7 @@ export default function CartProduct({ product }) {
                     variant="outline-danger"
                     size="sm"
                   >
-                    <CiCircleMinus size={25} />
+                    <CiCircleMinus size={35} />
                   </Button>
                 )}
               </div>
@@ -88,7 +92,7 @@ export default function CartProduct({ product }) {
                     className="outline-dark"
                     size="sm"
                   >
-                    <CiTrash size={25} />
+                    <CiTrash size={35} />
                   </Button>
                 )}
               </div>

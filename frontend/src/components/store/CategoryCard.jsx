@@ -7,7 +7,7 @@ export default function CategoryCard({ image, title, badge, button }) {
         <Card.Img src={image} />
         <Card.ImgOverlay className="d-flex flex-column justify-content-start align-items-start">
           <div className="d-flex justify-content-between w-100">
-            <Card.Title className="text-white mr-auto">{title}</Card.Title>
+            <Card.Title className="text-primary mr-auto">{title}</Card.Title>
             <Badge bg="warning" className="m-1 text-black">
               {badge}
             </Badge>

@@ -15,7 +15,7 @@ import { useAuth } from "@provider/AuthProvider";
 // Cart Provider
 import { useCart } from "@provider/CartProvider";
 
-export default function CartFinalize() {
+export default function CartFinalize({ isLoggedIn }) {
   const [userInfo, setUserInfo] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [error, setError] = useState("");
@@ -54,8 +54,8 @@ export default function CartFinalize() {
     checkoutToDB,
   } = useCart();
 
-  // if valid JWT, get saved address, if not, user needs to input delivery address.
-  useEffect(() => {
+  /*   // if valid JWT, get saved address, if not, user needs to input delivery address.
+    useEffect(() => {
     const checkAuth = async () => {
       const isAuthenticated = await checkAuthentication();
       if (!isAuthenticated) {
@@ -66,7 +66,16 @@ export default function CartFinalize() {
       }
     };
     checkAuth();
-  }, []);
+  }, []);  */
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      if (isLoggedIn) {
+        await fetchUserData();
+      }
+    };
+    checkAuth();
+  }, [isLoggedIn]);
 
   // collect user data from backend, if jwt is correct
   const fetchUserData = async () => {
@@ -152,12 +161,12 @@ export default function CartFinalize() {
               <Card.Body>
                 <Card.Text className="text-center border-0 list-group-header text-white"></Card.Text>
                 <Card.Text className="text-white">
-                  <strong className="text-black">Artiklar: </strong> {itemCount}
-                  <strong className="text-black"> st</strong>
+                  <strong className="text-white">Artiklar: </strong> {itemCount}
+                  <strong className="text-white"> st</strong>
                 </Card.Text>
                 <Card.Text className="text-white">
-                  <strong className="text-black">Summa: </strong> {total}
-                  <strong className="text-black"> kr</strong>
+                  <strong className="text-white">Summa: </strong> {total}
+                  <strong className="text-white"> kr</strong>
                 </Card.Text>
                 {/* Button to clear cart */}
                 <div className="d-flex">
@@ -166,7 +175,7 @@ export default function CartFinalize() {
                   </Button>
 
                   {/* Save Cart Function For Registered Users */}
-                  {loggedIn && (
+                  {isLoggedIn && (
                     <div className="d-flex justify-content-start mx-2">
                       <div>
                         <Button
@@ -188,9 +197,9 @@ export default function CartFinalize() {
             </Card>
           </Col>
           {/*    show saved details about user if loggedIn */}
-          {loggedIn && (
+          {isLoggedIn && (
             <Col md={6}>
-              <Container fluid="md">
+              <Container className="mb-2 mt-2">
                 <ListGroup>
                   <ListGroup.Item
                     disabled
@@ -212,20 +221,12 @@ export default function CartFinalize() {
                     {userInfo.city}
                   </ListGroup.Item>
                 </ListGroup>
-                <Button
-                  size="sm"
-                  className="mt-1"
-                  variant="outline-dark"
-                  to="/private-route"
-                >
-                  Ändra
-                </Button>
               </Container>
             </Col>
           )}
 
           {/* If user is not loggedIn / verified, show & require delivery-address input. */}
-          {!loggedIn && (
+          {!isLoggedIn && (
             <Col md={6}>
               <Form>
                 <Form.Group controlId="formName">
@@ -318,6 +319,7 @@ export default function CartFinalize() {
                     placeholder="Kortnummer"
                     value={debitCard}
                     onChange={(e) => setDebitCard(e.target.value)}
+                    maxLength={16}
                   />
                 </Form.Group>
                 <Form.Group>
@@ -328,6 +330,7 @@ export default function CartFinalize() {
                     placeholder="CVV Kontroll Nummer"
                     value={debitCardCVV}
                     onChange={(e) => setDebitCardCVV(e.target.value)}
+                    maxLength={3}
                   />
                 </Form.Group>
                 <Form.Group className="p-3  d-flex justify-content-end">

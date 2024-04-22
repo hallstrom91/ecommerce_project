@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Col,
   Row,
@@ -9,24 +9,28 @@ import {
   FloatingLabel,
   ListGroup,
   Alert,
+  Card,
 } from "react-bootstrap";
 import { FaArrowRight } from "react-icons/fa6";
 // Cart Provider
 import { useCart } from "@provider/CartProvider";
 
 export default function UserDetails({ user }) {
+  // import function from Cart Provider
+  const { updateUserInfo } = useCart();
+
+  // Success & Error Message Display In Modal
+  const [updateOutcome, setUpdateOutCome] = useState(null);
+  // state for modal
   const [show, setShow] = useState(false);
+  // open modal
+  const handleShow = () => setShow(true);
+
   const [updateName, setUpdateName] = useState("");
   const [updateEmail, setUpdateEmail] = useState("");
   const [updateAddress, setUpdateAddress] = useState("");
   const [updateCity, setUpdateCity] = useState("");
   const [updatePostal, setUpdatePostal] = useState("");
-
-  // Success & Error Message Display In Modal
-  const [updateOutcome, setUpdateOutCome] = useState(null);
-
-  // import function from Cart Provider
-  const { updateUserInfo } = useCart();
 
   const handleClose = () => {
     setUpdateName("");
@@ -35,16 +39,28 @@ export default function UserDetails({ user }) {
     setUpdateCity("");
     setUpdatePostal("");
     setUpdateOutCome("");
-    setLocked(false);
     setShow(false);
   };
-
-  const handleShow = () => setShow(true);
 
   // handle update of user information
   const handleUpdate = async () => {
     const userId = user.id;
     try {
+      // no empty values
+      if (
+        !updateName ||
+        !updateEmail ||
+        !updateAddress ||
+        !updateCity ||
+        !updatePostal
+      ) {
+        throw new Error("Alla fält måste fyllas i.");
+        setUpdateOutCome("noInput");
+
+        setTimeout(() => {
+          setUpdateOutCome("");
+        }, 3000);
+      }
       // create object for backend, if empty use existing value
       const userDetails = {
         name: updateName,
@@ -84,159 +100,104 @@ export default function UserDetails({ user }) {
           {/* Display Success or Error Message for updating user credentials */}
           {updateOutcome && (
             <Alert
-              variant={updateOutcome === "success" ? "success" : "danger"}
+              variant={
+                updateOutcome === "success"
+                  ? "success"
+                  : updateOutcome === "noInput"
+                  ? "warning"
+                  : "danger"
+              }
               onClose={() => setUpdateOutCome(null)}
               dismissible
             >
               {updateOutcome === "success"
                 ? "Uppdatering lyckad."
+                : updateOutcome === "noInput"
+                ? "Fyll i alla fält."
                 : "Misslyckad uppdatering."}
             </Alert>
           )}
-          <Container>
-            <Row className="justify-content-center">
-              <Col className="justify-content-center">
-                <Container fluid="md">
-                  <ListGroup variant="flush">
-                    <ListGroup.Item
-                      disabled
-                      className="rounded-2 text-center list-group-header text-white"
-                    >
-                      <strong>Nuvarande Leveransadress</strong>
-                    </ListGroup.Item>
-                    <ListGroup.Item disabled>
-                      <strong>Namn:</strong> {user.name}
-                    </ListGroup.Item>
-                    <ListGroup.Item disabled>
-                      <strong>Email:</strong> {user.email}
-                    </ListGroup.Item>
-                    <ListGroup.Item disabled>
-                      <strong>Adress:</strong> {user.address}
-                    </ListGroup.Item>
-                    <ListGroup.Item disabled>
-                      <strong>Postort:</strong> {user.postal_code} {user.city}
-                    </ListGroup.Item>
-                  </ListGroup>
-                </Container>
-              </Col>
-            </Row>
+          <Container className="p-4">
+            <Card className="p-2 card-body">
+              <Form className="mt-4">
+                <Form.Label>
+                  <strong className="fs-5">
+                    Uppdatera din adress nedanför vid behov
+                  </strong>
+                </Form.Label>
+                {/* Display User Saved Info */}
+                <Form.Label>
+                  Alla fält måste innehålla information vid uppdatering.
+                </Form.Label>
+
+                {/* Display Users Name */}
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  placeholder="Namn"
+                  value={updateName}
+                  className="mb-1"
+                  onChange={(e) => setUpdateName(e.target.value)}
+                />
+
+                {/* Display Users Email */}
+                <Form.Group controlId="updateEmail" className="d-flex">
+                  <Form.Control
+                    size="sm"
+                    type="text"
+                    placeholder="Email"
+                    value={updateEmail}
+                    className="mb-1"
+                    onChange={(e) => setUpdateEmail(e.target.value)}
+                  />
+                </Form.Group>
+                {/* Display Users Address */}
+                <Form.Group controlId="updateAddress" className="d-flex">
+                  <Form.Control
+                    size="sm"
+                    type="text"
+                    placeholder="Adress"
+                    value={updateAddress}
+                    className="mb-1"
+                    onChange={(e) => setUpdateAddress(e.target.value)}
+                  />
+                </Form.Group>
+                {/* Display Users City */}
+                <Form.Group controlId="updateCity" className="d-flex">
+                  <Form.Control
+                    size="sm"
+                    type="text"
+                    placeholder="Stad"
+                    value={updateCity}
+                    className="mb-1"
+                    onChange={(e) => setUpdateCity(e.target.value)}
+                  />
+                </Form.Group>
+                {/* Display Users Postal Code */}
+                <Form.Group controlId="updatePostalCode" className="d-flex">
+                  <Form.Control
+                    size="sm"
+                    type="text"
+                    placeholder="Postkod"
+                    value={updatePostal}
+                    className="mb-1"
+                    onChange={(e) => setUpdatePostal(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mt-2" controlId="changeBtn">
+                  <Button
+                    size="sm"
+                    variant="outline-warning"
+                    onClick={handleUpdate}
+                    className="text-black"
+                  >
+                    Uppdatera
+                  </Button>
+                </Form.Group>
+              </Form>
+            </Card>
           </Container>
-          <Form className="mt-4">
-            <Form.Label>
-              <strong>Uppdatera din adress nedanför vid behov:</strong>
-            </Form.Label>
-            <Form.Label>
-              <small>
-                Checkbox för att behålla nuvarande värden
-                <FaArrowRight className="mx-2" />
-              </small>
-            </Form.Label>
-            <Form.Group controlId="updateName" className="d-flex">
-              {/* Display Users Name */}
-              <Form.Control
-                size="sm"
-                type="text"
-                placeholder="Namn"
-                value={updateName}
-                className="mb-1"
-                onChange={(e) => setUpdateName(e.target.value)}
-                disabled={updateName === user.name}
-              />
-              <Form.Check
-                size="sm"
-                type="checkbox"
-                className="mx-1"
-                onChange={() => setUpdateName(user.name)}
-                disabled={updateName === user.name}
-              />
-            </Form.Group>
-            {/* Display Users Email */}
-            <Form.Group controlId="updateEmail" className="d-flex">
-              <Form.Control
-                size="sm"
-                type="text"
-                placeholder="Email"
-                value={updateEmail}
-                className="mb-1"
-                onChange={(e) => setUpdateEmail(e.target.value)}
-                disabled={updateEmail === user.email}
-              />
-              <Form.Check
-                size="sm"
-                type="checkbox"
-                className="mx-1"
-                onChange={() => setUpdateEmail(user.email)}
-                disabled={updateEmail === user.email}
-              />
-            </Form.Group>
-            {/* Display Users Address */}
-            <Form.Group controlId="updateAddress" className="d-flex">
-              <Form.Control
-                size="sm"
-                type="text"
-                placeholder="Adress"
-                value={updateAddress}
-                className="mb-1"
-                onChange={(e) => setUpdateAddress(e.target.value)}
-                disabled={updateAddress === user.address}
-              />
-              <Form.Check
-                size="sm"
-                type="checkbox"
-                className="mx-1"
-                onChange={() => setUpdateAddress(user.address)}
-                disabled={updateAddress === user.address}
-              />
-            </Form.Group>
-            {/* Display Users City */}
-            <Form.Group controlId="updateCity" className="d-flex">
-              <Form.Control
-                size="sm"
-                type="text"
-                placeholder="Stad"
-                value={updateCity}
-                className="mb-1"
-                onChange={(e) => setUpdateCity(e.target.value)}
-                disabled={updateCity === user.city}
-              />
-              <Form.Check
-                size="sm"
-                type="checkbox"
-                className="mx-1"
-                onChange={() => setUpdateCity(user.city)}
-                disabled={updateCity === user.city}
-              />
-            </Form.Group>
-            {/* Display Users Postal Code */}
-            <Form.Group controlId="updatePostalCode" className="d-flex">
-              <Form.Control
-                size="sm"
-                type="text"
-                placeholder="Postkod"
-                value={updatePostal}
-                className="mb-1"
-                onChange={(e) => setUpdatePostal(e.target.value)}
-                disabled={updatePostal === user.postal_code}
-              />
-              <Form.Check
-                size="sm"
-                type="checkbox"
-                className="mx-1"
-                onChange={() => setUpdatePostal(user.postal_code)}
-                disabled={updatePostal === user.postal_code}
-              />
-            </Form.Group>
-            <Form.Group className="mt-2" controlId="changeBtn">
-              <Button
-                size="sm"
-                variant="outline-warning"
-                onClick={handleUpdate}
-                className="text-black"
-              >
-                Uppdatera
-              </Button>
-            </Form.Group>
-          </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button size="sm" variant="outline-danger" onClick={handleClose}>

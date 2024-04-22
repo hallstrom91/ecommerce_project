@@ -65,11 +65,10 @@ export const CartState = ({ children }) => {
         }
       );
       if (!response.ok) {
-        throw new Error("Failed to update user credentials.");
+        throw new Error("Misslyckad uppdatering av användar-uppgifter.");
       }
-      console.log("User credentials update successfully");
     } catch (error) {
-      console.error("Failed to update user credentials.");
+      console.error("Misslyckad uppdatering av användar-uppgifter.");
       throw error;
     }
   };
@@ -77,15 +76,19 @@ export const CartState = ({ children }) => {
   // function to search in db for products
   const [results, setResults] = useState(null);
 
-  const searchForProducts = async (idOrName) => {
+  const searchForProducts = async (nameOrCategory) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/store/products/${idOrName}`
+        `http://localhost:3000/store/products/${nameOrCategory}`
       );
+      if (!response.ok) {
+        throw new Error("Misslyckad inhämtning av produkter");
+      }
       const data = await response.json();
       setResults(data);
     } catch (error) {
-      console.error("Failed to search for products", error);
+      console.error("Misslyckad inhämtning av produkter", error);
+      throw error;
     }
   };
 
@@ -100,11 +103,11 @@ export const CartState = ({ children }) => {
         body: JSON.stringify({ userId, saveCartItems }),
       });
       if (!response.ok) {
-        throw new Error("Failed to save Cart");
+        throw new Error("Varukorgen kunde inte sparas.");
       }
       const data = await response.json();
     } catch (error) {
-      console.error("Failed to save cart to db.", error);
+      console.error("Varukorgen kunde inte sparas.", error);
       throw error;
     }
   };
@@ -116,12 +119,12 @@ export const CartState = ({ children }) => {
         `http://localhost:3000/cart/retrive/${userId}`
       );
       if (!response.ok) {
-        throw new Error("Failed to retrive saved carts");
+        throw new Error("Kunde inte återställa varukorgen.");
       }
       const GetsavedCarts = await response.json();
       return GetsavedCarts;
     } catch (error) {
-      console.error("failed to retrive saved carts", error);
+      console.error("Kunde inte återställa varukorgen.", error);
       throw error;
     }
   };
@@ -139,11 +142,10 @@ export const CartState = ({ children }) => {
         }
       );
       if (!response.ok) {
-        throw new Error("Failed to delete saved cart");
+        throw new Error("Misslyckad borttagning av sparad varukorg.");
       }
-      console.log("Cart deleted successfully.");
     } catch (error) {
-      console.error("Failed to delete saved cart.", error);
+      console.error("Misslyckad borttagning av sparad varukorg.", error);
       throw error;
     }
   };
@@ -159,13 +161,13 @@ export const CartState = ({ children }) => {
         body: JSON.stringify(orderData),
       });
       if (response.ok) {
-        console.log("Order confirmed.");
+        console.log("Order bekräftad.");
       } else {
         const errorCheckout = await response.json();
-        console.error("Failed to confirm checkout", errorCheckout.message);
+        console.error("Misslyckad order.", errorCheckout.message);
       }
     } catch (error) {
-      console.error("Failed to confirm checkout", error);
+      console.error("Misslyckad order.", error);
     }
   };
 

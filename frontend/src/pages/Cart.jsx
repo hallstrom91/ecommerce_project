@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   FloatingLabel,
@@ -22,19 +22,27 @@ import { useCart } from "@provider/CartProvider";
 export default function Cart() {
   // import from CartProvider
   const { cartItems, checkout, clearCart } = useCart();
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   // import from AuthProvider
   const { isAuthenticated, checkAuthentication } = useAuth();
 
   // validate JWT of user, if missing send to /login, if valid, fetch user data.
-  useEffect(() => {
+  /*   useEffect(() => {
     const checkAuth = async () => {
       const isAuthenticated = await checkAuthentication();
       if (!isAuthenticated) {
-        console.log("if not verified do something");
+        setIsLoggedIn(false);
       } else {
-        console.log("if verified, do nothing or something...");
+        setIsLoggedIn(true);
       }
+    };
+    checkAuth();
+  }, []); */
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const isAuthenticated = await checkAuthentication();
+      setIsLoggedIn(isAuthenticated);
     };
     checkAuth();
   }, []);
@@ -83,7 +91,7 @@ export default function Cart() {
         <Row>
           {cartItems.length > 0 && (
             <Col xs={12} sm={10}>
-              <CartFinalize />
+              <CartFinalize isLoggedIn={isLoggedIn} />
             </Col>
           )}
         </Row>

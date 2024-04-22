@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Col, Row, Container, Button } from "react-bootstrap";
+import { Col, Row, Container, Button, Dropdown } from "react-bootstrap";
 import CategoryCard from "@store/CategoryCard";
+import CategoryChoice from "@store/CategoryChoice";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
   const { categoryId } = useParams();
   // Values for badges in category display
-  const badgeNew = "Nytt";
   const badgePopular = "Populärt";
 
   useEffect(() => {
@@ -31,13 +31,10 @@ export default function Categories() {
             <h1 className="text-center">Kategorier</h1>
           </Col>
         </Row>
+        {/*      Display List Of Categories Choice Menu */}
         <Row>
-          <Col className="mb-4">
-            <Link to="/store/all" className="">
-              <Button variant="outline-primary" className="my-1">
-                Alla produkter
-              </Button>
-            </Link>
+          <Col className="mb-4 d-flex justify-content-center">
+            <CategoryChoice />
           </Col>
         </Row>
         {/* Map Categories to Display */}

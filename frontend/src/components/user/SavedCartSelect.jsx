@@ -102,7 +102,7 @@ export default function SavedCartSelect({ user }) {
               disabled
               className="text-center text-white list-group-header"
             >
-              <strong>Sparade Varukorgar</strong>
+              <strong className="fs-5">Sparade Varukorgar</strong>
             </ListGroup.Item>
             {Object.keys(getSavedCarts).map((cartKey) => {
               // get last five of UUID for cartId
@@ -118,22 +118,22 @@ export default function SavedCartSelect({ user }) {
               );
 
               return (
-                <ListGroup.Item as="div" key={cartKey} action variant="info">
+                <ListGroup.Item as="div" key={cartKey}>
                   <div className="d-flex justify-content-between align-items-center">
-                    <div>
-                      <strong>Varukorgs-ID: </strong>
+                    <div className="w-60">
+                      <strong>ID: </strong>
                       {savedCartId}
                     </div>
-                    <div>
-                      <strong>Antal Produkter: </strong>
+                    <div className="w-60">
+                      <strong>Antal: </strong>
                       {totalQuantity}st
                     </div>
-                    <div>
-                      <strong>Totalt Pris: </strong>
+                    <div className="w-60">
+                      <strong>Summa: </strong>
                       {totalPrice}kr
                     </div>
                     {/* button div for restore / delete saved carts */}
-                    <div className="d-flex">
+                    <div className="d-flex align-items-center">
                       <div className="px-1">
                         <Button
                           size="sm"
@@ -158,6 +158,11 @@ export default function SavedCartSelect({ user }) {
                 </ListGroup.Item>
               );
             })}
+            <ListGroup.Item className="pt-2 text-center">
+              <strong className="fs-6">
+                Här kan du återställa sparade varukorgar.
+              </strong>
+            </ListGroup.Item>
           </ListGroup>
         </Col>
       </Row>

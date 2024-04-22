@@ -1,6 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Pacifico&display=swap");
 
+:root {
+  background: linear-gradient(to left, #e0e0e0, #d8d8d8);
+}
+body {
+  background: linear-gradient(to left, #e0e0e0, #d8d8d8);
+}
+
 h1,
 h2,
 h3,
@@ -48,6 +55,15 @@ p {
   font-family: "Barlow Condensed", sans-serif !important;
 }
 
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary-visited {
+  background-color: #0c6291 !important;
+  color: white !important;
+  font-family: "Barlow Condensed", sans-serif !important;
+}
+
 .btn-success,
 .btn-success:hover,
 .btn-success:active,
@@ -56,32 +72,51 @@ p {
   font-family: "Barlow Condensed", sans-serif !important;
 }
 
+.btn-outline-success,
+.btn-outline-success:hover,
+.btn-outline-success:active,
+.btn-outline-success-visited {
+  background-color: #004700 !important;
+  font-family: "Barlow Condensed", sans-serif !important;
+}
+
 .btn-outline-dark,
 .btn-outline-dark:hover,
 .btn-outline-dark:active,
 .btn-outline-dark:visited {
-  background-color: #19647e !important;
+  background-color: #c4c4c4 !important;
+  color: black !important;
+  font-family: "Barlow Condensed", sans-serif !important;
+}
+
+.btn-outline-danger,
+.btn-outline-danger:hover,
+.btn-outline-danger:active,
+.btn-outline-danger:visited {
+  background-color: rgb(60, 13, 13) !important;
+  color: white !important;
   font-family: "Barlow Condensed", sans-serif !important;
 }
 
 .list-group-item {
-  background-color: #3d94c2 !important;
+  background-color: #6d6d6d !important;
   border-bottom: 2px !important;
   font-family: "Barlow Condensed", sans-serif !important;
 }
-.list-group-item:hover {
+/* .list-group-item:hover {
   background-color: #1a97db !important;
   font-family: "Barlow Condensed", sans-serif !important;
-}
+} */
 
 .list-group-header {
-  background-color: #233d4d !important;
+  /* background-color:  #233d4d !important; */
+  background: linear-gradient(to right, #233d4d, #455057) !important;
   border: 1px solid black !important;
   font-family: "Barlow Condensed", sans-serif !important;
 }
 
 .card-body {
-  background-color: #617073 !important;
+  background-color: #6d6d6d !important;
   font-family: "Barlow Condensed", sans-serif !important;
 }
 
@@ -91,7 +126,6 @@ p {
   font-family: "Barlow Condensed", sans-serif !important;
 }
 
-.carousel-item,
-.carousel {
-  height: 30vh;
+.card-description-display {
+  height: 8rem;
 }

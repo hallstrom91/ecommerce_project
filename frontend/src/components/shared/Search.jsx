@@ -21,18 +21,29 @@ export default function Search() {
     }
   };
 
+  // search with "Enter"-click on keyboard
+  const handleKeyClick = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
-    <InputGroup>
-      <Form.Control
-        type="text"
-        size="sm"
-        className="bg-light text-black"
-        value={searchInput}
-        onChange={(e) => setSearchInput(e.target.value)}
-      />
-      <Button size="sm" variant="outline-dark" onClick={handleSearch}>
-        Sök
-      </Button>
-    </InputGroup>
+    <>
+      <p className="text-white">Sök efter produkter eller kategorier.</p>
+      <InputGroup className="">
+        <Form.Control
+          type="text"
+          size="sm"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          onKeyDown={handleKeyClick}
+          placeholder="Ex. Tshirt, Node, Black"
+        />
+        <Button size="sm" variant="outline-dark" onClick={handleSearch}>
+          Sök
+        </Button>
+      </InputGroup>
+    </>
   );
 }

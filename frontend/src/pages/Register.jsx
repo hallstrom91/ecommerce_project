@@ -66,12 +66,6 @@ export default function Register() {
     <>
       {/* User Register Input Field */}
       <Container className="p-4">
-        {/* Switch to Login Form - Button */}
-        <div className="d-flex mb-4 justify-content-end">
-          <Button variant="outline-dark" as={Link} to="/login">
-            Logga In
-          </Button>
-        </div>
         <Row className="d-flex justify-content-center">
           <Col md={8}>
             {/* Register Card */}
@@ -91,6 +85,7 @@ export default function Register() {
                       placeholder="Legal_Name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
+                      autoComplete="name"
                     />
                     <label htmlFor="registerFullName">Fullständigt Namn</label>
                   </Form.Floating>
@@ -127,6 +122,7 @@ export default function Register() {
                       id="registerEmail"
                       type="email"
                       placeholder="Email"
+                      autoComplete="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
@@ -141,6 +137,7 @@ export default function Register() {
                       id="registerAddress"
                       type="text"
                       placeholder="Address"
+                      autoComplete="address-line1"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                     />
@@ -154,6 +151,7 @@ export default function Register() {
                       id="registerCity"
                       type="text"
                       placeholder="City"
+                      autoComplete="address-level2"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
                     />
@@ -167,6 +165,7 @@ export default function Register() {
                       id="registerPostalCode"
                       type="text"
                       placeholder="Postal_Code"
+                      autoComplete="postal-code"
                       value={postalCode}
                       onChange={(e) => setPostalCode(e.target.value)}
                     />
@@ -183,10 +182,28 @@ export default function Register() {
                     Skicka
                   </Button>
                 </div>
+                <div className="mt-4 mx-4">
+                  <p className="text-start fs-5 text-white">
+                    Minimilängden på lösenord är 8 tecken, måste innehålla:
+                  </p>
+                  <ul className="fs-6 text-white">
+                    <li>En liten bokstav</li>
+                    <li>En stor bokstav</li>
+                    <li>En siffra (0-9)</li>
+                    <li>Ett specialtecken bland @$!%*?&#</li>
+                  </ul>
+                </div>
+                {/* Switch to Login Form - Button */}
+                <Card.Text className="text-end fs-5">Redan medlem?</Card.Text>
+                <div className="d-flex mb-4 justify-content-end">
+                  <Button variant="outline-dark" as={Link} to="/login">
+                    Logga In
+                  </Button>
+                </div>
               </Card.Body>
               {/* Registration Form Submit Button */}
               {/* Dynamic Error & Success Messages Display */}
-              <Card.Footer className="border-0 list-group-header">
+              <Card.Footer className="border-0 list-group-header py-5">
                 {successMsg && <p className="text-success">{successMsg}</p>}
                 {error && <p className="text-danger">{error}</p>}
               </Card.Footer>

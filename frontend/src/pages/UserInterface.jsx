@@ -44,35 +44,39 @@ export default function UserInterface() {
   return (
     <>
       <Container className="p-4">
-        <Row>
-          <Col>
-            <div className="d-flex justify-content-end mt-2 mb-4">
-              <Button variant="outline-danger" onClick={() => handleLogout()}>
-                Logga Ut
-              </Button>
-            </div>
-          </Col>
-        </Row>
         {userInfo ? (
-          <Container>
+          <Container className="mb-5">
             <Row>
+              {/* users greetings + name from DB */}
               <Col>
                 <div>
-                  <h2 className="text-center">Välkommen, {userInfo.name}</h2>
+                  <h2 className="text-center fs-1">
+                    Välkommen, {userInfo.name}
+                  </h2>
                 </div>
               </Col>
             </Row>
 
             <Row>
+              {/* users saved carts display & restore */}
               <Col md={8} className="mt-4">
-                {/* users saved carts display & restore */}
                 <SavedCartSelect user={userInfo} />
               </Col>
-              <Col md={4} className="mt-4 d-flex justify-content-end">
-                <div>
-                  {/* users button -> pop-modul to view or change saved address */}
-                  <h6>Användaruppgifter</h6>
+
+              {/* users button -> pop-modul to view or change saved address / logout btn */}
+              <Col md={4} className="mt-4 text-center">
+                <h6 className="fs-5">
+                  <strong>Inställningar - Konto</strong>
+                </h6>
+                <div className="mt-2 mb-4 d-flex justify-content-center">
                   <UserDetails user={userInfo} />
+                  <Button
+                    variant="outline-danger"
+                    onClick={() => handleLogout()}
+                    className="ms-2"
+                  >
+                    Logga Ut
+                  </Button>
                 </div>
               </Col>
             </Row>

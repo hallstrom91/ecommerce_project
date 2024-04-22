@@ -35,7 +35,7 @@ Check Auth
       const decodedExp = isExpired(token);
       return !decodedExp;
     } catch (error) {
-      console.error("Error decoding JWT-token", error);
+      console.error("Misslyckad dekryptering av JWT-token", error);
       return false;
     }
   };
@@ -86,19 +86,18 @@ Login
       if (!response.ok) {
         const errorMsgText = await response.text();
         const errorMsgJSON = JSON.parse(errorMsgText);
-        const errorMsg = errorMsgJSON.message || "Failed to register user.";
-        console.error("failed to register.", errorMsg);
+        const errorMsg = errorMsgJSON.message || "Inloggning misslyckad.";
+        console.error("Inloggning misslyckad.", errorMsg);
         throw new Error(errorMsg);
       }
       // collect response & define token
       const result = await response.json();
-      console.log("Login Successfull.");
       /* const token = result.token; */
       // auth is true + return token
       setIsAuthenticated(true);
       return result.token;
     } catch (error) {
-      console.error("Failed to login.", error);
+      console.error("Misslyckad inloggning.", error);
       throw error;
     }
   };
@@ -138,14 +137,12 @@ Registration
       if (!response.ok) {
         const errorMsgText = await response.text();
         const errorMsgJSON = JSON.parse(errorMsgText);
-        const errorMsg = errorMsgJSON.message || "Failed to register user.";
-        console.error("failed to register.", errorMsg);
+        const errorMsg = errorMsgJSON.message || "Registrering misslyckad.";
+        console.error("Registrering misslyckad.", errorMsg);
         throw new Error(errorMsg);
       }
-      //consolelog success
-      console.log("User Registration Successfull.");
     } catch (error) {
-      console.error("Failed to register user", error);
+      console.error("Registrering misslyckad.", error);
       throw error;
     }
   };
@@ -170,14 +167,18 @@ User Information
         const errorMsgText = await response.text();
         const errorMsgJSON = JSON.parse(errorMsgText);
         const errorMsg =
-          errorMsgJSON.message || "Failed to fetch user information.";
-        console.error("Failed to fetch user information.", errorMsg);
+          errorMsgJSON.message ||
+          "Misslyckad inhämtning av användar information.";
+        console.error(
+          "Misslyckad inhämtning av användar information.",
+          errorMsg
+        );
         throw new Error(errorMsg);
       }
       const result = await response.json();
       return result;
     } catch (error) {
-      console.error("Failed to fetch user information.", error);
+      console.error("Misslyckad inhämtning av användar information.", error);
       throw error;
     }
   };

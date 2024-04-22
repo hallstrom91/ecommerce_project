@@ -43,13 +43,6 @@ export default function Login() {
   return (
     <>
       <Container className="p-4">
-        {/* Switch to Registration Form - Button */}
-
-        <div className="d-flex pt-2 justify-content-end">
-          <Button variant="outline-dark" as={Link} to="/register">
-            Registrera
-          </Button>
-        </div>
         <Row className="d-flex justify-content-center">
           <Col sm={4}>
             {/* Login Card */}
@@ -72,7 +65,7 @@ export default function Login() {
 
                 {/* User Password Input Field */}
 
-                <Form.Floating className="mb-3">
+                <Form.Floating className="pb-2">
                   <Form.Control
                     id="loginPassword"
                     type="password"
@@ -89,9 +82,16 @@ export default function Login() {
                     Logga In
                   </Button>
                 </div>
+                <Card.Text className="text-end fs-5 ">Skapa konto</Card.Text>
+                {/* Switch to Registration Form - Button */}
+                <div className="d-flex justify-content-end">
+                  <Button variant="outline-dark" as={Link} to="/register">
+                    Registrera
+                  </Button>
+                </div>
               </Card.Body>
               {/* Show Error Message if failed login */}
-              <Card.Footer className="border-0 list-group-header">
+              <Card.Footer className="border-0 list-group-header py-5">
                 {error && <p className="text-danger">{error}</p>}
               </Card.Footer>
             </Card>
