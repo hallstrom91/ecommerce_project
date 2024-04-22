@@ -54,20 +54,6 @@ export default function CartFinalize({ isLoggedIn }) {
     checkoutToDB,
   } = useCart();
 
-  /*   // if valid JWT, get saved address, if not, user needs to input delivery address.
-    useEffect(() => {
-    const checkAuth = async () => {
-      const isAuthenticated = await checkAuthentication();
-      if (!isAuthenticated) {
-        setLoggedIn(false);
-      } else {
-        setLoggedIn(true);
-        fetchUserData();
-      }
-    };
-    checkAuth();
-  }, []);  */
-
   useEffect(() => {
     const checkAuth = async () => {
       if (isLoggedIn) {

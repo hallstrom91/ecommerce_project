@@ -43,10 +43,20 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      defaultSrc: ["'self'"],
+      connectSrc: ["'self'", "http://localhost:3000", "http://localhost:3306"],
+      frameSrc: ["'self'"],
+      "img-src": ["'self'", "data:"],
+    },
+  })
+);
+
 // host static build (for vps)
 app.use(express.static(path.join(__dirname, "dist")));
-
-app.use(helmet());
 app.use(cors(corsOptions));
 app.use(express.json());
 

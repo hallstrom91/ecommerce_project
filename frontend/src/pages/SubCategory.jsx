@@ -15,9 +15,7 @@ export default function SubCategory() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3000/store/categories/${categoryId}`
-        );
+        const response = await fetch(`/store/categories/${categoryId}`);
         const result = await response.json();
         setProducts(result);
       } catch (error) {

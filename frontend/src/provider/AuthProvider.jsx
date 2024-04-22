@@ -72,7 +72,7 @@ Login
   // Login Function, called in LoginPage.jsx
   const handleLogin = async (username, password) => {
     try {
-      const response = await fetch("http://localhost:3000/user/login", {
+      const response = await fetch("/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -118,7 +118,7 @@ Registration
     postalCode
   ) => {
     try {
-      const response = await fetch("http://localhost:3000/user/register", {
+      const response = await fetch("/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -156,7 +156,7 @@ User Information
   // fetch user-info from backend-server
   const fetchUserInfo = async (token) => {
     try {
-      const response = await fetch("http://localhost:3000/user/customer", {
+      const response = await fetch("/user/customer", {
         method: "GET",
         credentials: "include",
         headers: {

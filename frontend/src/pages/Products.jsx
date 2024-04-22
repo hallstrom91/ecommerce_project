@@ -20,7 +20,7 @@ export default function Products() {
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
-        const response = await fetch("http://localhost:3000/store/products");
+        const response = await fetch("/store/products");
         const result = await response.json();
         setProducts(result);
       } catch (error) {

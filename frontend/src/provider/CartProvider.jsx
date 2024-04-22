@@ -54,16 +54,13 @@ export const CartState = ({ children }) => {
   // function to update saved user information (registered user only)
   const updateUserInfo = async (userId, userDetails) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/user/update/${userId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ userDetails }),
-        }
-      );
+      const response = await fetch(`/user/update/${userId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userDetails }),
+      });
       if (!response.ok) {
         throw new Error("Misslyckad uppdatering av användar-uppgifter.");
       }
@@ -78,9 +75,7 @@ export const CartState = ({ children }) => {
 
   const searchForProducts = async (nameOrCategory) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/store/products/${nameOrCategory}`
-      );
+      const response = await fetch(`/store/products/${nameOrCategory}`);
       if (!response.ok) {
         throw new Error("Misslyckad inhämtning av produkter");
       }
@@ -95,7 +90,7 @@ export const CartState = ({ children }) => {
   // Save shopping cart (registered user only)
   const saveCartToDB = async (userId, saveCartItems) => {
     try {
-      const response = await fetch("http://localhost:3000/cart/save", {
+      const response = await fetch("/cart/save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -115,9 +110,7 @@ export const CartState = ({ children }) => {
   // retrive saved cart (registered user only)
   const retriveSavedCart = async (userId) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/cart/retrive/${userId}`
-      );
+      const response = await fetch(`/cart/retrive/${userId}`);
       if (!response.ok) {
         throw new Error("Kunde inte återställa varukorgen.");
       }
@@ -132,15 +125,12 @@ export const CartState = ({ children }) => {
   // delete saved cart
   const deleteSavedCart = async (cartKey) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/cart/delete/${cartKey}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`/cart/delete/${cartKey}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (!response.ok) {
         throw new Error("Misslyckad borttagning av sparad varukorg.");
       }
@@ -153,7 +143,7 @@ export const CartState = ({ children }) => {
   // Checkout, save cart, user & payment info to DB.
   const checkoutToDB = async (orderData) => {
     try {
-      const response = await fetch("http://localhost:3000/checkout/confirm", {
+      const response = await fetch("/checkout/confirm", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

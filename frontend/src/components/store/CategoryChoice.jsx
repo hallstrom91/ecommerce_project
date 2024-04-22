@@ -11,7 +11,7 @@ export default function CategoryChoice() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("http://localhost:3000/store/categories");
+        const response = await fetch("/store/categories");
         const result = await response.json();
         setCategories(result);
       } catch (error) {

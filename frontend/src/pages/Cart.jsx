@@ -26,19 +26,6 @@ export default function Cart() {
   // import from AuthProvider
   const { isAuthenticated, checkAuthentication } = useAuth();
 
-  // validate JWT of user, if missing send to /login, if valid, fetch user data.
-  /*   useEffect(() => {
-    const checkAuth = async () => {
-      const isAuthenticated = await checkAuthentication();
-      if (!isAuthenticated) {
-        setIsLoggedIn(false);
-      } else {
-        setIsLoggedIn(true);
-      }
-    };
-    checkAuth();
-  }, []); */
-
   useEffect(() => {
     const checkAuth = async () => {
       const isAuthenticated = await checkAuthentication();
