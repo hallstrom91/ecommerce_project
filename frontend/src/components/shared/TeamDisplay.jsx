@@ -7,7 +7,7 @@ export default function TeamDisplay() {
           {/* FashionHub Crew Picture, Card 1 */}
           <Col md={6} className="mb-3">
             <Card>
-              <Card.Img src="/FashionHubCrew.png" variant="top" fluid />
+              <Card.Img src="/FashionHubCrew.png" variant="top" />
               <Card.Body>
                 <Card.Title className="text-center fs-3 fw-bold text-white">
                   FashionHub Teamet

@@ -31,6 +31,10 @@ export default function Home() {
                   För varje produkt vi säljer, så donerar vi 10kr tills vi når
                   målet på <strong>1 000 000kr</strong>
                 </Card.Text>
+                <Card.Text className="fs-5 text-center fw-bold text-white text-decoration-underline">
+                  Detta är ett skolprojekt av en fiktiv webshop. Alla bilder är
+                  gjorda med hjälp av Gencraft.com
+                </Card.Text>
                 <div>
                   <ProgressBar
                     animated

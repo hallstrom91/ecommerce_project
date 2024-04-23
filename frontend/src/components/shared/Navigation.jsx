@@ -38,16 +38,6 @@ export default function Navigation() {
     setOpen(false);
   };
 
-  // validate jwt, and change Link according to authenticated or not
-  const handleUser = () => {
-    const isAuthenticated = checkAuthentication();
-    if (isAuthenticated) {
-      console.log("Display - 'Min Sida' - in navbar");
-    } else {
-      console.log("Display - 'Logga in' - in navbar");
-    }
-  };
-
   return (
     <>
       <Navbar

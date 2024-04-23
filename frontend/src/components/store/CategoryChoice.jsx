@@ -15,7 +15,7 @@ export default function CategoryChoice() {
         const result = await response.json();
         setCategories(result);
       } catch (error) {
-        console.error("Failed to fetch categories", error);
+        // add logger
       }
     };
     fetchCategories();
@@ -46,21 +46,6 @@ export default function CategoryChoice() {
             </Nav>
           </Card>
         </Col>
-        {/*         <Col className="mb-4  justify-content-start d-md-none">
-          <Dropdown>
-            <Dropdown.Toggle>Kategorier</Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item as={Link} to="/store/all">
-                Visa allt
-              </Dropdown.Item>
-              {categories.map((category) => (
-                <Dropdown.Item as={Link} to={`/store/${category.id}`}>
-                  {category.name}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-        </Col> */}
       </Row>
     </>
   );

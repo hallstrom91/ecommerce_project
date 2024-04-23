@@ -48,7 +48,9 @@ export default function CartProduct({ product }) {
 
             {/* Number of Each Product & Price */}
             <Col xs={4}>
-              <Card.Text className="fs-5">Pris: {product.price}kr </Card.Text>
+              <Card.Text className="fs-5">
+                Pris: {Math.round(product.price)}kr{" "}
+              </Card.Text>
               <Card.Text className="fs-5">
                 Totalt: {totalForProduct}kr
               </Card.Text>

@@ -18,6 +18,7 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   // call function for login
   const { handleLogin } = useAuth();
@@ -46,9 +47,9 @@ export default function Login() {
         <Row className="d-flex justify-content-center">
           <Col sm={4}>
             {/* Login Card */}
-            <Card className="">
-              <Card.Header className="border-0  text-center list-group-header text-white">
-                <strong className="text-center ">Logga In</strong>
+            <Card className="shadow-lg">
+              <Card.Header className="border-0 text-center list-group-header text-white">
+                <strong className="text-center">Logga In</strong>
               </Card.Header>
               <Card.Body>
                 {/* Username Login Input Field */}
@@ -68,21 +69,31 @@ export default function Login() {
                 <Form.Floating className="pb-2">
                   <Form.Control
                     id="loginPassword"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <label htmlFor="loginPassword">Lösenord</label>
                 </Form.Floating>
-                {/* Login Submit Button */}
+                {/* checkbox toggle password show */}
+                <Form.Check
+                  id="showPasswordLogin"
+                  type="checkbox"
+                  label="Visa lösenord"
+                  className="my-2 text-white fw-bold"
+                  onChange={() => setShowPassword(!showPassword)}
+                />
 
+                {/* Login Submit Button */}
                 <div className="d-flex">
                   <Button variant="success" onClick={() => handleLoginClick()}>
                     Logga In
                   </Button>
                 </div>
-                <Card.Text className="text-end fs-5 ">Skapa konto</Card.Text>
+                <Card.Text className="text-end fs-5 fw-bold text-white">
+                  Skapa konto
+                </Card.Text>
                 {/* Switch to Registration Form - Button */}
                 <div className="d-flex justify-content-end">
                   <Button variant="outline-dark" as={Link} to="/register">
@@ -92,7 +103,11 @@ export default function Login() {
               </Card.Body>
               {/* Show Error Message if failed login */}
               <Card.Footer className="border-0 list-group-header py-5">
-                {error && <p className="text-danger">{error}</p>}
+                {error && (
+                  <p className="text-white">
+                    {error} <span className="text-danger">!</span>
+                  </p>
+                )}
               </Card.Footer>
             </Card>
           </Col>

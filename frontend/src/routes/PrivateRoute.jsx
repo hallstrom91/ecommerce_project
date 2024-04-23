@@ -11,7 +11,7 @@ export default function PrivateRoute({ children }) {
   useEffect(() => {
     const checkAuthentication = async () => {
       // simulate delay
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       // turn off loading screen component
       setLoading(false);
     };

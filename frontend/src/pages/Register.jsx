@@ -17,6 +17,7 @@ import { useAuth } from "@provider/AuthProvider";
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
@@ -24,6 +25,7 @@ export default function Register() {
   const [postalCode, setPostalCode] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   // call function to register user
   const { handleRegistration } = useAuth();
@@ -31,6 +33,12 @@ export default function Register() {
 
   const handleRegisterClick = async () => {
     try {
+      // confirm password check
+      if (password !== confirmPassword) {
+        setError("Lösenorden matchar inte.");
+        setTimeout(() => setError("", 5000));
+      }
+      // collect & send all values to context-api function
       const response = await handleRegistration(
         name,
         username,
@@ -49,7 +57,7 @@ export default function Register() {
       setCity("");
       setPostalCode("");
       // success message
-      setSuccessMsg("Registration Successfull. Please Login.");
+      setSuccessMsg("Registrering lyckad. Avvakta så skickar vi dig rätt.");
       setTimeout(() => setSuccessMsg(""), 5000);
       // send user to /login after successfull registration
       const redirectToLogin = setTimeout(() => {
@@ -69,15 +77,15 @@ export default function Register() {
         <Row className="d-flex justify-content-center">
           <Col md={8}>
             {/* Register Card */}
-            <Card className="text-black">
+            <Card className="text-black shadow-lg">
               <Card.Header className="border-0  text-center list-group-header">
                 <strong className="text-center text-white">
                   Skapa ett Konto
                 </strong>
               </Card.Header>
               <Card.Body>
+                {/* User Legal/Full Name Input Field */}
                 <Form>
-                  {/* User Legal/Full Name Input Field */}
                   <Form.Floating className="mb-3">
                     <Form.Control
                       id="registerFullName"
@@ -103,19 +111,6 @@ export default function Register() {
                     <label htmlFor="registerUsername">Användarnamn</label>
                   </Form.Floating>
 
-                  {/* User Password Input Field */}
-                  <Form.Floating className="mb-3">
-                    <Form.Control
-                      id="registerPassword"
-                      type="password"
-                      autoComplete="current-password"
-                      placeholder="Password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <label htmlFor="registerPassword">Lösenord</label>
-                  </Form.Floating>
-
                   {/* User email Input Field */}
                   <Form.Floating className="mb-3">
                     <Form.Control
@@ -128,50 +123,88 @@ export default function Register() {
                     />
                     <label htmlFor="registerEmail">Email</label>
                   </Form.Floating>
+
+                  <Stack direction="horizontal" gap={3}>
+                    {/* User Password Input Field */}
+                    <Form.Floating className="mb-3 w-50">
+                      <Form.Control
+                        id="registerPassword"
+                        type={showPassword ? "text" : "password"}
+                        autoComplete="current-password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <label htmlFor="registerPassword">Lösenord</label>
+                    </Form.Floating>
+
+                    {/* User Password Input Field */}
+                    <Form.Floating className="mb-3 w-50">
+                      <Form.Control
+                        id="registerConfirmPassword"
+                        type={showPassword ? "text" : "password"}
+                        autoComplete="current-password"
+                        placeholder="ConfirmPassword"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                      />
+                      <label htmlFor="registerConfirmPassword">
+                        Bekräfta Lösenord
+                      </label>
+                    </Form.Floating>
+                  </Stack>
+                  <Stack direction="horizontal" gap={3}>
+                    {/* User Adress Input Field */}
+
+                    <Form.Floating className="mb-3 w-50">
+                      <Form.Control
+                        id="registerAddress"
+                        type="text"
+                        placeholder="Address"
+                        autoComplete="address-line1"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                      />
+                      <label htmlFor="registerAddress">Gatunamn</label>
+                    </Form.Floating>
+
+                    {/* User City Input Field */}
+
+                    <Form.Floating className="mb-3">
+                      <Form.Control
+                        id="registerCity"
+                        type="text"
+                        placeholder="City"
+                        autoComplete="address-level2"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                      />
+                      <label htmlFor="registerCity">Stad</label>
+                    </Form.Floating>
+
+                    {/* User Postal Code Input Field */}
+
+                    <Form.Floating className="mb-3">
+                      <Form.Control
+                        id="registerPostalCode"
+                        type="text"
+                        placeholder="Postal_Code"
+                        autoComplete="postal-code"
+                        value={postalCode}
+                        onChange={(e) => setPostalCode(e.target.value)}
+                      />
+                      <label htmlFor="registerPostalCode">Postkod</label>
+                    </Form.Floating>
+                  </Stack>
                 </Form>
-                <Stack direction="horizontal" gap={3}>
-                  {/* User Adress Input Field */}
-
-                  <Form.Floating className="mb-3">
-                    <Form.Control
-                      id="registerAddress"
-                      type="text"
-                      placeholder="Address"
-                      autoComplete="address-line1"
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                    />
-                    <label htmlFor="registerAddress">Gatunamn</label>
-                  </Form.Floating>
-
-                  {/* User City Input Field */}
-
-                  <Form.Floating className="mb-3">
-                    <Form.Control
-                      id="registerCity"
-                      type="text"
-                      placeholder="City"
-                      autoComplete="address-level2"
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                    />
-                    <label htmlFor="registerCity">Stad</label>
-                  </Form.Floating>
-
-                  {/* User Postal Code Input Field */}
-
-                  <Form.Floating className="mb-3">
-                    <Form.Control
-                      id="registerPostalCode"
-                      type="text"
-                      placeholder="Postal_Code"
-                      autoComplete="postal-code"
-                      value={postalCode}
-                      onChange={(e) => setPostalCode(e.target.value)}
-                    />
-                    <label htmlFor="registerPostalCode">Postkod</label>
-                  </Form.Floating>
-                </Stack>
+                {/* checkbox toggle password show */}
+                <Form.Check
+                  id="showPasswordRegister"
+                  type="checkbox"
+                  label="Visa lösenord"
+                  className="m-2 text-white fw-bold"
+                  onChange={() => setShowPassword(!showPassword)}
+                />
                 <div className="px-2">
                   <Button
                     className="border-2 border-black"
@@ -190,11 +223,13 @@ export default function Register() {
                     <li>En liten bokstav</li>
                     <li>En stor bokstav</li>
                     <li>En siffra (0-9)</li>
-                    <li>Ett specialtecken bland @$!%*?&#</li>
+                    <li>Ett specialtecken bland dessa @$!%*?&#</li>
                   </ul>
                 </div>
                 {/* Switch to Login Form - Button */}
-                <Card.Text className="text-end fs-5">Redan medlem?</Card.Text>
+                <Card.Text className="text-end fs-5 fw-bold text-white">
+                  Redan medlem?
+                </Card.Text>
                 <div className="d-flex mb-4 justify-content-end">
                   <Button variant="outline-dark" as={Link} to="/login">
                     Logga In
@@ -204,8 +239,18 @@ export default function Register() {
               {/* Registration Form Submit Button */}
               {/* Dynamic Error & Success Messages Display */}
               <Card.Footer className="border-0 list-group-header py-5">
-                {successMsg && <p className="text-success">{successMsg}</p>}
-                {error && <p className="text-danger">{error}</p>}
+                {successMsg && (
+                  <p className="text-white">
+                    {successMsg}
+                    <span className="text-success">!</span>
+                  </p>
+                )}
+                {error && (
+                  <p className="text-white">
+                    {error}
+                    <span className="text-danger">!</span>
+                  </p>
+                )}
               </Card.Footer>
             </Card>
           </Col>

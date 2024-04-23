@@ -8,18 +8,6 @@ body {
   background: linear-gradient(to left, #e0e0e0, #d8d8d8);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  font-family: "Barlow Condensed", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
 /* colors bg and txt for nav-tabs */
 .nav-link.active {
   background-color: #0c6291 !important;
@@ -28,7 +16,6 @@ p {
   border-style: dotted !important;
 }
 
-.nav-link,
 .navbar-brand {
   font-family: "Barlow Condensed", sans-serif;
   font-weight: 400;
@@ -52,7 +39,6 @@ p {
 .btn-outline-primary-visited {
   background-color: #0c6291 !important;
   color: white !important;
-  font-family: "Barlow Condensed", sans-serif !important;
 }
 
 .btn-primary,
@@ -61,7 +47,6 @@ p {
 .btn-primary-visited {
   background-color: #0c6291 !important;
   color: white !important;
-  font-family: "Barlow Condensed", sans-serif !important;
 }
 
 .btn-success,
@@ -69,7 +54,6 @@ p {
 .btn-success:active,
 .btn-success-visited {
   background-color: #004700 !important;
-  font-family: "Barlow Condensed", sans-serif !important;
 }
 
 .btn-outline-success,
@@ -77,7 +61,6 @@ p {
 .btn-outline-success:active,
 .btn-outline-success-visited {
   background-color: #004700 !important;
-  font-family: "Barlow Condensed", sans-serif !important;
 }
 
 .btn-outline-dark,
@@ -86,7 +69,6 @@ p {
 .btn-outline-dark:visited {
   background-color: #c4c4c4 !important;
   color: black !important;
-  font-family: "Barlow Condensed", sans-serif !important;
 }
 
 .btn-outline-danger,
@@ -95,35 +77,25 @@ p {
 .btn-outline-danger:visited {
   background-color: rgb(60, 13, 13) !important;
   color: white !important;
-  font-family: "Barlow Condensed", sans-serif !important;
 }
 
 .list-group-item {
   background-color: #6d6d6d !important;
   border-bottom: 2px !important;
-  font-family: "Barlow Condensed", sans-serif !important;
 }
-/* .list-group-item:hover {
-  background-color: #1a97db !important;
-  font-family: "Barlow Condensed", sans-serif !important;
-} */
 
 .list-group-header {
-  /* background-color:  #233d4d !important; */
   background: linear-gradient(to right, #233d4d, #455057) !important;
   border: 1px solid black !important;
-  font-family: "Barlow Condensed", sans-serif !important;
 }
 
 .card-body {
   background-color: #6d6d6d !important;
-  font-family: "Barlow Condensed", sans-serif !important;
 }
 
 .card {
   border-color: #1a97db !important;
   border-style: solid !important;
-  font-family: "Barlow Condensed", sans-serif !important;
 }
 
 .card-description-display {

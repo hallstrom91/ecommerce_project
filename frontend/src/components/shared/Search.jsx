@@ -33,6 +33,7 @@ export default function Search() {
       <p className="text-white">Sök efter produkter eller kategorier.</p>
       <InputGroup className="">
         <Form.Control
+          id="searchInput"
           type="text"
           size="sm"
           value={searchInput}

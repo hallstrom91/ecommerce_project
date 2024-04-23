@@ -7,8 +7,6 @@ import CategoryChoice from "@store/CategoryChoice";
 export default function Categories() {
   const [categories, setCategories] = useState([]);
   const { categoryId } = useParams();
-  // Values for badges in category display
-  const badgePopular = "Populärt";
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -17,7 +15,7 @@ export default function Categories() {
         const result = await response.json();
         setCategories(result);
       } catch (error) {
-        console.error("Failed to fetch categories", error);
+        // add logger
       }
     };
     fetchCategories();
@@ -46,7 +44,6 @@ export default function Categories() {
                   image={category.image_url}
                   title={category.name}
                   button={"Titta"}
-                  badge={badgePopular}
                 />
               </Link>
             </Col>

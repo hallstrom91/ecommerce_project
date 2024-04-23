@@ -24,7 +24,7 @@ export default function Products() {
         const result = await response.json();
         setProducts(result);
       } catch (error) {
-        console.error("Failed to fetch all products", error);
+        // add logger
       }
     };
     fetchAllProducts();

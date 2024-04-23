@@ -56,7 +56,6 @@ export default function UserInterface() {
                 </div>
               </Col>
             </Row>
-
             <Row>
               {/* users saved carts display & restore */}
               <Col md={8} className="mt-4">

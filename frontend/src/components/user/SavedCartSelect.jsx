@@ -44,16 +44,16 @@ export default function SavedCartSelect({ user }) {
   const handleDeleteSavedCart = async (cartKey) => {
     try {
       const data = await deleteSavedCart(cartKey);
-      console.log("Cart deleted successfully");
-      setSuccessMsg("Sparad kundkorg borttagen");
+
+      setSuccessMsg("Sparad varukorg borttagen");
 
       setTimeout(() => {
         setSuccessMsg("");
         window.location.reload();
       }, 3000);
     } catch (error) {
-      console.error("Failed to delete cart.", error);
-      setError("Kundkorg kunde inte tas bort.");
+      // add logger
+      setError("Varukorg kunde inte tas bort.");
       setTimeout(() => {
         setError("");
       }, 3000);
@@ -66,7 +66,7 @@ export default function SavedCartSelect({ user }) {
       const userId = user.id;
       try {
         const data = await retriveSavedCart(userId);
-        console.log("user.id get saved cart", userId);
+
         //group items based on cart_key
         const groupItems = data.reduce((acc, cart) => {
           const cartKey = cart.cart_key;
@@ -76,23 +76,30 @@ export default function SavedCartSelect({ user }) {
           acc[cartKey].push(cart);
           return acc;
         }, {});
-        // convert groupItems to array of objects
         // save grouped cart items
         setGetSavedCarts(groupItems);
-        console.log("GetsavedCarts", getSavedCarts);
       } catch (error) {
-        console.error("Failed to fetch saved carts", error);
+        // add logger
       }
     };
     fetchSavedCarts();
   }, [user.id, retriveSavedCart]);
 
+  if (Object.keys(getSavedCarts).length === 0) {
+    return (
+      <div>
+        <p className="fs-4 fw-bold">Här var det tomt.</p>
+        <p className="fs-5">Spara någon varukorg, för framtida köp?</p>
+      </div>
+    );
+  }
+
   return (
     <Container>
       <Row>
         <Col className="text-center">
-          {successMsg && <p className="text-success">{successMsg}</p>}
-          {error && <p className="text-danger">{error}</p>}
+          {successMsg && <p className="text-black">{successMsg}</p>}
+          {error && <p className="text-black">{error}</p>}
         </Col>
       </Row>
       <Row>

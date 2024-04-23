@@ -70,7 +70,7 @@ export default function UserDetails({ user }) {
         postalCode: updatePostal,
       };
       await updateUserInfo(userId, userDetails);
-      console.log("User information updated.");
+      // add logger
       setUpdateOutCome("success");
 
       setTimeout(() => {
@@ -78,7 +78,7 @@ export default function UserDetails({ user }) {
         window.location.reload();
       }, 3000);
     } catch (error) {
-      console.error("Failed to update user information", error);
+      // add logger
       setUpdateOutCome("error");
       setTimeout(() => {
         setUpdateOutCome("");
@@ -120,13 +120,11 @@ export default function UserDetails({ user }) {
           <Container className="p-4">
             <Card className="p-2 card-body">
               <Form className="mt-4">
-                <Form.Label>
-                  <strong className="fs-5">
-                    Uppdatera din adress nedanför vid behov
-                  </strong>
+                <Form.Label className="fs-4 text-white fw-bold">
+                  Uppdatera din adress nedanför vid behov - {user.username}
                 </Form.Label>
                 {/* Display User Saved Info */}
-                <Form.Label>
+                <Form.Label className="text-decoration-underline fw-bold text-white">
                   Alla fält måste innehålla information vid uppdatering.
                 </Form.Label>
 
@@ -134,7 +132,8 @@ export default function UserDetails({ user }) {
                 <Form.Control
                   size="sm"
                   type="text"
-                  placeholder="Namn"
+                  placeholder={user.name}
+                  autoComplete="name"
                   value={updateName}
                   className="mb-1"
                   onChange={(e) => setUpdateName(e.target.value)}
@@ -145,7 +144,8 @@ export default function UserDetails({ user }) {
                   <Form.Control
                     size="sm"
                     type="text"
-                    placeholder="Email"
+                    placeholder={user.email}
+                    autoComplete="email"
                     value={updateEmail}
                     className="mb-1"
                     onChange={(e) => setUpdateEmail(e.target.value)}
@@ -156,7 +156,8 @@ export default function UserDetails({ user }) {
                   <Form.Control
                     size="sm"
                     type="text"
-                    placeholder="Adress"
+                    placeholder={user.address}
+                    autoComplete="address-line1"
                     value={updateAddress}
                     className="mb-1"
                     onChange={(e) => setUpdateAddress(e.target.value)}
@@ -167,7 +168,8 @@ export default function UserDetails({ user }) {
                   <Form.Control
                     size="sm"
                     type="text"
-                    placeholder="Stad"
+                    placeholder={user.city}
+                    autoComplete="address-level2"
                     value={updateCity}
                     className="mb-1"
                     onChange={(e) => setUpdateCity(e.target.value)}
@@ -178,7 +180,8 @@ export default function UserDetails({ user }) {
                   <Form.Control
                     size="sm"
                     type="text"
-                    placeholder="Postkod"
+                    placeholder={user.postal_code}
+                    autoComplete="postal-code"
                     value={updatePostal}
                     className="mb-1"
                     onChange={(e) => setUpdatePostal(e.target.value)}

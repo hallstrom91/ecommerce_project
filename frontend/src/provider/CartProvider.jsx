@@ -65,7 +65,7 @@ export const CartState = ({ children }) => {
         throw new Error("Misslyckad uppdatering av användar-uppgifter.");
       }
     } catch (error) {
-      console.error("Misslyckad uppdatering av användar-uppgifter.");
+      // add logger
       throw error;
     }
   };
@@ -82,7 +82,7 @@ export const CartState = ({ children }) => {
       const data = await response.json();
       setResults(data);
     } catch (error) {
-      console.error("Misslyckad inhämtning av produkter", error);
+      // add logger
       throw error;
     }
   };
@@ -102,7 +102,7 @@ export const CartState = ({ children }) => {
       }
       const data = await response.json();
     } catch (error) {
-      console.error("Varukorgen kunde inte sparas.", error);
+      // add logger
       throw error;
     }
   };
@@ -117,7 +117,7 @@ export const CartState = ({ children }) => {
       const GetsavedCarts = await response.json();
       return GetsavedCarts;
     } catch (error) {
-      console.error("Kunde inte återställa varukorgen.", error);
+      // add logger
       throw error;
     }
   };
@@ -135,7 +135,7 @@ export const CartState = ({ children }) => {
         throw new Error("Misslyckad borttagning av sparad varukorg.");
       }
     } catch (error) {
-      console.error("Misslyckad borttagning av sparad varukorg.", error);
+      // add logger
       throw error;
     }
   };
@@ -151,13 +151,13 @@ export const CartState = ({ children }) => {
         body: JSON.stringify(orderData),
       });
       if (response.ok) {
-        console.log("Order bekräftad.");
+        // add logger
       } else {
         const errorCheckout = await response.json();
-        console.error("Misslyckad order.", errorCheckout.message);
+        // add logger
       }
     } catch (error) {
-      console.error("Misslyckad order.", error);
+      // add logger
     }
   };
 

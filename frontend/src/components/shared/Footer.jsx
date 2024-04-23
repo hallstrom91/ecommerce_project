@@ -12,7 +12,13 @@ export default function Footer() {
               <Search />
             </Nav.Item>
             <NavbarBrand className="order-2 order-sm-2 text-center text-white">
-              <p>FashionHub &copy; {year} by kjsportfolio.se</p>
+              <p>FashionHub &copy; {year}</p>
+              <a
+                href="https://kjsportfolio.se"
+                className="text-white text-decoration-none"
+              >
+                <p>Made by by kjsportfolio.se</p>
+              </a>
             </NavbarBrand>
           </Nav>
         </Container>

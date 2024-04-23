@@ -23,8 +23,8 @@ Check Auth
 ===============================================
 */
 
+  // check auth
   useEffect(() => {
-    console.log("useEffect from AuthProvider - Checkauth");
     checkAuthentication();
   }, []);
 
@@ -35,7 +35,7 @@ Check Auth
       const decodedExp = isExpired(token);
       return !decodedExp;
     } catch (error) {
-      console.error("Misslyckad dekryptering av JWT-token", error);
+      // add logger
       return false;
     }
   };
@@ -87,17 +87,14 @@ Login
         const errorMsgText = await response.text();
         const errorMsgJSON = JSON.parse(errorMsgText);
         const errorMsg = errorMsgJSON.message || "Inloggning misslyckad.";
-        console.error("Inloggning misslyckad.", errorMsg);
+        // add logger
         throw new Error(errorMsg);
       }
       // collect response & define token
       const result = await response.json();
-      /* const token = result.token; */
-      // auth is true + return token
       setIsAuthenticated(true);
       return result.token;
     } catch (error) {
-      console.error("Misslyckad inloggning.", error);
       throw error;
     }
   };
@@ -138,11 +135,10 @@ Registration
         const errorMsgText = await response.text();
         const errorMsgJSON = JSON.parse(errorMsgText);
         const errorMsg = errorMsgJSON.message || "Registrering misslyckad.";
-        console.error("Registrering misslyckad.", errorMsg);
+        // add logger
         throw new Error(errorMsg);
       }
     } catch (error) {
-      console.error("Registrering misslyckad.", error);
       throw error;
     }
   };
@@ -169,16 +165,12 @@ User Information
         const errorMsg =
           errorMsgJSON.message ||
           "Misslyckad inhämtning av användar information.";
-        console.error(
-          "Misslyckad inhämtning av användar information.",
-          errorMsg
-        );
+        // add logger
         throw new Error(errorMsg);
       }
       const result = await response.json();
       return result;
     } catch (error) {
-      console.error("Misslyckad inhämtning av användar information.", error);
       throw error;
     }
   };

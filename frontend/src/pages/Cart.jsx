@@ -40,14 +40,14 @@ export default function Cart() {
         {/* Header of Cart */}
         <Row>
           <Col className="d-flex justify-content-center">
-            <h5>Kundvagn</h5>
+            <h5 className="fs-4 fw-bold">Varukorg</h5>
           </Col>
         </Row>
         {/* Display Checkout-Message at Order Submit */}
         <Row>
           {checkout && (
             <Col>
-              <h6>Tack för ditt köp!</h6>
+              <h6 className="fw-bold">Tack för ditt köp!</h6>
               <p>
                 Din order kommer att skicka omgående. Leverans sker inom 2-5
                 dagar.

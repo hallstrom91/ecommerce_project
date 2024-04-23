@@ -19,7 +19,7 @@ export default function SubCategory() {
         const result = await response.json();
         setProducts(result);
       } catch (error) {
-        console.error("failed to fetch products", error);
+        // add logger
       }
     };
     fetchProducts();
