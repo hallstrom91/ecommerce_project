@@ -9,10 +9,10 @@ export default function TeamDisplay() {
             <Card>
               <Card.Img src="/FashionHubCrew.png" variant="top" />
               <Card.Body>
-                <Card.Title className="text-center fs-3 fw-bold text-white">
+                <Card.Title className="text-center fs-5 fw-bold text-white">
                   FashionHub Teamet
                 </Card.Title>
-                <Card.Text className="text-center fs-5 text-white">
+                <Card.Text className="text-center text-white">
                   Här tar vårt kära team på FashionHub emot en ny leverans med
                   kläder för att lägga in i sortimentet.
                 </Card.Text>
@@ -24,10 +24,10 @@ export default function TeamDisplay() {
             <Card>
               <Card.Img src="/FashionHubCrew2.png" variant="top" />
               <Card.Body>
-                <Card.Title className="text-center fs-3 fw-bold text-white">
+                <Card.Title className="text-center fs-5 fw-bold text-white">
                   FashionHub Teamet
                 </Card.Title>
-                <Card.Text className="text-center fs-5 text-white">
+                <Card.Text className="text-center text-white">
                   Här tar vårt kära team emot och packar alla era orders för
                   blixt snabba utskick! Tack för all support!
                 </Card.Text>

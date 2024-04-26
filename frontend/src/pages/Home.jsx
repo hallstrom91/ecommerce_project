@@ -15,7 +15,7 @@ export default function Home() {
           <Col className="d-flex justify-content-center m-4">
             <Card>
               <Card.Header className="list-group-header">
-                <h5 className="text-center m-4 text-white">
+                <p className="text-center m-4 text-white">
                   Vi är stolta över att presentera vår nyöppnade webbshop, där
                   du kan upptäcka de senaste trenderna och hitta din personliga
                   stil. Registrera dig idag för att ta del av exklusiva bonusar
@@ -24,14 +24,14 @@ export default function Home() {
                   kollektioner och personlig shoppingrådgivning från vårt
                   erfarna team av stylister. Gå med oss på FashionHub och låt
                   oss tillsammans skapa en mer hållbar och stilfull framtid!
-                </h5>
+                </p>
               </Card.Header>
               <Card.Body>
                 <Card.Text className="text-center text-white">
                   För varje produkt vi säljer, så donerar vi 10kr tills vi når
                   målet på <strong>1 000 000kr</strong>
                 </Card.Text>
-                <Card.Text className="fs-5 text-center fw-bold text-white text-decoration-underline">
+                <Card.Text className="text-center fw-bold text-white">
                   Detta är ett skolprojekt av en fiktiv webshop. Alla bilder är
                   gjorda med hjälp av Gencraft.com
                 </Card.Text>

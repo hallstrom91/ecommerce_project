@@ -17,7 +17,7 @@ export default function Footer() {
                 href="https://kjsportfolio.se"
                 className="text-white text-decoration-none"
               >
-                <p>Made by by kjsportfolio.se</p>
+                <p>Made by kjsportfolio.se</p>
               </a>
             </NavbarBrand>
           </Nav>

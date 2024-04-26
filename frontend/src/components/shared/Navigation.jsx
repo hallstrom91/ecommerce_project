@@ -124,7 +124,7 @@ export default function Navigation() {
               <Nav.Item>
                 <Nav.Link as={Link} to="/cart" className="text-white">
                   <div className="d-flex">
-                    <IoCartOutline size={30} />
+                    <IoCartOutline size={30} className="pt-2" />
                     <span className="pt-2 p-1 text-white">{itemCount}</span>
                     <p className="pt-2">Varukorg</p>
                   </div>
