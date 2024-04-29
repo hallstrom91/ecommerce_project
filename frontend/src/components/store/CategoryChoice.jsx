@@ -28,7 +28,7 @@ export default function CategoryChoice() {
           <Card className="p-2">
             <Nav>
               <Nav.Item>
-                <Nav.Link as={Link} to="/store/all" className="text-black">
+                <Nav.Link as={Link} to="/store/all" className="text-black fs-6">
                   Visa allt
                 </Nav.Link>
               </Nav.Item>
@@ -37,7 +37,7 @@ export default function CategoryChoice() {
                   <Nav.Link
                     as={Link}
                     to={`/store/${cateogory.id}`}
-                    className="px-3 text-black"
+                    className="px-2 text-black fs-6"
                   >
                     {cateogory.name}
                   </Nav.Link>

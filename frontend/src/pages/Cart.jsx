@@ -64,7 +64,7 @@ export default function Cart() {
         <Row>
           <Col>
             {cartItems.length === 0 ? (
-              <h6 className="text-center">Kundvagnen är tom...</h6>
+              <h6 className="text-center">Varukorgen är tom...</h6>
             ) : (
               <div>
                 {cartItems.map((product) => (

@@ -153,24 +153,24 @@ export default function Register() {
                       </label>
                     </Form.Floating>
                   </Stack>
-                  <Stack direction="horizontal" gap={3}>
-                    {/* User Adress Input Field */}
+                  {/* User Adress Input Field */}
 
-                    <Form.Floating className="mb-3 w-50">
-                      <Form.Control
-                        id="registerAddress"
-                        type="text"
-                        placeholder="Address"
-                        autoComplete="address-line1"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                      />
-                      <label htmlFor="registerAddress">Gatunamn</label>
-                    </Form.Floating>
-
+                  <Form.Floating className="mb-3 w-100">
+                    <Form.Control
+                      id="registerAddress"
+                      type="text"
+                      placeholder="Address"
+                      autoComplete="address-line1"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      className="fs-6"
+                    />
+                    <label htmlFor="registerAddress">Gatunamn</label>
+                  </Form.Floating>
+                  <Stack direction="horizontal" gap={2}>
                     {/* User City Input Field */}
 
-                    <Form.Floating className="mb-3">
+                    <Form.Floating className="mb-3 w-100">
                       <Form.Control
                         id="registerCity"
                         type="text"
@@ -184,7 +184,7 @@ export default function Register() {
 
                     {/* User Postal Code Input Field */}
 
-                    <Form.Floating className="mb-3">
+                    <Form.Floating className="mb-3 w-50">
                       <Form.Control
                         id="registerPostalCode"
                         type="text"

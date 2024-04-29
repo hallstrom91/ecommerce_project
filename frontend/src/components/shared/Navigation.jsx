@@ -43,7 +43,7 @@ export default function Navigation() {
       <Navbar
         collapseOnSelect
         expand="lg"
-        data-bs-theme="light"
+        data-bs-theme="dark"
         sticky="top"
         expanded={open}
         className="navcontainer-bg "
@@ -72,7 +72,7 @@ export default function Navigation() {
                     to="/"
                     eventKey="1"
                     onClick={handleClick}
-                    className="text-white"
+                    className="text-white fs-5"
                   >
                     Hem
                   </Nav.Link>
@@ -84,7 +84,7 @@ export default function Navigation() {
                     eventKey="2"
                     to="/store"
                     onClick={handleClick}
-                    className="text-white"
+                    className="text-white fs-5"
                   >
                     Butik
                   </Nav.Link>
@@ -98,7 +98,7 @@ export default function Navigation() {
                       eventKey="3"
                       to="/private-route"
                       onClick={handleClick}
-                      className="text-white"
+                      className="text-white fs-5"
                     >
                       Min sida
                     </Nav.Link>
@@ -110,7 +110,7 @@ export default function Navigation() {
                       to="/login"
                       eventKey="4"
                       onClick={handleClick}
-                      className="text-white"
+                      className="text-white fs-5"
                     >
                       Logga in
                     </Nav.Link>
@@ -118,15 +118,16 @@ export default function Navigation() {
                 )}
               </Nav>
             </Tab.Container>
-
-            <Nav>
-              {/* Display ShoppingCart/Checkout */}
-              <Nav.Item>
+            {/* Display ShoppingCart/Checkout */}
+            <Nav className="align-items-center">
+              <Nav.Item className="">
                 <Nav.Link as={Link} to="/cart" className="text-white">
                   <div className="d-flex">
-                    <IoCartOutline size={30} className="pt-2" />
-                    <span className="pt-2 p-1 text-white">{itemCount}</span>
-                    <p className="pt-2">Varukorg</p>
+                    <IoCartOutline size={40} className="" />
+                    <span className="pt-2 p-1 text-white fs-5">
+                      {itemCount}
+                    </span>
+                    <p className="pt-2 fs-5">Varukorg</p>
                   </div>
                 </Nav.Link>
               </Nav.Item>
