@@ -55,7 +55,7 @@ export default function ProductCard({ product }) {
           {/*  If product is already in cart, add check-symbol-cart */}
           {isInCart(product) && (
             <Button
-              className="fs-5"
+              className="fs-6"
               variant="outline-dark"
               size="md"
               onClick={() => {
@@ -71,7 +71,7 @@ export default function ProductCard({ product }) {
           {!isInCart(product) && (
             /* if product is not in cart, show plus-symbol-cart */
             <Button
-              className="fs-5"
+              className="fs-6"
               variant="outline-dark"
               size="md"
               onClick={() => addToCart(product)}
