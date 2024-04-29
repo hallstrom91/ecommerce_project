@@ -50,7 +50,7 @@ export default function Navigation() {
       >
         <Container>
           <Navbar.Brand>
-            <Nav.Link as={Link} to="/" className="text-white fs-3">
+            <Nav.Link as={Link} to="/" className="text-white fs-4">
               FashionHub
             </Nav.Link>
           </Navbar.Brand>
@@ -72,7 +72,7 @@ export default function Navigation() {
                     to="/"
                     eventKey="1"
                     onClick={handleClick}
-                    className="text-white fs-5"
+                    className="text-white fs-6"
                   >
                     Hem
                   </Nav.Link>
@@ -84,7 +84,7 @@ export default function Navigation() {
                     eventKey="2"
                     to="/store"
                     onClick={handleClick}
-                    className="text-white fs-5"
+                    className="text-white fs-6"
                   >
                     Butik
                   </Nav.Link>
@@ -98,7 +98,7 @@ export default function Navigation() {
                       eventKey="3"
                       to="/private-route"
                       onClick={handleClick}
-                      className="text-white fs-5"
+                      className="text-white fs-6"
                     >
                       Min sida
                     </Nav.Link>
@@ -110,7 +110,7 @@ export default function Navigation() {
                       to="/login"
                       eventKey="4"
                       onClick={handleClick}
-                      className="text-white fs-5"
+                      className="text-white fs-6"
                     >
                       Logga in
                     </Nav.Link>
@@ -124,10 +124,10 @@ export default function Navigation() {
                 <Nav.Link as={Link} to="/cart" className="text-white">
                   <div className="d-flex">
                     <IoCartOutline size={40} className="" />
-                    <span className="pt-2 p-1 text-white fs-5">
+                    <span className="pt-2 p-1 text-white fs-6">
                       {itemCount}
                     </span>
-                    <p className="pt-2 fs-5">Varukorg</p>
+                    <p className="pt-2 fs-6">Varukorg</p>
                   </div>
                 </Nav.Link>
               </Nav.Item>
